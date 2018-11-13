@@ -69,9 +69,12 @@ struct QuxComponent: Component {
     
     struct QuxModule: Module {
         func register(binder b: BinderDelegate) {
-            b.bind(Qux.self).sharedInScope().to(factory: Qux.init)
             b.bindIntoMapOf(String.self).mapKey("qux").to(value: "qux")
         }
+    }
+    
+    static func configureRoot<B>(binder: B) where B : BinderProtocol, QuxComponent.Root == B.Element {
+        binder.sharedInScope().to(factory: Qux.init)
     }
     
     static func configure<Builder>(builder: Builder) where QuxComponent == Builder.ComponentElement, Builder : ComponentBuilderProtocol {
@@ -89,8 +92,11 @@ struct ExampleComponent: Component {
             b.bindIntoMapOf(String.self).mapKey("baz").to(value: "baz")
             b.bindTagged(BarTag.self).to(factory: Bar.init)
             b.bind(Baz.self).sharedInScope().to(factory: Baz.init)
-            b.bindInjectorOf(Foobar.self).to(injector: Foobar.injectProperty)
         }
+    }
+    
+    static func configureRoot<B>(binder: B) where B : BinderProtocol, ExampleComponent.Root == B.Element {
+        binder.to(injector: Foobar.injectProperty)
     }
     
     static func configure<Builder>(builder: Builder) where ExampleComponent == Builder.ComponentElement, Builder : ComponentBuilderProtocol {

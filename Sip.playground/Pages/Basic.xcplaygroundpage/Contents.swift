@@ -42,7 +42,7 @@ class ElectricHeater : Heater {
 }
 
 class CoffeeMaker {
-    var heater: Provider<Heater>!
+    var heater: Provider<Heater>! // Create a possibly costly heater only when we use it.
     var pump: Pump!
     
     func inject(heater: Provider<Heater>, pump: Pump) {

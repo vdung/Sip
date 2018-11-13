@@ -12,9 +12,9 @@ struct Parent {
 struct ParentModule: Module {
     func register(binder b: BinderDelegate) {
         b.bindIntoCollectionOf(String.self).to(value: "parent string 1")
-        b.bindIntoCollectionOf(String.self).to(value: "parent string 2")
+        b.bind([String].self).intoCollection().to(value: "parent string 2")
         b.bindIntoMapOf(String.self).mapKey("a").to(value: "parent string A")
-        b.bindIntoMapOf(String.self).mapKey("b").to(value: "parent string B")
+        b.bind([String: String].self).intoCollection().mapKey("b").to(value: "parent string B")
     }
 }
 
