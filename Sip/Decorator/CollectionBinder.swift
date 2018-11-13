@@ -112,12 +112,12 @@ extension BinderProtocol where Element: CollectionBindingResult {
 
 public extension BinderDelegate {
     
-    public func bindIntoCollectionOf<T>(_ type: T.Type) -> CollectionBinder<Binder<[T]>> {
+    public func bind<T>(intoCollectionOf type: T.Type) -> CollectionBinder<Binder<[T]>> {
         return bind([T].self).decorate()
         
     }
     
-    public func bindIntoMapOf<Key: Hashable, T>(_ type: T.Type) -> CollectionBinder<Binder<[Key: T]>> {
+    public func bind<Key: Hashable, T>(intoMapOf type: T.Type) -> CollectionBinder<Binder<[Key: T]>> {
         return bind([Key: T].self).decorate()
     }
 }

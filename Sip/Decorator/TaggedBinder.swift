@@ -76,7 +76,7 @@ extension BinderProtocol {
 
 public extension BinderDelegate {
     
-    public func bindTagged<T: Tag>(_ tag: T.Type) -> TaggedBinder<Binder<Tagged<T>>, T> {
+    public func bind<T: Tag>(tagged tag: T.Type) -> TaggedBinder<Binder<Tagged<T>>, T> {
         return bind(Tagged<T>.self).decorate()
     }
 }

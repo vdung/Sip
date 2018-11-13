@@ -11,9 +11,9 @@ struct Parent {
 
 struct ParentModule: Module {
     func register(binder b: BinderDelegate) {
-        b.bindIntoCollectionOf(String.self).to(value: "parent string 1")
+        b.bind(intoCollectionOf: String.self).to(value: "parent string 1")
         b.bind([String].self).intoCollection().to(value: "parent string 2")
-        b.bindIntoMapOf(String.self).mapKey("a").to(value: "parent string A")
+        b.bind(intoMapOf: String.self).mapKey("a").to(value: "parent string A")
         b.bind([String: String].self).intoCollection().mapKey("b").to(value: "parent string B")
     }
 }
@@ -38,10 +38,10 @@ struct Child {
 
 struct ChildModule: Module {
     func register(binder b: BinderDelegate) {
-        b.bindIntoCollectionOf(String.self).to(value: "child string 3")
-        b.bindIntoCollectionOf(String.self).to(value: "child string 4")
-        b.bindIntoMapOf(String.self).mapKey("c").to(value: "child string C")
-        b.bindIntoMapOf(String.self).mapKey("d").to(value: "child string D")
+        b.bind(intoCollectionOf: String.self).to(value: "child string 3")
+        b.bind(intoCollectionOf: String.self).to(value: "child string 4")
+        b.bind(intoMapOf: String.self).mapKey("c").to(value: "child string C")
+        b.bind(intoMapOf: String.self).mapKey("d").to(value: "child string D")
     }
 }
 

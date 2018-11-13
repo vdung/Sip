@@ -69,7 +69,7 @@ struct QuxComponent: Component {
     
     struct QuxModule: Module {
         func register(binder b: BinderDelegate) {
-            b.bindIntoMapOf(String.self).mapKey("qux").to(value: "qux")
+            b.bind(intoMapOf: String.self).mapKey("qux").to(value: "qux")
         }
     }
     
@@ -88,9 +88,9 @@ struct ExampleComponent: Component {
     struct ExampleModule: Module {
         func register(binder b: BinderDelegate) {
             b.bind(String.self).to(value: "foo")
-            b.bindIntoMapOf(String.self).mapKey("bar").to(value: "bar")
-            b.bindIntoMapOf(String.self).mapKey("baz").to(value: "baz")
-            b.bindTagged(BarTag.self).to(factory: Bar.init)
+            b.bind(intoMapOf: String.self).mapKey("bar").to(value: "bar")
+            b.bind(intoMapOf: String.self).mapKey("baz").to(value: "baz")
+            b.bind(tagged: BarTag.self).to(factory: Bar.init)
             b.bind(Baz.self).sharedInScope().to(factory: Baz.init)
         }
     }
