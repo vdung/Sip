@@ -18,13 +18,15 @@ class Baz {
     init() {}
 }
 
-class Quxx {
+class Qux {
     let bar: Tagged<BarTag>
     let baz: Baz
+    let stringMap: [String: String]
     
-    init(foo: String, bar: Tagged<BarTag>, baz: Baz) {
+    init(foo: String, bar: Tagged<BarTag>, baz: Baz, stringMap: [String: String]) {
         self.bar = bar
         self.baz = baz
+        self.stringMap = stringMap
     }
 }
 
@@ -38,7 +40,8 @@ class Foobar {
         foo: String,
         bar: Tagged<BarTag>,
         injectedBaz: Provider<Baz>,
-        quxBuilder: ComponentBuilder<QuxComponent>
+        quxBuilder: ComponentBuilder<QuxComponent>,
+        stringMap: Dictionary<String, String>
         ) {
         
         assert(foo == "foo")
@@ -50,15 +53,24 @@ class Foobar {
         
         assert(bar.value !== qux.bar.value)
         assert(baz === qux.baz)
+        assert(stringMap.count == 2)
+        assert(stringMap["bar"] == "bar")
+        assert(stringMap["baz"] == "baz")
+        
+        assert(qux.stringMap.count == 3)
+        assert(qux.stringMap["bar"] == "bar")
+        assert(qux.stringMap["baz"] == "baz")
+        assert(qux.stringMap["qux"] == "qux")
     }
 }
 
 struct QuxComponent: Component {
-    typealias Root = Quxx
+    typealias Root = Qux
     
     struct QuxModule: Module {
-        func register(container c: Container) {
-            c.bind(Quxx.self).sharedInScope().to(factory: Quxx.init)
+        func register(binder b: BinderDelegate) {
+            b.bind(Qux.self).sharedInScope().to(factory: Qux.init)
+            b.bindIntoMapOf(String.self).mapKey("qux").to(value: "qux")
         }
     }
     
@@ -71,11 +83,13 @@ struct ExampleComponent: Component {
     typealias Root = Injector<Foobar>
     
     struct ExampleModule: Module {
-        func register(container c: Container) {
-            c.bind(String.self).to(value: "foo")
-            c.bindTagged(BarTag.self).to(factory: Bar.init)
-            c.bind(Baz.self).sharedInScope().to(factory: Baz.init)
-            c.bindInjectorOf(Foobar.self).to(injector: Foobar.injectProperty)
+        func register(binder b: BinderDelegate) {
+            b.bind(String.self).to(value: "foo")
+            b.bindIntoMapOf(String.self).mapKey("bar").to(value: "bar")
+            b.bindIntoMapOf(String.self).mapKey("baz").to(value: "baz")
+            b.bindTagged(BarTag.self).to(factory: Bar.init)
+            b.bind(Baz.self).sharedInScope().to(factory: Baz.init)
+            b.bindInjectorOf(Foobar.self).to(injector: Foobar.injectProperty)
         }
     }
     

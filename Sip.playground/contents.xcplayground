@@ -2,7 +2,7 @@
 <playground version='6.0' target-platform='ios' executeOnSourceChanges='false'>
     <pages>
         <page name='Basic'/>
-        <page name='Advanced'/>
+        <page name='Multibindings'/>
         <page name='Example'/>
     </pages>
 </playground>

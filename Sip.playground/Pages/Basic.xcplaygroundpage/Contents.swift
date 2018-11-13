@@ -59,20 +59,23 @@ class CoffeeMaker {
 }
 
 struct PumpModule : Module {
-    func register(container c: Container) {
-        c.bind(Pump.self).to(factory: Thermosiphon.init)
+    func register(binder b: BinderDelegate) {
+        b.bind(Pump.self).to(factory: Thermosiphon.init)
     }
 }
 
 struct DripCoffeeModule: Module {
-    func register(container c: Container) {
-        c.bind(Heater.self).sharedInScope().to(factory: ElectricHeater.init)
-        c.bindInjectorOf(CoffeeMaker.self).to(injector: CoffeeMaker.inject)
+    func register(binder b: BinderDelegate) {
+        b.bind(Heater.self).sharedInScope().to(factory: ElectricHeater.init)
     }
 }
 
 struct CoffeShop: Component {
     typealias Root = Injector<CoffeeMaker>
+    
+    static func configureRoot<B>(binder: B) where B : BinderProtocol, CoffeShop.Root == B.Element {
+        return binder.to(injector: CoffeeMaker.inject)
+    }
     
     static func configure<Builder>(builder: Builder) where CoffeShop == Builder.ComponentElement, Builder : ComponentBuilderProtocol {
         builder.include(PumpModule())
@@ -83,3 +86,6 @@ struct CoffeShop: Component {
 let coffeeMaker = CoffeeMaker()
 ComponentBuilder.of(CoffeShop.self).build().inject(coffeeMaker)
 coffeeMaker.brew()
+
+
+//: [Next](@next)
