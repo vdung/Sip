@@ -26,20 +26,41 @@ public protocol AnyBinding {
     var line: Int { get }
     var function: StaticString { get }
     var element: Any.Type { get }
-    var bindingType: BindingType { get set }
+    var bindingType: BindingType { get }
     
+    func copy() -> AnyBinding
     func createProvider(provider: ProviderProtocol) -> AnyProvider
 }
 
-typealias CreatorFunc<T> = (ProviderProtocol) -> T
-
-public protocol BindingBase: AnyBinding {
+public protocol BindingBase: AnyBinding, CustomStringConvertible {
     associatedtype Element
+    
+    func createElement(provider: ProviderProtocol) -> Element
+}
+
+extension BindingBase where Element: AnyProvider {
+    public func createProvider(provider: ProviderProtocol) -> AnyProvider {
+        return createElement(provider: provider)
+    }
 }
 
 extension BindingBase {
     public var element: Any.Type { return Element.self }
 }
+
+protocol DelegatedBinding {
+    var delegate: AnyBinding { get }
+}
+
+extension DelegatedBinding where Self: BindingBase {
+    var file: StaticString { return delegate.file }
+    var line: Int { return delegate.line }
+    var function: StaticString { return delegate.function }
+    var element: Any.Type { return delegate.element }
+    var bindingType: BindingType { return delegate.bindingType }
+}
+
+typealias CreatorFunc<T> = (ProviderProtocol) -> T
 
 public struct Binding<Element> {
     public let file: StaticString
@@ -55,14 +76,22 @@ extension Binding {
     }
 }
 
-extension Binding: CustomStringConvertible {
+extension AnyBinding {
     public var description: String {
-        return "type \(Element.self) in file \(file) line \(line)"
+        return "type \(element) in file \(file) line \(line)"
     }
 }
 
-extension Binding: AnyBinding, BindingBase where Element: AnyProvider {
+extension Binding: AnyBinding, BindingBase, CustomStringConvertible where Element: AnyProvider {
+    public func copy() -> AnyBinding {
+        return Binding(file: file, line: line, function: function, bindingType: bindingType, create: create)
+    }
+    
+    public func createElement(provider: ProviderProtocol) -> Element {
+        return create(provider)
+    }
+    
     public func createProvider(provider: ProviderProtocol) -> AnyProvider {
-        return self.create(provider)
+        return createElement(provider: provider)
     }
 }

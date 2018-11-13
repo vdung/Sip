@@ -8,24 +8,7 @@
 import Foundation
 
 public extension BinderProtocol {
-    
-    internal func to(file: StaticString=#file, line: Int=#line, function: StaticString=#function, bindingType: BindingType = .unique, creator: @escaping CreatorFunc<Provider<Element>>) {
-        return to(binding: Binding(file: file, line: line, function: function, bindingType: bindingType, create: creator))
-    }
-    
-    public func to(file: StaticString=#file, line: Int=#line, function: StaticString=#function, value: Element) -> Void {
-        return to(file: file, line: line, function: function) {
-            _ in Provider { value }
-        }
-    }
-    
-    public func to(file: StaticString=#file, line: Int=#line, function: StaticString=#function, factory: @escaping () -> Element) -> Void {
-        return to(file: file, line: line, function: function) { _ in
-            return Provider {
-                factory()
-            }
-        }
-    }
+
     
     public func to<T1>(file: StaticString=#file, line: Int=#line, function: StaticString=#function, factory: @escaping ((T1)) -> Element) -> Void {
         return to(file: file, line: line, function: function) { c in
@@ -37,6 +20,7 @@ public extension BinderProtocol {
         }
     }
     
+    
     public func to<T1, T2>(file: StaticString=#file, line: Int=#line, function: StaticString=#function, factory: @escaping ((T1, T2)) -> Element) -> Void {
         return to(file: file, line: line, function: function) { c in
             let p1: Provider<T1> = c.provider()
@@ -47,6 +31,7 @@ public extension BinderProtocol {
             }
         }
     }
+    
     
     public func to<T1, T2, T3>(file: StaticString=#file, line: Int=#line, function: StaticString=#function, factory: @escaping ((T1, T2, T3)) -> Element) -> Void {
         return to(file: file, line: line, function: function) { c in
@@ -60,6 +45,7 @@ public extension BinderProtocol {
         }
     }
     
+    
     public func to<T1, T2, T3, T4>(file: StaticString=#file, line: Int=#line, function: StaticString=#function, factory: @escaping ((T1, T2, T3, T4)) -> Element) -> Void {
         return to(file: file, line: line, function: function) { c in
             let p1: Provider<T1> = c.provider()
@@ -72,6 +58,7 @@ public extension BinderProtocol {
             }
         }
     }
+    
     
     public func to<T1, T2, T3, T4, T5>(file: StaticString=#file, line: Int=#line, function: StaticString=#function, factory: @escaping ((T1, T2, T3, T4, T5)) -> Element) -> Void {
         return to(file: file, line: line, function: function) { c in

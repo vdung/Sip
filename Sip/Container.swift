@@ -9,7 +9,6 @@ import Foundation
 
 // MARK: Container
 
-public protocol Container: ProviderProtocol {
-    
-    func register<B>(binding: B) where B: BindingBase, B.Element: ProviderBase
+public protocol Container: ProviderProtocol, BinderDelegate {
+
 }

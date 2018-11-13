@@ -40,7 +40,7 @@ func wrapProvider(_ provider: AnyProvider, rawType: Any.Type) -> AnyProvider {
     }
     
     let providerElement = type(of: provider).element
-    precondition(keyType == providerElement, "Mismatch provider element and rawType: \(providerElement) != \(keyType)")
+    precondition(keyType == providerElement, "Mismatch provider element and rawType: \(providerElement) != \(keyType), original provider: \(type(of: provider))")
     
     return wrappedProvider
 }
@@ -64,14 +64,13 @@ class Graph: Container {
         }
         
         var provider = binding.createProvider(provider: self)
+        
         provider = wrapProvider(provider, rawType: T.self)
         
         return provider.getAny() as! T
     }
     
     func register<B>(binding: B) where B : BindingBase, B.Element : ProviderBase {
-        debugPrint("Registered \(binding)")
-        
         let key = ContainerKey(type: B.Element.Element.self)
         if let existingBinding = entries[key] {
             existingBinding.bindingType.acceptBinding(binding)
@@ -81,7 +80,7 @@ class Graph: Container {
     }
     
     func createSubContainer() -> Graph {
-        return Graph(entries: entries)
+        return Graph(entries: entries.mapValues { $0.copy() })
     }
     
     func validate<T>(_ type: T.Type, file: StaticString = #file, line: Int = #line, function: StaticString = #function) throws {

@@ -10,7 +10,7 @@ import Foundation
 public extension BinderProtocol where Element: InjectorProtocol {
     typealias InjectionHost = Element.Element
     
-    func to<T1>(file: StaticString=#file, line: Int=#line, function: StaticString=#function, injector: @escaping (InjectionHost) -> (T1) -> Void) -> Void {
+    public func to<T1>(file: StaticString=#file, line: Int=#line, function: StaticString=#function, injector: @escaping (InjectionHost) -> (T1) -> Void) -> Void {
         return to(file: file, line: line, function: function) { c in
             let p1: Provider<T1> = c.provider()
             
@@ -22,7 +22,7 @@ public extension BinderProtocol where Element: InjectorProtocol {
         }
     }
     
-    func to<T1, T2>(file: StaticString=#file, line: Int=#line, function: StaticString=#function, injector: @escaping (InjectionHost) -> (T1, T2) -> Void) -> Void {
+    public func to<T1, T2>(file: StaticString=#file, line: Int=#line, function: StaticString=#function, injector: @escaping (InjectionHost) -> (T1, T2) -> Void) -> Void {
         return to(file: file, line: line, function: function) { c in
             let p1: Provider<T1> = c.provider()
             let p2: Provider<T2> = c.provider()
@@ -35,7 +35,7 @@ public extension BinderProtocol where Element: InjectorProtocol {
         }
     }
     
-    func to<T1, T2, T3>(file: StaticString=#file, line: Int=#line, function: StaticString=#function, injector: @escaping (InjectionHost) -> (T1, T2, T3) -> Void) -> Void {
+    public func to<T1, T2, T3>(file: StaticString=#file, line: Int=#line, function: StaticString=#function, injector: @escaping (InjectionHost) -> (T1, T2, T3) -> Void) -> Void {
         return to(file: file, line: line, function: function) { c in
             let p1: Provider<T1> = c.provider()
             let p2: Provider<T2> = c.provider()
@@ -49,7 +49,7 @@ public extension BinderProtocol where Element: InjectorProtocol {
         }
     }
     
-    func to<T1, T2, T3, T4>(file: StaticString=#file, line: Int=#line, function: StaticString=#function, injector: @escaping (InjectionHost) -> (T1, T2, T3, T4) -> Void) -> Void {
+    public func to<T1, T2, T3, T4>(file: StaticString=#file, line: Int=#line, function: StaticString=#function, injector: @escaping (InjectionHost) -> (T1, T2, T3, T4) -> Void) -> Void {
         return to(file: file, line: line, function: function) { c in
             let p1: Provider<T1> = c.provider()
             let p2: Provider<T2> = c.provider()
@@ -64,7 +64,7 @@ public extension BinderProtocol where Element: InjectorProtocol {
         }
     }
     
-    func to<T1, T2, T3, T4, T5>(file: StaticString=#file, line: Int=#line, function: StaticString=#function, injector: @escaping (InjectionHost) -> (T1, T2, T3, T4, T5) -> Void) -> Void {
+    public func to<T1, T2, T3, T4, T5>(file: StaticString=#file, line: Int=#line, function: StaticString=#function, injector: @escaping (InjectionHost) -> (T1, T2, T3, T4, T5) -> Void) -> Void {
         return to(file: file, line: line, function: function) { c in
             let p1: Provider<T1> = c.provider()
             let p2: Provider<T2> = c.provider()

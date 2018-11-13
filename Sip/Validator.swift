@@ -35,6 +35,7 @@ class Validator: ProviderProtocol {
         }
         
         var provider = binding.createProvider(provider: self)
+        
         provider = wrapProvider(provider, rawType: T.self)
         
         return provider.getAny() as! T

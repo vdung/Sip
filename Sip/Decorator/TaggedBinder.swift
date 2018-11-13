@@ -27,6 +27,31 @@ public extension ProviderBase {
     }
 }
 
+fileprivate class TaggedBinding<UnderlyingBinding, TagType> : DelegatedBinding, BindingBase where UnderlyingBinding: BindingBase, UnderlyingBinding.Element: ProviderBase, TagType: Tag, TagType.Element == UnderlyingBinding.Element.Element {
+    typealias Element = Provider<Tagged<TagType>>
+    
+    private let underlyingBinding: UnderlyingBinding
+    
+    var delegate: AnyBinding {
+        return underlyingBinding
+    }
+    
+    init(binding: UnderlyingBinding) {
+        self.underlyingBinding = binding
+    }
+    
+    func createElement(provider: ProviderProtocol) -> Provider<Tagged<TagType>> {
+        let p = underlyingBinding.createElement(provider: provider)
+        return Provider {
+            return Tagged<TagType>(value: p.get())
+        }
+    }
+    
+    func copy() -> AnyBinding {
+        return TaggedBinding(binding: underlyingBinding)
+    }
+}
+
 public class TaggedBinder<B, TagType>: BinderDecorator where B: BinderProtocol, TagType: Tag, B.Element == Tagged<TagType> {
     public typealias Wrapped = B
     public typealias Element = TagType.Element
@@ -37,8 +62,8 @@ public class TaggedBinder<B, TagType>: BinderDecorator where B: BinderProtocol, 
         self.binder = binder
     }
     
-    public func to(binding: Binding<Provider<Element>>) {
-        binder.to(binding: binding.convert { create in { p in create(p).tagged() }})
+    public func register<B>(binding: B) where B : BindingBase, TagType.Element == B.Element.Element, B.Element : ProviderBase {
+        return binder.register(binding: TaggedBinding<B, TagType>(binding: binding))
     }
 }
 
@@ -49,10 +74,9 @@ extension BinderProtocol {
     }
 }
 
-public extension Container {
+public extension BinderDelegate {
     
     public func bindTagged<T: Tag>(_ tag: T.Type) -> TaggedBinder<Binder<Tagged<T>>, T> {
-        return Binder(elementType: Tagged<T>.self, bindFunc: self.register)
-            .decorate()
+        return bind(Tagged<T>.self).decorate()
     }
 }

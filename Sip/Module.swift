@@ -9,11 +9,11 @@ import Foundation
 
 public protocol Module {
     
-    func register(container: Container)
+    func register(binder: BinderDelegate)
 }
 
-extension Container {
+extension BinderDelegate {
     func include(_ module: Module) {
-        module.register(container: self)
+        module.register(binder: self)
     }
 }

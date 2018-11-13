@@ -7,32 +7,53 @@
 
 import Foundation
 
+fileprivate class SharedBinding<UnderlyingBinding> : DelegatedBinding, BindingBase where UnderlyingBinding: BindingBase, UnderlyingBinding.Element: ProviderBase {
+    typealias Value = UnderlyingBinding.Element.Element
+    typealias Element = Provider<Value>
+    
+    private var value: Value?
+    private let underlyingBinding: UnderlyingBinding
+    
+    var delegate: AnyBinding {
+        return underlyingBinding
+    }
+    
+    init(binding: UnderlyingBinding) {
+        self.underlyingBinding = binding
+    }
+    
+    public func createProvider(provider: ProviderProtocol) -> AnyProvider {
+        return createElement(provider: provider)
+    }
+    
+    func createElement(provider: ProviderProtocol) -> Provider<Value> {
+        return Provider {
+            if let value = self.value {
+                return value
+            }
+            let p = self.underlyingBinding.createElement(provider: provider)
+            self.value = p.get()
+            return self.value!
+        }
+    }
+    
+    func copy() -> AnyBinding {
+        return self
+    }
+}
+
 public class SharedInScopeBinder<B>: BinderDecorator where B: BinderProtocol {
     public typealias Element = B.Element
     typealias Wrapped = B
     
     private let binder: B
-    private var value: Element?
     
     required init(binder: B) {
         self.binder = binder
     }
     
-    public func to(binding: Binding<Provider<Element>>) {
-        binder.to(binding: binding.convert {
-            create in {
-                p in
-                Provider<Element> {
-                    if let value = self.value {
-                        return value
-                    }
-                    
-                    let provider = create(p)
-                    self.value = provider.get()
-                    return self.value!
-                }
-            }
-        })
+    public func register<B>(binding: B) where B : BindingBase, B.Element : ProviderBase, B.Element.Element == Element {
+        return binder.register(binding: SharedBinding(binding: binding))
     }
 }
 

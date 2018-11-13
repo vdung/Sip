@@ -27,6 +27,7 @@
 		C3CA083D219943B6000DBFAD /* CollectionBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA083A219943B6000DBFAD /* CollectionBinder.swift */; };
 		C3CA083E219943B6000DBFAD /* ScopeBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA083B219943B6000DBFAD /* ScopeBinder.swift */; };
 		C3CA084121994752000DBFAD /* InjectorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA084021994752000DBFAD /* InjectorHelper.swift */; };
+		C3CA084421998623000DBFAD /* KeyedBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA084321998623000DBFAD /* KeyedBinder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 		C3CA083A219943B6000DBFAD /* CollectionBinder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionBinder.swift; sourceTree = "<group>"; };
 		C3CA083B219943B6000DBFAD /* ScopeBinder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeBinder.swift; sourceTree = "<group>"; };
 		C3CA084021994752000DBFAD /* InjectorHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectorHelper.swift; sourceTree = "<group>"; };
+		C3CA084321998623000DBFAD /* KeyedBinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyedBinder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +145,7 @@
 				C3CA083A219943B6000DBFAD /* CollectionBinder.swift */,
 				C3CA083B219943B6000DBFAD /* ScopeBinder.swift */,
 				C3CA0839219943B6000DBFAD /* TaggedBinder.swift */,
+				C3CA084321998623000DBFAD /* KeyedBinder.swift */,
 			);
 			path = Decorator;
 			sourceTree = "<group>";
@@ -272,6 +275,7 @@
 				C3CA083D219943B6000DBFAD /* CollectionBinder.swift in Sources */,
 				C3CA083621994343000DBFAD /* Container.swift in Sources */,
 				C3CA083221994343000DBFAD /* BinderDecorator.swift in Sources */,
+				C3CA084421998623000DBFAD /* KeyedBinder.swift in Sources */,
 				C3CA083C219943B6000DBFAD /* TaggedBinder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

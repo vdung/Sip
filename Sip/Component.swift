@@ -29,7 +29,7 @@ public class ComponentBuilder<ComponentElement: Component>: ComponentBuilderProt
     }
     
     public func include(_ module: Module) {
-        module.register(container: graph)
+        module.register(binder: graph)
     }
     
     public func subcomponent<C>(_ componentType: C.Type) where C : Component {

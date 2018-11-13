@@ -24,7 +24,7 @@ public struct Injector<Element>: InjectorProtocol {
     }
 }
 
-public extension Container {
+public extension BinderDelegate {
     public func bindInjectorOf<T>(_ type: T.Type) -> Binder<Injector<T>> {
         return bind(Injector<T>.self)
     }
