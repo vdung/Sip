@@ -28,6 +28,7 @@
 		C3CA083E219943B6000DBFAD /* ScopeBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA083B219943B6000DBFAD /* ScopeBinder.swift */; };
 		C3CA084121994752000DBFAD /* InjectorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA084021994752000DBFAD /* InjectorHelper.swift */; };
 		C3CA084421998623000DBFAD /* KeyedBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA084321998623000DBFAD /* KeyedBinder.swift */; };
+		C3CA0863219AB5A4000DBFAD /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA0862219AB5A4000DBFAD /* main.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +40,18 @@
 			remoteInfo = Sip;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C3CA085E219AB5A4000DBFAD /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		C3CA080221994214000DBFAD /* Sip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Sip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -66,6 +79,8 @@
 		C3CA083B219943B6000DBFAD /* ScopeBinder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeBinder.swift; sourceTree = "<group>"; };
 		C3CA084021994752000DBFAD /* InjectorHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectorHelper.swift; sourceTree = "<group>"; };
 		C3CA084321998623000DBFAD /* KeyedBinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyedBinder.swift; sourceTree = "<group>"; };
+		C3CA0860219AB5A4000DBFAD /* SipGen */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SipGen; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3CA0862219AB5A4000DBFAD /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +99,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C3CA085D219AB5A4000DBFAD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -91,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				C3CA081C219942E6000DBFAD /* Sip.playground */,
+				C3CA0861219AB5A4000DBFAD /* SipGen */,
 				C3CA080321994214000DBFAD /* Products */,
 				C3CA080421994214000DBFAD /* Sip */,
 				C3CA080F21994214000DBFAD /* SipTests */,
@@ -102,6 +125,7 @@
 			children = (
 				C3CA080221994214000DBFAD /* Sip.framework */,
 				C3CA080B21994214000DBFAD /* SipTests.xctest */,
+				C3CA0860219AB5A4000DBFAD /* SipGen */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -148,6 +172,14 @@
 				C3CA084321998623000DBFAD /* KeyedBinder.swift */,
 			);
 			path = Decorator;
+			sourceTree = "<group>";
+		};
+		C3CA0861219AB5A4000DBFAD /* SipGen */ = {
+			isa = PBXGroup;
+			children = (
+				C3CA0862219AB5A4000DBFAD /* main.swift */,
+			);
+			path = SipGen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,6 +232,23 @@
 			productReference = C3CA080B21994214000DBFAD /* SipTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		C3CA085F219AB5A4000DBFAD /* SipGen */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C3CA0866219AB5A4000DBFAD /* Build configuration list for PBXNativeTarget "SipGen" */;
+			buildPhases = (
+				C3CA085C219AB5A4000DBFAD /* Sources */,
+				C3CA085D219AB5A4000DBFAD /* Frameworks */,
+				C3CA085E219AB5A4000DBFAD /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SipGen;
+			productName = SipGen;
+			productReference = C3CA0860219AB5A4000DBFAD /* SipGen */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -215,6 +264,9 @@
 						LastSwiftMigration = 1010;
 					};
 					C3CA080A21994214000DBFAD = {
+						CreatedOnToolsVersion = 10.1;
+					};
+					C3CA085F219AB5A4000DBFAD = {
 						CreatedOnToolsVersion = 10.1;
 					};
 				};
@@ -233,6 +285,7 @@
 			targets = (
 				C3CA080121994214000DBFAD /* Sip */,
 				C3CA080A21994214000DBFAD /* SipTests */,
+				C3CA085F219AB5A4000DBFAD /* SipGen */,
 			);
 		};
 /* End PBXProject section */
@@ -285,6 +338,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3CA081121994214000DBFAD /* SipTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C3CA085C219AB5A4000DBFAD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C3CA0863219AB5A4000DBFAD /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -508,6 +569,30 @@
 			};
 			name = Release;
 		};
+		C3CA0864219AB5A4000DBFAD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 4.2;
+			};
+			name = Debug;
+		};
+		C3CA0865219AB5A4000DBFAD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 4.2;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -534,6 +619,15 @@
 			buildConfigurations = (
 				C3CA081A21994214000DBFAD /* Debug */,
 				C3CA081B21994214000DBFAD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C3CA0866219AB5A4000DBFAD /* Build configuration list for PBXNativeTarget "SipGen" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C3CA0864219AB5A4000DBFAD /* Debug */,
+				C3CA0865219AB5A4000DBFAD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
