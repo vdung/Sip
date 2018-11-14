@@ -1,8 +1,8 @@
 //
-//  SipTests.swift
+//  TaggedBindingTests.swift
 //  SipTests
 //
-//  Created by Cao Viet Dung on 2018/11/12.
+//  Created by Cao Viet Dung on 2018/11/14.
 //  Copyright © 2018 Cao Viet Dung. All rights reserved.
 //
 
@@ -17,43 +17,41 @@ private struct FooTag: Tag {
     typealias Element = Foo
 }
 
-private struct FooTest {
-    func inject(
-        foo: Foo,
-        fooProvider: Provider<Foo>,
-        fooTagged: Tagged<FooTag>,
-        fooArray: [Foo],
-        fooDict: [String: Foo]
-        ) {
+private class Bar {
+    let foo: Tagged<FooTag>
+    init(foo: Tagged<FooTag>) {
+        self.foo = foo
     }
+}
+
+private struct BarTag: Tag {
+    typealias Element = Bar
 }
 
 private struct TestComponent: Component {
     struct Module: Sip.Module {
         func register(binder b: BinderDelegate) {
             b.bind(String.self).to(value: "foo")
-            b.bind(Foo.self).to(factory: Foo.init)
             b.bind(tagged: FooTag.self).to(factory: Foo.init)
-            b.bind(intoCollectionOf: Foo.self).to(value: Foo(value: "a"))
-            b.bind(intoMapOf: Foo.self).mapKey("b").to(value: Foo(value: "b"))
         }
     }
 
-    typealias Root = Injector<FooTest>
+    typealias Root = Tagged<BarTag>
 
     static func configure<Builder>(builder: Builder) where TestComponent == Builder.ComponentElement, Builder: ComponentBuilderProtocol {
         builder.include(Module())
     }
 
     static func configureRoot<B>(binder: B) where B: BinderProtocol, TestComponent.Root == B.Element {
-        binder.to(injector: FooTest.inject)
+        binder.tagged().to(factory: Bar.init)
     }
 }
 
-class SipTests: XCTestCase {
+class TaggedBindingTests: XCTestCase {
 
-    func testAllUseCases() {
-        XCTAssertNoThrow(try ComponentBuilders.of(TestComponent.self).build().inject(FooTest()))
+    func testBindTagged() {
+        let bar = try! ComponentBuilders.of(TestComponent.self).build()
+
+        XCTAssert(bar.value.foo.value.value == "foo")
     }
-
 }

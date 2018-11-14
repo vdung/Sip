@@ -28,6 +28,9 @@
 		C3B051AB219BE2DF00762674 /* BinderDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA082421994343000DBFAD /* BinderDecorator.swift */; };
 		C3B051AC219BE2DF00762674 /* KeyedBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA084321998623000DBFAD /* KeyedBinder.swift */; };
 		C3B051AD219BE2DF00762674 /* TaggedBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA0839219943B6000DBFAD /* TaggedBinder.swift */; };
+		C3B051B6219BF2F200762674 /* TaggedBindingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B051B5219BF2F200762674 /* TaggedBindingTests.swift */; };
+		C3B051B8219BF70300762674 /* ScopeBindingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B051B7219BF70300762674 /* ScopeBindingTests.swift */; };
+		C3B051BA219BFAE000762674 /* CollectionBindingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B051B9219BFAE000762674 /* CollectionBindingTests.swift */; };
 		C3CA080C21994214000DBFAD /* Sip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3CA080221994214000DBFAD /* Sip.framework */; };
 		C3CA081121994214000DBFAD /* SipTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA081021994214000DBFAD /* SipTests.swift */; };
 		C3CA081321994214000DBFAD /* Sip.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CA080521994214000DBFAD /* Sip.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -76,6 +79,9 @@
 		C3B05192219BDF1400762674 /* BinderHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinderHelper.swift; sourceTree = "<group>"; };
 		C3B05193219BDF1400762674 /* InjectorHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InjectorHelper.swift; sourceTree = "<group>"; };
 		C3B051B3219BE2DF00762674 /* SipCocoa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SipCocoa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3B051B5219BF2F200762674 /* TaggedBindingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaggedBindingTests.swift; sourceTree = "<group>"; };
+		C3B051B7219BF70300762674 /* ScopeBindingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopeBindingTests.swift; sourceTree = "<group>"; };
+		C3B051B9219BFAE000762674 /* CollectionBindingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionBindingTests.swift; sourceTree = "<group>"; };
 		C3CA080221994214000DBFAD /* Sip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Sip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3CA080521994214000DBFAD /* Sip.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sip.h; sourceTree = "<group>"; };
 		C3CA080B21994214000DBFAD /* SipTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SipTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -191,6 +197,9 @@
 			isa = PBXGroup;
 			children = (
 				C3CA081021994214000DBFAD /* SipTests.swift */,
+				C3B051B5219BF2F200762674 /* TaggedBindingTests.swift */,
+				C3B051B7219BF70300762674 /* ScopeBindingTests.swift */,
+				C3B051B9219BFAE000762674 /* CollectionBindingTests.swift */,
 			);
 			path = SipTests;
 			sourceTree = "<group>";
@@ -429,6 +438,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3CA081121994214000DBFAD /* SipTests.swift in Sources */,
+				C3B051BA219BFAE000762674 /* CollectionBindingTests.swift in Sources */,
+				C3B051B6219BF2F200762674 /* TaggedBindingTests.swift in Sources */,
+				C3B051B8219BF70300762674 /* ScopeBindingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

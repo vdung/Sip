@@ -6,6 +6,8 @@
 //  Copyright © 2018 Cao Viet Dung. All rights reserved.
 //
 
+import Foundation
+
 let maxArity = 10
 let dateFormatter = DateFormatter()
 dateFormatter.dateFormat = "yyyy/MM/dd"
