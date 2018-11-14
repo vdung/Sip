@@ -5,11 +5,9 @@
 //  Created by Cao Viet Dung on 2018/11/12.
 //
 
-import Foundation
-
 public protocol AnyProvider {
     static var element: Any.Type { get }
-    
+
     mutating func getAny() -> Any
 }
 
@@ -21,7 +19,7 @@ extension AnyProvider {
 
 public protocol ProviderBase: AnyProvider {
     associatedtype Element
-    
+
     func get() -> Element
 }
 
@@ -29,7 +27,7 @@ extension ProviderBase {
     public static var element: Any.Type {
         return Element.self
     }
-    
+
     public func getAny() -> Any {
         return get()
     }

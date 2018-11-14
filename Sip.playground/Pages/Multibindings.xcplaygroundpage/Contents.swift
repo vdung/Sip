@@ -1,6 +1,5 @@
 //: [Previous](@previous)
 
-
 import Sip
 
 struct Parent {
@@ -20,12 +19,12 @@ struct ParentModule: Module {
 
 struct ParentComponent: Component {
     typealias Root = Parent
-    
-    static func configureRoot<B>(binder: B) where B : BinderProtocol, ParentComponent.Root == B.Element {
+
+    static func configureRoot<B>(binder: B) where B: BinderProtocol, ParentComponent.Root == B.Element {
         binder.to(factory: Parent.init)
     }
-    
-    static func configure<Builder>(builder: Builder) where ParentComponent == Builder.ComponentElement, Builder : ComponentBuilderProtocol {
+
+    static func configure<Builder>(builder: Builder) where ParentComponent == Builder.ComponentElement, Builder: ComponentBuilderProtocol {
         builder.include(ParentModule())
         builder.subcomponent(ChildComponent.self)
     }
@@ -47,12 +46,12 @@ struct ChildModule: Module {
 
 struct ChildComponent: Component {
     typealias Root = Child
-    
-    static func configureRoot<B>(binder: B) where B : BinderProtocol, ChildComponent.Root == B.Element {
+
+    static func configureRoot<B>(binder: B) where B: BinderProtocol, ChildComponent.Root == B.Element {
         binder.to(factory: Child.init)
     }
-    
-    static func configure<Builder>(builder: Builder) where ChildComponent == Builder.ComponentElement, Builder : ComponentBuilderProtocol {
+
+    static func configure<Builder>(builder: Builder) where ChildComponent == Builder.ComponentElement, Builder: ComponentBuilderProtocol {
         builder.include(ChildModule())
     }
 }
@@ -64,6 +63,5 @@ assert(parent.strings == ["parent string 1", "parent string 2"])
 assert(Array(parent.stringMap.keys).sorted() == ["a", "b"])
 assert(child.strings == ["parent string 1", "parent string 2", "child string 3", "child string 4"])
 assert(Array(child.stringMap.keys).sorted() == ["a", "b", "c", "d"])
-
 
 //: [Next](@next)

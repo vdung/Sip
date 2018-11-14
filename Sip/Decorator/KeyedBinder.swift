@@ -6,29 +6,27 @@
 //  Copyright © 2018 Cao Viet Dung. All rights reserved.
 //
 
-import Foundation
+private class KeyedBinding<UnderlyingBinding, Key> : DelegatedBinding, BindingBase where UnderlyingBinding: BindingBase, UnderlyingBinding.Element: ProviderBase {
 
-fileprivate class KeyedBinding<UnderlyingBinding, Key> : DelegatedBinding, BindingBase where UnderlyingBinding: BindingBase, UnderlyingBinding.Element: ProviderBase {
-    
     typealias Value = UnderlyingBinding.Element.Element
     typealias Element = Provider<(key: Key, value: Value)>
-    
+
     private let underlyingBinding: UnderlyingBinding
     private let key: Key
-    
+
     var delegate: AnyBinding {
         return underlyingBinding
     }
-    
+
     init(binding: UnderlyingBinding, key: Key) {
         self.underlyingBinding = binding
         self.key = key
     }
-    
+
     func copy() -> AnyBinding {
         return KeyedBinding(binding: underlyingBinding, key: key)
     }
-    
+
     func createElement(provider: ProviderProtocol) -> Provider<(key: Key, value: UnderlyingBinding.Element.Element)> {
         let p = underlyingBinding.createElement(provider: provider)
         let key = self.key
@@ -41,22 +39,22 @@ fileprivate class KeyedBinding<UnderlyingBinding, Key> : DelegatedBinding, Bindi
 public class KeyedBinder<B, Key, Value>: BinderProtocol where B: BinderProtocol, B.Element == (key: Key, value: Value) {
     typealias Wrapped = B
     public typealias Element = Value
-    
+
     private let binder: B
     private let key: Key
-    
+
     init(binder: B, key: Key) {
         self.binder = binder
         self.key = key
     }
-    
-    public func register<B>(binding: B) where B : BindingBase, B.Element.Element == Element, B.Element : ProviderBase {
+
+    public func register<B>(binding: B) where B: BindingBase, B.Element.Element == Element, B.Element: ProviderBase {
         return binder.register(binding: KeyedBinding(binding: binding, key: self.key))
     }
 }
 
 extension BinderProtocol {
-    
+
     public func mapKey<Key, Value>(_ key: Key) -> KeyedBinder<Self, Key, Value> where Element == (key: Key, value: Value) {
         return KeyedBinder(binder: self, key: key)
     }

@@ -5,12 +5,10 @@
 //  Created by Cao Viet Dung on 2018/11/12.
 //
 
-import Foundation
-
 public enum BindingType {
     case unique
     case collection((AnyBinding) -> Void)
-    
+
     func acceptBinding(_ binding: AnyBinding) {
         switch self {
         case .unique:
@@ -27,14 +25,14 @@ public protocol AnyBinding {
     var function: StaticString { get }
     var element: Any.Type { get }
     var bindingType: BindingType { get }
-    
+
     func copy() -> AnyBinding
     func createProvider(provider: ProviderProtocol) -> AnyProvider
 }
 
 public protocol BindingBase: AnyBinding, CustomStringConvertible {
     associatedtype Element
-    
+
     func createElement(provider: ProviderProtocol) -> Element
 }
 
@@ -86,11 +84,11 @@ extension Binding: AnyBinding, BindingBase, CustomStringConvertible where Elemen
     public func copy() -> AnyBinding {
         return Binding(file: file, line: line, function: function, bindingType: bindingType, create: create)
     }
-    
+
     public func createElement(provider: ProviderProtocol) -> Element {
         return create(provider)
     }
-    
+
     public func createProvider(provider: ProviderProtocol) -> AnyProvider {
         return createElement(provider: provider)
     }

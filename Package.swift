@@ -11,7 +11,7 @@ let package = Package(
             targets: ["Sip"]),
         .executable(
             name: "SipGen",
-            targets: ["SipGen"]),
+            targets: ["SipGen"])
     ],
     targets: [
         .target(
@@ -22,6 +22,6 @@ let package = Package(
             dependencies: []),
         .testTarget(
             name: "SipTests",
-            dependencies: ["Sip"]),
+            dependencies: ["Sip"])
     ]
 )
