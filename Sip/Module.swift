@@ -7,11 +7,11 @@
 
 public protocol Module {
 
-    func register(binder: BinderDelegate)
+    func configure(binder: BinderDelegate)
 }
 
 extension BinderDelegate {
     func include(_ module: Module) {
-        module.register(binder: self)
+        module.configure(binder: self)
     }
 }

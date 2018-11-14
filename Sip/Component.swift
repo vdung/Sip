@@ -36,7 +36,7 @@ public class ComponentBuilder<ComponentElement: Component> {
 extension ComponentBuilder: ComponentBuilderProtocol {
 
     public func include(_ module: Module) {
-        module.register(binder: graph)
+        module.configure(binder: graph)
     }
 
     public func subcomponent<C>(_ componentType: C.Type) where C: Component {

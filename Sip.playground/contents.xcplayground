@@ -3,6 +3,5 @@
     <pages>
         <page name='Basic'/>
         <page name='Multibindings'/>
-        <page name='Example'/>
     </pages>
 </playground>

@@ -59,13 +59,13 @@ class CoffeeMaker {
 }
 
 struct PumpModule: Module {
-    func register(binder b: BinderDelegate) {
+    func configure(binder b: BinderDelegate) {
         b.bind(Pump.self).to(factory: Thermosiphon.init)
     }
 }
 
 struct DripCoffeeModule: Module {
-    func register(binder b: BinderDelegate) {
+    func configure(binder b: BinderDelegate) {
         b.bind(Heater.self).sharedInScope().to(factory: ElectricHeater.init)
     }
 }

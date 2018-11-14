@@ -46,7 +46,7 @@ private struct BazComponent: Component {
 
 private struct TestComponent: Component {
     struct Module: Sip.Module {
-        func register(binder b: BinderDelegate) {
+        func configure(binder b: BinderDelegate) {
             b.bind(String.self).to(value: "foo")
             b.bind(Foo.self).sharedInScope().to(factory: Foo.init)
         }
