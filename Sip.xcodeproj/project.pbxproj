@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C3B05194219BDF1400762674 /* BinderHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B05192219BDF1400762674 /* BinderHelper.swift */; };
 		C3B05195219BDF1400762674 /* InjectorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B05193219BDF1400762674 /* InjectorHelper.swift */; };
+		C3B05197219BE14800762674 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B05196219BE14800762674 /* Package.swift */; };
 		C3CA080C21994214000DBFAD /* Sip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3CA080221994214000DBFAD /* Sip.framework */; };
 		C3CA081121994214000DBFAD /* SipTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA081021994214000DBFAD /* SipTests.swift */; };
 		C3CA081321994214000DBFAD /* Sip.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CA080521994214000DBFAD /* Sip.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -56,6 +57,7 @@
 /* Begin PBXFileReference section */
 		C3B05192219BDF1400762674 /* BinderHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinderHelper.swift; sourceTree = "<group>"; };
 		C3B05193219BDF1400762674 /* InjectorHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InjectorHelper.swift; sourceTree = "<group>"; };
+		C3B05196219BE14800762674 /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		C3CA080221994214000DBFAD /* Sip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Sip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3CA080521994214000DBFAD /* Sip.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sip.h; sourceTree = "<group>"; };
 		C3CA080621994214000DBFAD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 		C3CA07F821994214000DBFAD = {
 			isa = PBXGroup;
 			children = (
+				C3B05196219BE14800762674 /* Package.swift */,
 				C3CA081C219942E6000DBFAD /* Sip.playground */,
 				C3CA0861219AB5A4000DBFAD /* SipGen */,
 				C3CA080321994214000DBFAD /* Products */,
@@ -324,6 +327,7 @@
 				C3CA083421994343000DBFAD /* Validator.swift in Sources */,
 				C3CA083121994343000DBFAD /* Injector.swift in Sources */,
 				C3CA083521994343000DBFAD /* Binder.swift in Sources */,
+				C3B05197219BE14800762674 /* Package.swift in Sources */,
 				C3CA083021994343000DBFAD /* ProviderProtocol.swift in Sources */,
 				C3B05195219BDF1400762674 /* InjectorHelper.swift in Sources */,
 				C3CA083321994343000DBFAD /* Binding.swift in Sources */,
