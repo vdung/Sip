@@ -9,7 +9,25 @@
 /* Begin PBXBuildFile section */
 		C3B05194219BDF1400762674 /* BinderHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B05192219BDF1400762674 /* BinderHelper.swift */; };
 		C3B05195219BDF1400762674 /* InjectorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B05193219BDF1400762674 /* InjectorHelper.swift */; };
-		C3B05197219BE14800762674 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B05196219BE14800762674 /* Package.swift */; };
+		C3B0519A219BE2DF00762674 /* Sip.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CA080521994214000DBFAD /* Sip.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C3B0519C219BE2DF00762674 /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA082021994343000DBFAD /* Graph.swift */; };
+		C3B0519D219BE2DF00762674 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA082621994343000DBFAD /* Validator.swift */; };
+		C3B0519E219BE2DF00762674 /* Injector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA082321994343000DBFAD /* Injector.swift */; };
+		C3B0519F219BE2DF00762674 /* Binder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA082721994343000DBFAD /* Binder.swift */; };
+		C3B051A0219BE2DF00762674 /* ProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA082221994343000DBFAD /* ProviderProtocol.swift */; };
+		C3B051A1219BE2DF00762674 /* InjectorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B05193219BDF1400762674 /* InjectorHelper.swift */; };
+		C3B051A2219BE2DF00762674 /* Binding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA082521994343000DBFAD /* Binding.swift */; };
+		C3B051A3219BE2DF00762674 /* Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA082121994343000DBFAD /* Module.swift */; };
+		C3B051A4219BE2DF00762674 /* Component.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA081E21994342000DBFAD /* Component.swift */; };
+		C3B051A5219BE2DF00762674 /* BinderHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B05192219BDF1400762674 /* BinderHelper.swift */; };
+		C3B051A6219BE2DF00762674 /* Sip.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA082921994343000DBFAD /* Sip.swift */; };
+		C3B051A7219BE2DF00762674 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA082A21994343000DBFAD /* Provider.swift */; };
+		C3B051A8219BE2DF00762674 /* ScopeBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA083B219943B6000DBFAD /* ScopeBinder.swift */; };
+		C3B051A9219BE2DF00762674 /* CollectionBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA083A219943B6000DBFAD /* CollectionBinder.swift */; };
+		C3B051AA219BE2DF00762674 /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA082821994343000DBFAD /* Container.swift */; };
+		C3B051AB219BE2DF00762674 /* BinderDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA082421994343000DBFAD /* BinderDecorator.swift */; };
+		C3B051AC219BE2DF00762674 /* KeyedBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA084321998623000DBFAD /* KeyedBinder.swift */; };
+		C3B051AD219BE2DF00762674 /* TaggedBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA0839219943B6000DBFAD /* TaggedBinder.swift */; };
 		C3CA080C21994214000DBFAD /* Sip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3CA080221994214000DBFAD /* Sip.framework */; };
 		C3CA081121994214000DBFAD /* SipTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA081021994214000DBFAD /* SipTests.swift */; };
 		C3CA081321994214000DBFAD /* Sip.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CA080521994214000DBFAD /* Sip.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -57,13 +75,11 @@
 /* Begin PBXFileReference section */
 		C3B05192219BDF1400762674 /* BinderHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinderHelper.swift; sourceTree = "<group>"; };
 		C3B05193219BDF1400762674 /* InjectorHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InjectorHelper.swift; sourceTree = "<group>"; };
-		C3B05196219BE14800762674 /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+		C3B051B3219BE2DF00762674 /* SipCocoa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SipCocoa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3CA080221994214000DBFAD /* Sip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Sip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3CA080521994214000DBFAD /* Sip.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sip.h; sourceTree = "<group>"; };
-		C3CA080621994214000DBFAD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C3CA080B21994214000DBFAD /* SipTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SipTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3CA081021994214000DBFAD /* SipTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SipTests.swift; sourceTree = "<group>"; };
-		C3CA081221994214000DBFAD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C3CA081C219942E6000DBFAD /* Sip.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Sip.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C3CA081E21994342000DBFAD /* Component.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Component.swift; sourceTree = "<group>"; };
 		C3CA082021994343000DBFAD /* Graph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.swift; sourceTree = "<group>"; };
@@ -86,6 +102,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		C3B051AE219BE2DF00762674 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C3CA07FF21994214000DBFAD /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -123,7 +146,6 @@
 		C3CA07F821994214000DBFAD = {
 			isa = PBXGroup;
 			children = (
-				C3B05196219BE14800762674 /* Package.swift */,
 				C3CA081C219942E6000DBFAD /* Sip.playground */,
 				C3CA0861219AB5A4000DBFAD /* SipGen */,
 				C3CA080321994214000DBFAD /* Products */,
@@ -138,6 +160,7 @@
 				C3CA080221994214000DBFAD /* Sip.framework */,
 				C3CA080B21994214000DBFAD /* SipTests.xctest */,
 				C3CA0860219AB5A4000DBFAD /* SipGen */,
+				C3B051B3219BE2DF00762674 /* SipCocoa.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -148,7 +171,6 @@
 				C3B05191219BDEE700762674 /* Generated */,
 				C3CA08422199718D000DBFAD /* Decorator */,
 				C3CA080521994214000DBFAD /* Sip.h */,
-				C3CA080621994214000DBFAD /* Info.plist */,
 				C3CA082721994343000DBFAD /* Binder.swift */,
 				C3CA082421994343000DBFAD /* BinderDecorator.swift */,
 				C3CA082521994343000DBFAD /* Binding.swift */,
@@ -169,7 +191,6 @@
 			isa = PBXGroup;
 			children = (
 				C3CA081021994214000DBFAD /* SipTests.swift */,
-				C3CA081221994214000DBFAD /* Info.plist */,
 			);
 			path = SipTests;
 			sourceTree = "<group>";
@@ -196,6 +217,14 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		C3B05199219BE2DF00762674 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C3B0519A219BE2DF00762674 /* Sip.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C3CA07FD21994214000DBFAD /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -207,6 +236,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		C3B05198219BE2DF00762674 /* SipCocoa */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C3B051B0219BE2DF00762674 /* Build configuration list for PBXNativeTarget "SipCocoa" */;
+			buildPhases = (
+				C3B05199219BE2DF00762674 /* Headers */,
+				C3B0519B219BE2DF00762674 /* Sources */,
+				C3B051AE219BE2DF00762674 /* Frameworks */,
+				C3B051AF219BE2DF00762674 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SipCocoa;
+			productName = Sip;
+			productReference = C3B051B3219BE2DF00762674 /* SipCocoa.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		C3CA080121994214000DBFAD /* Sip */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C3CA081621994214000DBFAD /* Build configuration list for PBXNativeTarget "Sip" */;
@@ -297,11 +344,19 @@
 				C3CA080121994214000DBFAD /* Sip */,
 				C3CA080A21994214000DBFAD /* SipTests */,
 				C3CA085F219AB5A4000DBFAD /* SipGen */,
+				C3B05198219BE2DF00762674 /* SipCocoa */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		C3B051AF219BE2DF00762674 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C3CA080021994214000DBFAD /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -319,6 +374,31 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		C3B0519B219BE2DF00762674 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C3B0519C219BE2DF00762674 /* Graph.swift in Sources */,
+				C3B0519D219BE2DF00762674 /* Validator.swift in Sources */,
+				C3B0519E219BE2DF00762674 /* Injector.swift in Sources */,
+				C3B0519F219BE2DF00762674 /* Binder.swift in Sources */,
+				C3B051A0219BE2DF00762674 /* ProviderProtocol.swift in Sources */,
+				C3B051A1219BE2DF00762674 /* InjectorHelper.swift in Sources */,
+				C3B051A2219BE2DF00762674 /* Binding.swift in Sources */,
+				C3B051A3219BE2DF00762674 /* Module.swift in Sources */,
+				C3B051A4219BE2DF00762674 /* Component.swift in Sources */,
+				C3B051A5219BE2DF00762674 /* BinderHelper.swift in Sources */,
+				C3B051A6219BE2DF00762674 /* Sip.swift in Sources */,
+				C3B051A7219BE2DF00762674 /* Provider.swift in Sources */,
+				C3B051A8219BE2DF00762674 /* ScopeBinder.swift in Sources */,
+				C3B051A9219BE2DF00762674 /* CollectionBinder.swift in Sources */,
+				C3B051AA219BE2DF00762674 /* Container.swift in Sources */,
+				C3B051AB219BE2DF00762674 /* BinderDecorator.swift in Sources */,
+				C3B051AC219BE2DF00762674 /* KeyedBinder.swift in Sources */,
+				C3B051AD219BE2DF00762674 /* TaggedBinder.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C3CA07FE21994214000DBFAD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -327,7 +407,6 @@
 				C3CA083421994343000DBFAD /* Validator.swift in Sources */,
 				C3CA083121994343000DBFAD /* Injector.swift in Sources */,
 				C3CA083521994343000DBFAD /* Binder.swift in Sources */,
-				C3B05197219BE14800762674 /* Package.swift in Sources */,
 				C3CA083021994343000DBFAD /* ProviderProtocol.swift in Sources */,
 				C3B05195219BDF1400762674 /* InjectorHelper.swift in Sources */,
 				C3CA083321994343000DBFAD /* Binding.swift in Sources */,
@@ -372,6 +451,57 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		C3B051B1219BE2DF00762674 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Sip.xcodeproj/SipCocoa_Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = vdung.Sip;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C3B051B2219BE2DF00762674 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Sip.xcodeproj/SipCocoa_Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = vdung.Sip;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		C3CA081421994214000DBFAD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -504,7 +634,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = Sip/Info.plist;
+				INFOPLIST_FILE = Sip.xcodeproj/Sip_Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -513,6 +643,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = vdung.Sip;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
@@ -530,7 +661,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = Sip/Info.plist;
+				INFOPLIST_FILE = Sip.xcodeproj/Sip_Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -539,6 +670,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = vdung.Sip;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -549,8 +681,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = SipTests/Info.plist;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = Sip.xcodeproj/SipTests_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -558,6 +692,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = vdung.SipTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -567,8 +703,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = SipTests/Info.plist;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = Sip.xcodeproj/SipTests_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -576,6 +714,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = vdung.SipTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -608,6 +748,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		C3B051B0219BE2DF00762674 /* Build configuration list for PBXNativeTarget "SipCocoa" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C3B051B1219BE2DF00762674 /* Debug */,
+				C3B051B2219BE2DF00762674 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C3CA07FC21994214000DBFAD /* Build configuration list for PBXProject "Sip" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
