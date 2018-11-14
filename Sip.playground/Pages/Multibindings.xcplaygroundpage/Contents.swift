@@ -56,7 +56,7 @@ struct ChildComponent: Component {
     }
 }
 
-let parent = ComponentBuilder.of(ParentComponent.self).build()
+let parent = ComponentBuilders.of(ParentComponent.self).build()
 let child = parent.childBuilder.build()
 
 assert(parent.strings == ["parent string 1", "parent string 2"])

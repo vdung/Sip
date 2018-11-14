@@ -23,7 +23,7 @@ public class ComponentBuilder<ComponentElement: Component> {
 
     fileprivate let graph: Graph
 
-    fileprivate init(graph: Graph) {
+    init(graph: Graph) {
         self.graph = graph
     }
 
@@ -40,29 +40,13 @@ extension ComponentBuilder: ComponentBuilderProtocol {
     }
 
     public func subcomponent<C>(_ componentType: C.Type) where C: Component {
-        graph.bind(ComponentBuilder<C>.self).to { _ in
-            return Provider<ComponentBuilder<C>> {
-                let subGraph = self.graph.createSubContainer()
-                let subBuilder = ComponentBuilder<C>(graph: subGraph)
-                componentType.configure(builder: subBuilder)
-                componentType.configureRoot(binder: subGraph.bind(componentType.Root.self))
+        graph.bind(ComponentBuilder<C>.self).to {
+            let subGraph = self.graph.createSubContainer()
+            let subBuilder = ComponentBuilder<C>(graph: subGraph)
+            componentType.configure(builder: subBuilder)
+            componentType.configureRoot(binder: subGraph.bind(componentType.Root.self))
 
-                return subBuilder
-            }
+            return subBuilder
         }
-    }
-}
-
-extension ComponentBuilderProtocol {
-
-    public static func of(_ componentType: ComponentElement.Type) throws -> ComponentBuilder<ComponentElement> {
-        let graph = Graph()
-        let builder = ComponentBuilder<ComponentElement>(graph: graph)
-        componentType.configure(builder: builder)
-        componentType.configureRoot(binder: graph.bind(componentType.Root.self))
-
-        try graph.validate(ComponentElement.Root.self)
-
-        return builder
     }
 }

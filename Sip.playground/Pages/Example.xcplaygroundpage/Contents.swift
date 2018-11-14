@@ -105,7 +105,7 @@ struct ExampleComponent: Component {
     }
 }
 
-let foobarInjector: Injector<Foobar> = try ComponentBuilder.of(ExampleComponent.self).build()
+let foobarInjector: Injector<Foobar> = try ComponentBuilders.of(ExampleComponent.self).build()
 foobarInjector.inject(Foobar())
 
 //: [Next](@next)
