@@ -42,7 +42,7 @@ private class CollectionBinding<UnderlyingBinding, CollectionType>: DelegatedBin
 
     private let collectionType: CollectionType.Type
     private let firstBinding: UnderlyingBinding
-    private var bindings: [CollectionBindingType]
+    private var bindings: [AnyBinding]
 
     var delegate: AnyBinding {
         return firstBinding
@@ -52,7 +52,7 @@ private class CollectionBinding<UnderlyingBinding, CollectionType>: DelegatedBin
         return BindingType.collection(self.addBinding)
     }
 
-    init(collectionType: CollectionType.Type, firstBinding: UnderlyingBinding, otherBindings: [CollectionBindingType]) {
+    init(collectionType: CollectionType.Type, firstBinding: UnderlyingBinding, otherBindings: [AnyBinding]) {
         self.collectionType = collectionType
         self.firstBinding = firstBinding
         self.bindings = otherBindings
@@ -63,10 +63,10 @@ private class CollectionBinding<UnderlyingBinding, CollectionType>: DelegatedBin
     }
 
     private func addBinding(_ binding: AnyBinding) {
-        guard let other = binding as? CollectionBindingType else {
-            preconditionFailure("Expected a binding of type \(CollectionBindingType.self), got \(type(of: binding))")
+        if binding.element != Element.self {
+            preconditionFailure("Expected a binding for \(Element.self), got \(binding)")
         }
-        bindings.append(other)
+        bindings.append(binding)
     }
 
     func copy() -> AnyBinding {
@@ -75,7 +75,7 @@ private class CollectionBinding<UnderlyingBinding, CollectionType>: DelegatedBin
 
     func createElement(provider: ProviderProtocol) -> Provider<CollectionType> {
         let firstProvider = firstBinding.createElement(provider: provider)
-        let addedProviders = bindings.map { $0.createElement(provider: provider) }
+        let addedProviders = bindings.map { $0.createProvider(provider: provider) as! Element }
 
         return Provider {
             addedProviders.reduce(self.collectionType.create(firstProvider.get()), { (result, p) in

@@ -54,7 +54,6 @@ extension DelegatedBinding where Self: BindingBase {
     var file: StaticString { return delegate.file }
     var line: Int { return delegate.line }
     var function: StaticString { return delegate.function }
-    var element: Any.Type { return delegate.element }
     var bindingType: BindingType { return delegate.bindingType }
 }
 

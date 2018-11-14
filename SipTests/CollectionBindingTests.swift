@@ -44,10 +44,10 @@ private struct Child {
 
 private struct ChildModule: Module {
     func register(binder b: BinderDelegate) {
-        b.bind(intoCollectionOf: String.self).to(value: "child string 3")
-        b.bind(intoCollectionOf: String.self).to(value: "child string 4")
-        b.bind(intoMapOf: String.self).mapKey("c").to(value: "child string C")
-        b.bind(intoMapOf: String.self).mapKey("d").to(value: "child string D")
+        b.bind([String].self).to(value: ["child string 3", "child string 4"])
+        b.bind([String: String].self).to(value: [
+            "c": "child string C",
+            "d": "child string D"])
     }
 }
 
