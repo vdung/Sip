@@ -84,7 +84,7 @@ struct CoffeShop: Component {
 }
 
 let coffeeMaker = CoffeeMaker()
-ComponentBuilders.of(CoffeShop.self).build().inject(coffeeMaker)
+CoffeShop.builder().build().inject(coffeeMaker)
 coffeeMaker.brew()
 
 //: [Next](@next)

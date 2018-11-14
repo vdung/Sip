@@ -67,7 +67,7 @@ private struct TestComponent: Component {
 class ScopeBindingTests: XCTestCase {
 
     func testBindScope() {
-        let barBuilder = try! ComponentBuilders.of(TestComponent.self)
+        let barBuilder = try! TestComponent.builder()
         let bar = barBuilder.build()
         let anotherBar = barBuilder.build()
 

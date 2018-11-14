@@ -50,3 +50,16 @@ extension ComponentBuilder: ComponentBuilderProtocol {
         }
     }
 }
+
+public extension Component {
+    public static func builder() throws -> ComponentBuilder<Self> {
+        let graph = Graph()
+        let builder = ComponentBuilder<Self>(graph: graph)
+        configure(builder: builder)
+        configureRoot(binder: graph.bind(Root.self))
+
+        try graph.validate(Root.self)
+
+        return builder
+    }
+}

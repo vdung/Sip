@@ -66,7 +66,7 @@ private struct ChildComponent: Component {
 class CollectionBindingTests: XCTestCase {
 
     func testCollectionBinding() {
-        let parent = try! ComponentBuilders.of(ParentComponent.self).build()
+        let parent = try! ParentComponent.builder().build()
         let child = parent.childBuilder.build()
 
         XCTAssertEqual(parent.strings, ["parent string 1", "parent string 2"])

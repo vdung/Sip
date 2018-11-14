@@ -53,7 +53,7 @@ private struct TestComponent: Component {
 class SipTests: XCTestCase {
 
     func testAllUseCases() {
-        XCTAssertNoThrow(try ComponentBuilders.of(TestComponent.self).build().inject(FooTest()))
+        XCTAssertNoThrow(try TestComponent.builder().build().inject(FooTest()))
     }
 
 }
