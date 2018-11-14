@@ -103,6 +103,7 @@ let libraryPath = URL(fileURLWithPath: #file)
     .deletingLastPathComponent()
     .deletingLastPathComponent()
     .appendingPathComponent("Sip")
+    .appendingPathComponent("Generated")
 do {
     try generateBinderHelper(toFile: libraryPath.appendingPathComponent("BinderHelper.swift"))
     try generateInjectorHelper(toFile: libraryPath.appendingPathComponent("InjectorHelper.swift"))

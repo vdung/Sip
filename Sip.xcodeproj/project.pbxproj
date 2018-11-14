@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C3B05194219BDF1400762674 /* BinderHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B05192219BDF1400762674 /* BinderHelper.swift */; };
+		C3B05195219BDF1400762674 /* InjectorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B05193219BDF1400762674 /* InjectorHelper.swift */; };
 		C3CA080C21994214000DBFAD /* Sip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3CA080221994214000DBFAD /* Sip.framework */; };
 		C3CA081121994214000DBFAD /* SipTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA081021994214000DBFAD /* SipTests.swift */; };
 		C3CA081321994214000DBFAD /* Sip.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CA080521994214000DBFAD /* Sip.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3CA082C21994343000DBFAD /* Component.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA081E21994342000DBFAD /* Component.swift */; };
-		C3CA082D21994343000DBFAD /* BinderHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA081F21994343000DBFAD /* BinderHelper.swift */; };
 		C3CA082E21994343000DBFAD /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA082021994343000DBFAD /* Graph.swift */; };
 		C3CA082F21994343000DBFAD /* Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA082121994343000DBFAD /* Module.swift */; };
 		C3CA083021994343000DBFAD /* ProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA082221994343000DBFAD /* ProviderProtocol.swift */; };
@@ -26,7 +27,6 @@
 		C3CA083C219943B6000DBFAD /* TaggedBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA0839219943B6000DBFAD /* TaggedBinder.swift */; };
 		C3CA083D219943B6000DBFAD /* CollectionBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA083A219943B6000DBFAD /* CollectionBinder.swift */; };
 		C3CA083E219943B6000DBFAD /* ScopeBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA083B219943B6000DBFAD /* ScopeBinder.swift */; };
-		C3CA084121994752000DBFAD /* InjectorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA084021994752000DBFAD /* InjectorHelper.swift */; };
 		C3CA084421998623000DBFAD /* KeyedBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA084321998623000DBFAD /* KeyedBinder.swift */; };
 		C3CA0863219AB5A4000DBFAD /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA0862219AB5A4000DBFAD /* main.swift */; };
 /* End PBXBuildFile section */
@@ -54,6 +54,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C3B05192219BDF1400762674 /* BinderHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinderHelper.swift; sourceTree = "<group>"; };
+		C3B05193219BDF1400762674 /* InjectorHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InjectorHelper.swift; sourceTree = "<group>"; };
 		C3CA080221994214000DBFAD /* Sip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Sip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3CA080521994214000DBFAD /* Sip.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sip.h; sourceTree = "<group>"; };
 		C3CA080621994214000DBFAD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -62,7 +64,6 @@
 		C3CA081221994214000DBFAD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C3CA081C219942E6000DBFAD /* Sip.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Sip.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C3CA081E21994342000DBFAD /* Component.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Component.swift; sourceTree = "<group>"; };
-		C3CA081F21994343000DBFAD /* BinderHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinderHelper.swift; sourceTree = "<group>"; };
 		C3CA082021994343000DBFAD /* Graph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.swift; sourceTree = "<group>"; };
 		C3CA082121994343000DBFAD /* Module.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Module.swift; sourceTree = "<group>"; };
 		C3CA082221994343000DBFAD /* ProviderProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderProtocol.swift; sourceTree = "<group>"; };
@@ -77,7 +78,6 @@
 		C3CA0839219943B6000DBFAD /* TaggedBinder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaggedBinder.swift; sourceTree = "<group>"; };
 		C3CA083A219943B6000DBFAD /* CollectionBinder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionBinder.swift; sourceTree = "<group>"; };
 		C3CA083B219943B6000DBFAD /* ScopeBinder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeBinder.swift; sourceTree = "<group>"; };
-		C3CA084021994752000DBFAD /* InjectorHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectorHelper.swift; sourceTree = "<group>"; };
 		C3CA084321998623000DBFAD /* KeyedBinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyedBinder.swift; sourceTree = "<group>"; };
 		C3CA0860219AB5A4000DBFAD /* SipGen */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SipGen; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3CA0862219AB5A4000DBFAD /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -109,6 +109,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C3B05191219BDEE700762674 /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				C3B05192219BDF1400762674 /* BinderHelper.swift */,
+				C3B05193219BDF1400762674 /* InjectorHelper.swift */,
+			);
+			path = Generated;
+			sourceTree = "<group>";
+		};
 		C3CA07F821994214000DBFAD = {
 			isa = PBXGroup;
 			children = (
@@ -133,18 +142,17 @@
 		C3CA080421994214000DBFAD /* Sip */ = {
 			isa = PBXGroup;
 			children = (
+				C3B05191219BDEE700762674 /* Generated */,
 				C3CA08422199718D000DBFAD /* Decorator */,
 				C3CA080521994214000DBFAD /* Sip.h */,
 				C3CA080621994214000DBFAD /* Info.plist */,
 				C3CA082721994343000DBFAD /* Binder.swift */,
 				C3CA082421994343000DBFAD /* BinderDecorator.swift */,
-				C3CA081F21994343000DBFAD /* BinderHelper.swift */,
 				C3CA082521994343000DBFAD /* Binding.swift */,
 				C3CA081E21994342000DBFAD /* Component.swift */,
 				C3CA082821994343000DBFAD /* Container.swift */,
 				C3CA082021994343000DBFAD /* Graph.swift */,
 				C3CA082321994343000DBFAD /* Injector.swift */,
-				C3CA084021994752000DBFAD /* InjectorHelper.swift */,
 				C3CA082121994343000DBFAD /* Module.swift */,
 				C3CA082A21994343000DBFAD /* Provider.swift */,
 				C3CA082221994343000DBFAD /* ProviderProtocol.swift */,
@@ -317,14 +325,14 @@
 				C3CA083121994343000DBFAD /* Injector.swift in Sources */,
 				C3CA083521994343000DBFAD /* Binder.swift in Sources */,
 				C3CA083021994343000DBFAD /* ProviderProtocol.swift in Sources */,
+				C3B05195219BDF1400762674 /* InjectorHelper.swift in Sources */,
 				C3CA083321994343000DBFAD /* Binding.swift in Sources */,
 				C3CA082F21994343000DBFAD /* Module.swift in Sources */,
 				C3CA082C21994343000DBFAD /* Component.swift in Sources */,
+				C3B05194219BDF1400762674 /* BinderHelper.swift in Sources */,
 				C3CA083721994343000DBFAD /* Sip.swift in Sources */,
-				C3CA084121994752000DBFAD /* InjectorHelper.swift in Sources */,
 				C3CA083821994343000DBFAD /* Provider.swift in Sources */,
 				C3CA083E219943B6000DBFAD /* ScopeBinder.swift in Sources */,
-				C3CA082D21994343000DBFAD /* BinderHelper.swift in Sources */,
 				C3CA083D219943B6000DBFAD /* CollectionBinder.swift in Sources */,
 				C3CA083621994343000DBFAD /* Container.swift in Sources */,
 				C3CA083221994343000DBFAD /* BinderDecorator.swift in Sources */,
