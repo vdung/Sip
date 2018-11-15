@@ -12,18 +12,18 @@ enum ValidationError: Error {
 
 class Validator: ProviderProtocol {
 
-    fileprivate let entries: [ContainerKey: AnyBinding]
+    fileprivate let container: Container
     fileprivate var errors = [ValidationError]()
     fileprivate var bindingStack = [AnyBinding]()
 
-    init(entries: [ContainerKey: AnyBinding]) {
-        self.entries = entries
+    init(container: Container) {
+        self.container = container
     }
 
     func provider<T>() -> T where T: AnyProvider {
-        let key = unwrapKey(T.self)
-        guard let binding = entries[key] else {
-            errors.append(ValidationError.unsatisfiedDependency(key.type, requiredBy: bindingStack.last!))
+        let type = container.unwrapType(T.self)
+        guard let binding = container.getBinding(forType: type) else {
+            errors.append(ValidationError.unsatisfiedDependency(type, requiredBy: bindingStack.last!))
             return T.init()
         }
 
@@ -34,7 +34,7 @@ class Validator: ProviderProtocol {
 
         var provider = binding.createProvider(provider: self)
 
-        provider = wrapProvider(provider, rawType: T.self)
+        provider = container.wrapProvider(provider, rawType: T.self)
 
         return provider.getAny() as! T
     }
