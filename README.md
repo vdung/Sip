@@ -10,6 +10,7 @@ Sip is a dependency injection library for Swift. The API is heavily inspired by 
 * Multibinding: Array and Dictionary
 * Subcomponents
 * Injection method
+* Assisted injection
 
 ## Example
 
