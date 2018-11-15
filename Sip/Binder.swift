@@ -16,31 +16,9 @@ public protocol BinderDelegate {
     func register<B>(binding: B) where B: BindingBase, B.Element: ProviderBase
 }
 
-public struct BinderReceipt: DelegatedBinding, CustomStringConvertible {
-    let binding: AnyBinding
-
-    var delegate: AnyBinding {
-        return binding
-    }
-
-    public var description: String {
-        return binding.description
-    }
-}
-
-public extension BinderReceipt {
-    public func debug() {
-        print(self)
-    }
-}
-
 public class Binder<Element>: BinderProtocol {
     private let elementType: Element.Type
     private let delegate: BinderDelegate
-
-    public required convenience init(_ other: Binder<Element>) {
-        self.init(elementType: other.elementType, delegate: other.delegate)
-    }
 
     init(elementType: Element.Type, delegate: BinderDelegate) {
         self.elementType = elementType
