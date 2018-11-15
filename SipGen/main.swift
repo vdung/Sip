@@ -117,13 +117,13 @@ func generateAssistedInjectionFunc(arity: Int) -> String {
     let content = """
 
         // \(arity)-arity `to(elementFactory:)` function.
-        public func to<\(arityTypes)>(\(debugArgs), elementFactory: @escaping ((\(arityTypes), Argument)) -> Output) {
+        public func to<\(arityTypes)>(\(debugArgs), elementFactory: @escaping ((\(arityTypes), Argument) -> Output) {
             return to(file: file, line: line, function: function) { p in
     \(generateProvider(arity: arity))
 
                 return Provider {
                     Element { argument in
-                        elementFactory((\((1...arity).map { "p\($0).get()" }.joined(separator: ", ")), argument))
+                        elementFactory(\((1...arity).map { "p\($0).get()" }.joined(separator: ", ")), argument)
                     }
                 }
             }

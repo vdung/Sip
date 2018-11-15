@@ -24,21 +24,6 @@ public protocol AssistedInjectionProtocol {
     associatedtype Argument
 }
 
-class AssistedInjection<Dependencies, Arguments, Element> {
-    typealias FactoryFunc = (Dependencies, Arguments) -> Element
-    let dependencies: Provider<Dependencies>
-    let factory: FactoryFunc
-
-    init(dependencies: Provider<Dependencies>, factory: @escaping FactoryFunc) {
-        self.dependencies = dependencies
-        self.factory = factory
-    }
-
-    func create(_ args: Arguments) -> Element {
-        return factory(dependencies.get(), args)
-    }
-}
-
 public extension BinderDelegate {
 
     public func bind<T: AssistedInjectionProtocol>(factoryOf: T.Type) -> Binder<AssistedInjectionFactory<T.Argument, T>> {

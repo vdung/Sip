@@ -18,7 +18,7 @@ private struct Foo {
         return barFactory.create(qux)
     }
 
-    struct Factory {
+    struct Factory: AssistedInjectionFactoryProtocol {
         let create: (Bool) -> Foo
     }
 }
