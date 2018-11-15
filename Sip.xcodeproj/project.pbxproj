@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C30A7F83219CF46B00011981 /* AssistedInjectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30A7F82219CF46B00011981 /* AssistedInjectionTests.swift */; };
 		C3B05194219BDF1400762674 /* BinderHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B05192219BDF1400762674 /* BinderHelper.swift */; };
 		C3B05195219BDF1400762674 /* InjectorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B05193219BDF1400762674 /* InjectorHelper.swift */; };
 		C3B0519A219BE2DF00762674 /* Sip.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CA080521994214000DBFAD /* Sip.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -31,6 +32,8 @@
 		C3B051B6219BF2F200762674 /* TaggedBindingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B051B5219BF2F200762674 /* TaggedBindingTests.swift */; };
 		C3B051B8219BF70300762674 /* ScopeBindingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B051B7219BF70300762674 /* ScopeBindingTests.swift */; };
 		C3B051BA219BFAE000762674 /* CollectionBindingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B051B9219BFAE000762674 /* CollectionBindingTests.swift */; };
+		C3B051BC219C1AB900762674 /* AssistedInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B051BB219C1AB900762674 /* AssistedInjection.swift */; };
+		C3B051BE219C396700762674 /* AssistedInjectionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B051BD219C396700762674 /* AssistedInjectionHelper.swift */; };
 		C3CA080C21994214000DBFAD /* Sip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3CA080221994214000DBFAD /* Sip.framework */; };
 		C3CA081121994214000DBFAD /* SipTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA081021994214000DBFAD /* SipTests.swift */; };
 		C3CA081321994214000DBFAD /* Sip.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CA080521994214000DBFAD /* Sip.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -76,12 +79,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C30A7F82219CF46B00011981 /* AssistedInjectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistedInjectionTests.swift; sourceTree = "<group>"; };
 		C3B05192219BDF1400762674 /* BinderHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinderHelper.swift; sourceTree = "<group>"; };
 		C3B05193219BDF1400762674 /* InjectorHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InjectorHelper.swift; sourceTree = "<group>"; };
 		C3B051B3219BE2DF00762674 /* SipCocoa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SipCocoa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3B051B5219BF2F200762674 /* TaggedBindingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaggedBindingTests.swift; sourceTree = "<group>"; };
 		C3B051B7219BF70300762674 /* ScopeBindingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopeBindingTests.swift; sourceTree = "<group>"; };
 		C3B051B9219BFAE000762674 /* CollectionBindingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionBindingTests.swift; sourceTree = "<group>"; };
+		C3B051BB219C1AB900762674 /* AssistedInjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistedInjection.swift; sourceTree = "<group>"; };
+		C3B051BD219C396700762674 /* AssistedInjectionHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssistedInjectionHelper.swift; sourceTree = "<group>"; };
 		C3CA080221994214000DBFAD /* Sip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Sip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3CA080521994214000DBFAD /* Sip.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sip.h; sourceTree = "<group>"; };
 		C3CA080B21994214000DBFAD /* SipTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SipTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -143,6 +149,7 @@
 		C3B05191219BDEE700762674 /* Generated */ = {
 			isa = PBXGroup;
 			children = (
+				C3B051BD219C396700762674 /* AssistedInjectionHelper.swift */,
 				C3B05192219BDF1400762674 /* BinderHelper.swift */,
 				C3B05193219BDF1400762674 /* InjectorHelper.swift */,
 			);
@@ -189,6 +196,7 @@
 				C3CA082221994343000DBFAD /* ProviderProtocol.swift */,
 				C3CA082921994343000DBFAD /* Sip.swift */,
 				C3CA082621994343000DBFAD /* Validator.swift */,
+				C3B051BB219C1AB900762674 /* AssistedInjection.swift */,
 			);
 			path = Sip;
 			sourceTree = "<group>";
@@ -200,6 +208,7 @@
 				C3B051B5219BF2F200762674 /* TaggedBindingTests.swift */,
 				C3B051B7219BF70300762674 /* ScopeBindingTests.swift */,
 				C3B051B9219BFAE000762674 /* CollectionBindingTests.swift */,
+				C30A7F82219CF46B00011981 /* AssistedInjectionTests.swift */,
 			);
 			path = SipTests;
 			sourceTree = "<group>";
@@ -413,6 +422,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3CA082E21994343000DBFAD /* Graph.swift in Sources */,
+				C3B051BC219C1AB900762674 /* AssistedInjection.swift in Sources */,
 				C3CA083421994343000DBFAD /* Validator.swift in Sources */,
 				C3CA083121994343000DBFAD /* Injector.swift in Sources */,
 				C3CA083521994343000DBFAD /* Binder.swift in Sources */,
@@ -426,6 +436,7 @@
 				C3CA083821994343000DBFAD /* Provider.swift in Sources */,
 				C3CA083E219943B6000DBFAD /* ScopeBinder.swift in Sources */,
 				C3CA083D219943B6000DBFAD /* CollectionBinder.swift in Sources */,
+				C3B051BE219C396700762674 /* AssistedInjectionHelper.swift in Sources */,
 				C3CA083621994343000DBFAD /* Container.swift in Sources */,
 				C3CA083221994343000DBFAD /* BinderDecorator.swift in Sources */,
 				C3CA084421998623000DBFAD /* KeyedBinder.swift in Sources */,
@@ -438,6 +449,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3CA081121994214000DBFAD /* SipTests.swift in Sources */,
+				C30A7F83219CF46B00011981 /* AssistedInjectionTests.swift in Sources */,
 				C3B051BA219BFAE000762674 /* CollectionBindingTests.swift in Sources */,
 				C3B051B6219BF2F200762674 /* TaggedBindingTests.swift in Sources */,
 				C3B051B8219BF70300762674 /* ScopeBindingTests.swift in Sources */,

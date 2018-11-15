@@ -13,7 +13,7 @@ public protocol AnyProvider {
 
 extension AnyProvider {
     public init() {
-        preconditionFailure("Empty provider")
+        preconditionFailure("Empty provider for \(Self.element)")
     }
 }
 

@@ -57,7 +57,7 @@ extension DelegatedBinding where Self: BindingBase {
     var bindingType: BindingType { return delegate.bindingType }
 }
 
-typealias CreatorFunc<T> = (ProviderProtocol) -> T
+public typealias CreatorFunc<T> = (ProviderProtocol) -> T
 
 public struct Binding<Element> {
     public let file: StaticString
