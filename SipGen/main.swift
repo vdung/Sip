@@ -86,7 +86,7 @@ func generateInjectorFunc(arity: Int) -> String {
     \(generateProvider(arity: arity))
 
                 return Provider {
-                    Element.init { host in
+                    Element { host in
                         injector(host)(\((1...arity).map { "p\($0).get()" }.joined(separator: ", ")))
                     }
                 }
@@ -100,34 +100,36 @@ func generateInjectorFunc(arity: Int) -> String {
 func generateAssistedInjectionHelper(toFile path: URL) throws {
     let content = """
     \(generateHeader(ofFile: path))
-    
-    public extension BinderProtocol {
+
+    public extension BinderProtocol where Element: AssistedInjectionFactoryProtocol {
+        typealias Argument = Element.Argument
+        typealias Output = Element.Element
     \((1...maxArity).map { generateAssistedInjectionFunc(arity: $0) }.joined(separator: "\n"))
     }
     """
-    
+
     try content.write(to: path, atomically: true, encoding: .utf8)
 }
 
 func generateAssistedInjectionFunc(arity: Int) -> String {
     let arityTypes = (1...arity).map { "T\($0)" }.joined(separator: ", ")
-    
+
     let content = """
-    
+
         // \(arity)-arity `to(elementFactory:)` function.
-        public func to<\(arityTypes), Argument, U>(\(debugArgs), elementFactory: @escaping ((\(arityTypes), Argument)) -> U) where Element == AssistedInjectionFactory<Argument, U> {
+        public func to<\(arityTypes)>(\(debugArgs), elementFactory: @escaping ((\(arityTypes), Argument)) -> Output) {
             return to(file: file, line: line, function: function) { p in
     \(generateProvider(arity: arity))
-    
+
                 return Provider {
-                    AssistedInjectionFactory<Argument, U> { argument in
+                    Element { argument in
                         elementFactory((\((1...arity).map { "p\($0).get()" }.joined(separator: ", ")), argument))
                     }
                 }
             }
         }
     """
-    
+
     return content
 }
 

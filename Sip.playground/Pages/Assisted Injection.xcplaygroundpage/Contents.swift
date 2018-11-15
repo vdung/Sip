@@ -7,10 +7,14 @@ struct Foo {
     let barFactory: Bar.Factory
     let baz: Int
     let qux: Bool
-    
+
     var bar: Bar {
         return barFactory.create(qux)
     }
+}
+
+struct FooFactory: AssistedInjectionFactoryProtocol {
+    let create: (Bool) -> Foo
 }
 
 struct Bar {
@@ -21,7 +25,7 @@ struct Bar {
 }
 
 struct FooComponent: Component {
-    typealias Root = AssistedInjectionFactory<Bool, Foo>
+    typealias Root = FooFactory
 
     struct Module: Sip.Module {
         func configure(binder: BinderDelegate) {
@@ -43,4 +47,3 @@ struct FooComponent: Component {
 let factory = FooComponent.builder().build()
 print(factory.create(false))
 print(factory.create(false).bar)
-

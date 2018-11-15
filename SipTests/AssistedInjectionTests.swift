@@ -9,26 +9,30 @@
 import XCTest
 import Sip
 
-fileprivate struct Foo {
+private struct Foo {
     let barFactory: Bar.Factory
     let baz: Int
     let qux: Bool
-    
+
     var bar: Bar {
         return barFactory.create(qux)
     }
+
+    struct Factory {
+        let create: (Bool) -> Foo
+    }
 }
 
-fileprivate struct Bar {
+private struct Bar {
     fileprivate typealias Factory = AssistedInjectionFactory<Bool, Bar>
     let bar: String
     let baz: Int
     let qux: Bool
 }
 
-fileprivate struct FooComponent: Component {
-    fileprivate typealias Root = AssistedInjectionFactory<Bool, Foo>
-    
+private struct FooComponent: Component {
+    fileprivate typealias Root = Foo.Factory
+
     struct Module: Sip.Module {
         func configure(binder: BinderDelegate) {
             binder.bind(String.self).to(value: "bar")
@@ -36,11 +40,11 @@ fileprivate struct FooComponent: Component {
             binder.bind(factoryOf: Bar.self).to(elementFactory: Bar.init)
         }
     }
-    
+
     static func configure<Builder>(builder: Builder) where FooComponent == Builder.ComponentElement, Builder: ComponentBuilderProtocol {
         builder.include(Module())
     }
-    
+
     static func configureRoot<B>(binder: B) where B: BinderProtocol, FooComponent.Root == B.Element {
         binder.to(elementFactory: Foo.init)
     }

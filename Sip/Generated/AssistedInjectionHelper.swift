@@ -6,15 +6,17 @@
 //  DO NOT EDIT
 //
 
-public extension BinderProtocol {
+public extension BinderProtocol where Element: AssistedInjectionFactoryProtocol {
+    typealias Argument = Element.Argument
+    typealias Output = Element.Element
 
     // 1-arity `to(elementFactory:)` function.
-    public func to<T1, Argument, U>(file: StaticString=#file, line: Int=#line, function: StaticString=#function, elementFactory: @escaping ((T1, Argument)) -> U) where Element == AssistedInjectionFactory<Argument, U> {
+    public func to<T1>(file: StaticString=#file, line: Int=#line, function: StaticString=#function, elementFactory: @escaping ((T1, Argument)) -> Output) {
         return to(file: file, line: line, function: function) { p in
             let p1: Provider<T1> = p.provider()
 
             return Provider {
-                AssistedInjectionFactory<Argument, U> { argument in
+                Element { argument in
                     elementFactory((p1.get(), argument))
                 }
             }
@@ -22,13 +24,13 @@ public extension BinderProtocol {
     }
 
     // 2-arity `to(elementFactory:)` function.
-    public func to<T1, T2, Argument, U>(file: StaticString=#file, line: Int=#line, function: StaticString=#function, elementFactory: @escaping ((T1, T2, Argument)) -> U) where Element == AssistedInjectionFactory<Argument, U> {
+    public func to<T1, T2>(file: StaticString=#file, line: Int=#line, function: StaticString=#function, elementFactory: @escaping ((T1, T2, Argument)) -> Output) {
         return to(file: file, line: line, function: function) { p in
             let p1: Provider<T1> = p.provider()
             let p2: Provider<T2> = p.provider()
 
             return Provider {
-                AssistedInjectionFactory<Argument, U> { argument in
+                Element { argument in
                     elementFactory((p1.get(), p2.get(), argument))
                 }
             }
@@ -36,14 +38,14 @@ public extension BinderProtocol {
     }
 
     // 3-arity `to(elementFactory:)` function.
-    public func to<T1, T2, T3, Argument, U>(file: StaticString=#file, line: Int=#line, function: StaticString=#function, elementFactory: @escaping ((T1, T2, T3, Argument)) -> U) where Element == AssistedInjectionFactory<Argument, U> {
+    public func to<T1, T2, T3>(file: StaticString=#file, line: Int=#line, function: StaticString=#function, elementFactory: @escaping ((T1, T2, T3, Argument)) -> Output) {
         return to(file: file, line: line, function: function) { p in
             let p1: Provider<T1> = p.provider()
             let p2: Provider<T2> = p.provider()
             let p3: Provider<T3> = p.provider()
 
             return Provider {
-                AssistedInjectionFactory<Argument, U> { argument in
+                Element { argument in
                     elementFactory((p1.get(), p2.get(), p3.get(), argument))
                 }
             }
@@ -51,7 +53,7 @@ public extension BinderProtocol {
     }
 
     // 4-arity `to(elementFactory:)` function.
-    public func to<T1, T2, T3, T4, Argument, U>(file: StaticString=#file, line: Int=#line, function: StaticString=#function, elementFactory: @escaping ((T1, T2, T3, T4, Argument)) -> U) where Element == AssistedInjectionFactory<Argument, U> {
+    public func to<T1, T2, T3, T4>(file: StaticString=#file, line: Int=#line, function: StaticString=#function, elementFactory: @escaping ((T1, T2, T3, T4, Argument)) -> Output) {
         return to(file: file, line: line, function: function) { p in
             let p1: Provider<T1> = p.provider()
             let p2: Provider<T2> = p.provider()
@@ -59,7 +61,7 @@ public extension BinderProtocol {
             let p4: Provider<T4> = p.provider()
 
             return Provider {
-                AssistedInjectionFactory<Argument, U> { argument in
+                Element { argument in
                     elementFactory((p1.get(), p2.get(), p3.get(), p4.get(), argument))
                 }
             }
@@ -67,7 +69,7 @@ public extension BinderProtocol {
     }
 
     // 5-arity `to(elementFactory:)` function.
-    public func to<T1, T2, T3, T4, T5, Argument, U>(file: StaticString=#file, line: Int=#line, function: StaticString=#function, elementFactory: @escaping ((T1, T2, T3, T4, T5, Argument)) -> U) where Element == AssistedInjectionFactory<Argument, U> {
+    public func to<T1, T2, T3, T4, T5>(file: StaticString=#file, line: Int=#line, function: StaticString=#function, elementFactory: @escaping ((T1, T2, T3, T4, T5, Argument)) -> Output) {
         return to(file: file, line: line, function: function) { p in
             let p1: Provider<T1> = p.provider()
             let p2: Provider<T2> = p.provider()
@@ -76,7 +78,7 @@ public extension BinderProtocol {
             let p5: Provider<T5> = p.provider()
 
             return Provider {
-                AssistedInjectionFactory<Argument, U> { argument in
+                Element { argument in
                     elementFactory((p1.get(), p2.get(), p3.get(), p4.get(), p5.get(), argument))
                 }
             }
@@ -84,7 +86,7 @@ public extension BinderProtocol {
     }
 
     // 6-arity `to(elementFactory:)` function.
-    public func to<T1, T2, T3, T4, T5, T6, Argument, U>(file: StaticString=#file, line: Int=#line, function: StaticString=#function, elementFactory: @escaping ((T1, T2, T3, T4, T5, T6, Argument)) -> U) where Element == AssistedInjectionFactory<Argument, U> {
+    public func to<T1, T2, T3, T4, T5, T6>(file: StaticString=#file, line: Int=#line, function: StaticString=#function, elementFactory: @escaping ((T1, T2, T3, T4, T5, T6, Argument)) -> Output) {
         return to(file: file, line: line, function: function) { p in
             let p1: Provider<T1> = p.provider()
             let p2: Provider<T2> = p.provider()
@@ -94,7 +96,7 @@ public extension BinderProtocol {
             let p6: Provider<T6> = p.provider()
 
             return Provider {
-                AssistedInjectionFactory<Argument, U> { argument in
+                Element { argument in
                     elementFactory((p1.get(), p2.get(), p3.get(), p4.get(), p5.get(), p6.get(), argument))
                 }
             }
@@ -102,7 +104,7 @@ public extension BinderProtocol {
     }
 
     // 7-arity `to(elementFactory:)` function.
-    public func to<T1, T2, T3, T4, T5, T6, T7, Argument, U>(file: StaticString=#file, line: Int=#line, function: StaticString=#function, elementFactory: @escaping ((T1, T2, T3, T4, T5, T6, T7, Argument)) -> U) where Element == AssistedInjectionFactory<Argument, U> {
+    public func to<T1, T2, T3, T4, T5, T6, T7>(file: StaticString=#file, line: Int=#line, function: StaticString=#function, elementFactory: @escaping ((T1, T2, T3, T4, T5, T6, T7, Argument)) -> Output) {
         return to(file: file, line: line, function: function) { p in
             let p1: Provider<T1> = p.provider()
             let p2: Provider<T2> = p.provider()
@@ -113,7 +115,7 @@ public extension BinderProtocol {
             let p7: Provider<T7> = p.provider()
 
             return Provider {
-                AssistedInjectionFactory<Argument, U> { argument in
+                Element { argument in
                     elementFactory((p1.get(), p2.get(), p3.get(), p4.get(), p5.get(), p6.get(), p7.get(), argument))
                 }
             }
@@ -121,7 +123,7 @@ public extension BinderProtocol {
     }
 
     // 8-arity `to(elementFactory:)` function.
-    public func to<T1, T2, T3, T4, T5, T6, T7, T8, Argument, U>(file: StaticString=#file, line: Int=#line, function: StaticString=#function, elementFactory: @escaping ((T1, T2, T3, T4, T5, T6, T7, T8, Argument)) -> U) where Element == AssistedInjectionFactory<Argument, U> {
+    public func to<T1, T2, T3, T4, T5, T6, T7, T8>(file: StaticString=#file, line: Int=#line, function: StaticString=#function, elementFactory: @escaping ((T1, T2, T3, T4, T5, T6, T7, T8, Argument)) -> Output) {
         return to(file: file, line: line, function: function) { p in
             let p1: Provider<T1> = p.provider()
             let p2: Provider<T2> = p.provider()
@@ -133,7 +135,7 @@ public extension BinderProtocol {
             let p8: Provider<T8> = p.provider()
 
             return Provider {
-                AssistedInjectionFactory<Argument, U> { argument in
+                Element { argument in
                     elementFactory((p1.get(), p2.get(), p3.get(), p4.get(), p5.get(), p6.get(), p7.get(), p8.get(), argument))
                 }
             }
@@ -141,7 +143,7 @@ public extension BinderProtocol {
     }
 
     // 9-arity `to(elementFactory:)` function.
-    public func to<T1, T2, T3, T4, T5, T6, T7, T8, T9, Argument, U>(file: StaticString=#file, line: Int=#line, function: StaticString=#function, elementFactory: @escaping ((T1, T2, T3, T4, T5, T6, T7, T8, T9, Argument)) -> U) where Element == AssistedInjectionFactory<Argument, U> {
+    public func to<T1, T2, T3, T4, T5, T6, T7, T8, T9>(file: StaticString=#file, line: Int=#line, function: StaticString=#function, elementFactory: @escaping ((T1, T2, T3, T4, T5, T6, T7, T8, T9, Argument)) -> Output) {
         return to(file: file, line: line, function: function) { p in
             let p1: Provider<T1> = p.provider()
             let p2: Provider<T2> = p.provider()
@@ -154,7 +156,7 @@ public extension BinderProtocol {
             let p9: Provider<T9> = p.provider()
 
             return Provider {
-                AssistedInjectionFactory<Argument, U> { argument in
+                Element { argument in
                     elementFactory((p1.get(), p2.get(), p3.get(), p4.get(), p5.get(), p6.get(), p7.get(), p8.get(), p9.get(), argument))
                 }
             }
@@ -162,7 +164,7 @@ public extension BinderProtocol {
     }
 
     // 10-arity `to(elementFactory:)` function.
-    public func to<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, Argument, U>(file: StaticString=#file, line: Int=#line, function: StaticString=#function, elementFactory: @escaping ((T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, Argument)) -> U) where Element == AssistedInjectionFactory<Argument, U> {
+    public func to<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(file: StaticString=#file, line: Int=#line, function: StaticString=#function, elementFactory: @escaping ((T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, Argument)) -> Output) {
         return to(file: file, line: line, function: function) { p in
             let p1: Provider<T1> = p.provider()
             let p2: Provider<T2> = p.provider()
@@ -176,7 +178,7 @@ public extension BinderProtocol {
             let p10: Provider<T10> = p.provider()
 
             return Provider {
-                AssistedInjectionFactory<Argument, U> { argument in
+                Element { argument in
                     elementFactory((p1.get(), p2.get(), p3.get(), p4.get(), p5.get(), p6.get(), p7.get(), p8.get(), p9.get(), p10.get(), argument))
                 }
             }

@@ -15,7 +15,7 @@ public extension BinderProtocol where Element: InjectorProtocol {
             let p1: Provider<T1> = p.provider()
 
             return Provider {
-                Element.init { host in
+                Element { host in
                     injector(host)(p1.get())
                 }
             }
@@ -29,7 +29,7 @@ public extension BinderProtocol where Element: InjectorProtocol {
             let p2: Provider<T2> = p.provider()
 
             return Provider {
-                Element.init { host in
+                Element { host in
                     injector(host)(p1.get(), p2.get())
                 }
             }
@@ -44,7 +44,7 @@ public extension BinderProtocol where Element: InjectorProtocol {
             let p3: Provider<T3> = p.provider()
 
             return Provider {
-                Element.init { host in
+                Element { host in
                     injector(host)(p1.get(), p2.get(), p3.get())
                 }
             }
@@ -60,7 +60,7 @@ public extension BinderProtocol where Element: InjectorProtocol {
             let p4: Provider<T4> = p.provider()
 
             return Provider {
-                Element.init { host in
+                Element { host in
                     injector(host)(p1.get(), p2.get(), p3.get(), p4.get())
                 }
             }
@@ -77,7 +77,7 @@ public extension BinderProtocol where Element: InjectorProtocol {
             let p5: Provider<T5> = p.provider()
 
             return Provider {
-                Element.init { host in
+                Element { host in
                     injector(host)(p1.get(), p2.get(), p3.get(), p4.get(), p5.get())
                 }
             }
@@ -95,7 +95,7 @@ public extension BinderProtocol where Element: InjectorProtocol {
             let p6: Provider<T6> = p.provider()
 
             return Provider {
-                Element.init { host in
+                Element { host in
                     injector(host)(p1.get(), p2.get(), p3.get(), p4.get(), p5.get(), p6.get())
                 }
             }
@@ -114,7 +114,7 @@ public extension BinderProtocol where Element: InjectorProtocol {
             let p7: Provider<T7> = p.provider()
 
             return Provider {
-                Element.init { host in
+                Element { host in
                     injector(host)(p1.get(), p2.get(), p3.get(), p4.get(), p5.get(), p6.get(), p7.get())
                 }
             }
@@ -134,7 +134,7 @@ public extension BinderProtocol where Element: InjectorProtocol {
             let p8: Provider<T8> = p.provider()
 
             return Provider {
-                Element.init { host in
+                Element { host in
                     injector(host)(p1.get(), p2.get(), p3.get(), p4.get(), p5.get(), p6.get(), p7.get(), p8.get())
                 }
             }
@@ -155,7 +155,7 @@ public extension BinderProtocol where Element: InjectorProtocol {
             let p9: Provider<T9> = p.provider()
 
             return Provider {
-                Element.init { host in
+                Element { host in
                     injector(host)(p1.get(), p2.get(), p3.get(), p4.get(), p5.get(), p6.get(), p7.get(), p8.get(), p9.get())
                 }
             }
@@ -177,7 +177,7 @@ public extension BinderProtocol where Element: InjectorProtocol {
             let p10: Provider<T10> = p.provider()
 
             return Provider {
-                Element.init { host in
+                Element { host in
                     injector(host)(p1.get(), p2.get(), p3.get(), p4.get(), p5.get(), p6.get(), p7.get(), p8.get(), p9.get(), p10.get())
                 }
             }
