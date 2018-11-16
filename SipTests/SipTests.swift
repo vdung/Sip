@@ -9,7 +9,11 @@
 import XCTest
 @testable import Sip
 
-private struct Foo {
+private protocol FooProtocol {
+    
+}
+
+private struct Foo: FooProtocol {
     let value: String
 }
 
@@ -19,6 +23,7 @@ private struct FooTag: Tag {
 
 private struct FooTest {
     func inject(
+        fooProtocol: FooProtocol,
         foo: Foo,
         fooProvider: Provider<Foo>,
         fooTagged: Tagged<FooTag>,
@@ -32,6 +37,7 @@ private struct TestComponent: Component {
     struct Module: Sip.Module {
         func configure(binder b: BinderDelegate) {
             b.bind(String.self).to(value: "foo")
+            b.bind(FooProtocol.self).to(factory: Foo.init)
             b.bind(Foo.self).to(factory: Foo.init)
             b.bind(tagged: FooTag.self).to(factory: Foo.init)
             b.bind(intoCollectionOf: Foo.self).to(value: Foo(value: "a"))
@@ -77,7 +83,7 @@ class SipTests: XCTestCase {
             
             switch error {
             case .multipleErrors(let errors):
-                XCTAssertEqual(errors.count, 5)
+                XCTAssertEqual(errors.count, 6)
             default:
                 XCTFail("Expected more than 1 errors")
             }

@@ -29,10 +29,6 @@ extension AnyProvider {
                 return providerType.init(wrapped: wrapped) as! Element
             }
             
-            guard type(of: value) == Element.self else {
-                throw ProviderError.mismatchElement(type: Element.self, wrapped: value)
-            }
-            
             return value as! Element
         }
     }
