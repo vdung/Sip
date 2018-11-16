@@ -21,14 +21,15 @@ func ==(lhs: ContainerKey, rhs: ContainerKey) -> Bool {
 
 class Graph: Container {
 
-    fileprivate var entries: [ContainerKey: AnyBinding]
+    fileprivate let parent: Container?
+    fileprivate var entries: [ContainerKey: AnyBinding] = [:]
 
     convenience init() {
-        self.init(entries: [:])
+        self.init(parent: nil)
     }
 
-    fileprivate init(entries: [ContainerKey: AnyBinding]) {
-        self.entries = entries
+    fileprivate init(parent: Container?) {
+        self.parent = parent
     }
     
     func register<B>(binding: B) where B: BindingBase, B.Element: ProviderBase {
@@ -40,12 +41,32 @@ class Graph: Container {
         }
     }
     
+    func provider<T>() -> T where T: AnyProvider {
+        let type = unwrapType(T.self)
+        guard let binding = getBinding(forType: type) else {
+            preconditionFailure("Unsatisfied dependency: \(type)")
+        }
+        
+        return T.wrap {
+            binding.createProvider(provider: self)
+        }
+    }
+    
     func getBinding(forType type: Any.Type) -> AnyBinding? {
         let key = ContainerKey(type: type)
+        
+        if let binding = entries[key] {
+            return binding
+        }
+        
+        if let binding = parent?.getBinding(forType: type) {
+            entries[key] = binding.copy()
+        }
+        
         return entries[key]
     }
 
     func createSubContainer() -> Graph {
-        return Graph(entries: entries.mapValues { $0.copy() })
+        return Graph(parent: self)
     }
 }

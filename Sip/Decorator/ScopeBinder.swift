@@ -20,10 +20,6 @@ private class SharedBinding<UnderlyingBinding> : DelegatedBinding, BindingBase w
         self.underlyingBinding = binding
     }
 
-    public func createProvider(provider: ProviderProtocol) -> AnyProvider {
-        return createElement(provider: provider)
-    }
-
     func createElement(provider: ProviderProtocol) -> ThrowingProvider<Value> {
         return ThrowingProvider {
             if let value = self.value {

@@ -6,7 +6,7 @@
 //
 
 
-protocol Container: ProviderProtocol, BinderDelegate {
+protocol Container: class, ProviderProtocol, BinderDelegate {
     func getBinding(forType type: Any.Type) -> AnyBinding?
 }
 
@@ -19,16 +19,5 @@ extension Container {
         }
         
         return type
-    }
-    
-    func provider<T>() -> T where T: AnyProvider {
-        let type = unwrapType(T.self)
-        guard let binding = getBinding(forType: type) else {
-            preconditionFailure("Unsatisfied dependency: \(type)")
-        }
-        
-        let provider = binding.createProvider(provider: self)
-        
-        return provider.wrap()
     }
 }

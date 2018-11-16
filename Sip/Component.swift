@@ -23,13 +23,33 @@ public class ComponentBuilder<ComponentElement: Component> {
 
     fileprivate let graph: Graph
     fileprivate var errors: [ValidationError] = []
+    fileprivate var provider: Provider<ComponentElement.Root> {
+        return graph.provider()
+    }
 
     init(graph: Graph) {
         self.graph = graph
     }
+    
+    func validate() throws {
+        guard let binding = graph.getBinding(forType: ComponentElement.Root.self) else {
+            throw ValidationError.rootNotConfigured(component: ComponentElement.self)
+        }
+        
+        let validator = Validator(container: graph)
+        validator.validate(binding: binding, resolvedType: ComponentElement.Root.self)
+        
+        errors.append(contentsOf: validator.errors)
+        
+        if errors.count > 1 {
+            throw ValidationError.multipleErrors(errors)
+        }
+        if errors.count == 1 {
+            throw errors[0]
+        }
+    }
 
     public func build() -> ComponentElement.Root {
-        let provider: Provider<ComponentElement.Root> = graph.provider()
         return provider.get()
     }
 }
@@ -42,13 +62,18 @@ extension ComponentBuilder: ComponentBuilderProtocol {
 
     public func subcomponent<C>(_ componentType: C.Type) where C: Component {
         graph.bind(ComponentBuilder<C>.self).to {
-            let subGraph = self.graph.createSubContainer()
-            let subBuilder = ComponentBuilder<C>(graph: subGraph)
-            let validator = ValidationBinder(elementType: componentType.Root.self, container: subGraph)
-            componentType.configure(builder: subBuilder)
-            componentType.configureRoot(binder: validator)
+            let subBuilder = C.builder(graph: self.graph.createSubContainer())
             
-            self.errors.append(contentsOf: validator.errors + subBuilder.errors)
+            do {
+                try subBuilder.validate()
+            } catch let e as ValidationError {
+                switch (e) {
+                case .multipleErrors(let errors):
+                    self.errors.append(contentsOf: errors)
+                default:
+                    self.errors.append(e)
+                }
+            }
 
             return subBuilder
         }
@@ -56,21 +81,18 @@ extension ComponentBuilder: ComponentBuilderProtocol {
 }
 
 public extension Component {
-    public static func builder() throws -> ComponentBuilder<Self> {
-        let graph = Graph()
+    fileprivate static func builder(graph: Graph) -> ComponentBuilder<Self> {
         let builder = ComponentBuilder<Self>(graph: graph)
-        let validator = ValidationBinder(elementType: Root.self, container: graph)
         configure(builder: builder)
-        configureRoot(binder: validator)
-
-        let errors = validator.errors + builder.errors
-        if errors.count > 1 {
-            throw ValidationError.allErrors(errors)
-        }
-        if errors.count == 1 {
-            throw errors[0]
-        }
-
+        configureRoot(binder: graph.bind(Root.self))
+        
+        
         return builder
+    }
+    
+    public static func builder() throws -> ComponentBuilder<Self> {
+        let b = builder(graph: Graph())
+        try b.validate()
+        return b
     }
 }

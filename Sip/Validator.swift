@@ -6,15 +6,22 @@
 //
 
 enum ValidationError: Error {
+    case rootNotConfigured(component: Any.Type)
     case unsatisfiedDependency(_ type: Any.Type, requiredBy: AnyBinding)
-    indirect case allErrors([ValidationError])
+    case cyclicDependency(cycle: [AnyBinding])
+    indirect case multipleErrors([ValidationError])
+}
+
+private struct ProviderInfo {
+    let binding: AnyBinding
+    let resolvedType: Any.Type
 }
 
 class Validator: ProviderProtocol {
 
     fileprivate let container: Container
-    fileprivate var errors = [ValidationError]()
-    fileprivate var bindingStack = [AnyBinding]()
+    fileprivate var bindingStack = [ProviderInfo]()
+    private(set) var errors = [ValidationError]()
 
     init(container: Container) {
         self.container = container
@@ -24,7 +31,17 @@ class Validator: ProviderProtocol {
         let type = container.unwrapType(T.self)
         
         guard let binding = container.getBinding(forType: type) else {
-            let error = ValidationError.unsatisfiedDependency(type, requiredBy: bindingStack.last!)
+            let error = ValidationError.unsatisfiedDependency(type, requiredBy: bindingStack.last!.binding)
+            errors.append(error)
+            
+            return T(wrapped: ThrowingProvider {
+                throw error
+            })
+        }
+        
+        if let index = bindingStack.lastIndex(where: { $0.resolvedType == T.element }) {
+            let cycle = bindingStack.suffix(from: index).map { $0.binding } + [binding]
+            let error = ValidationError.cyclicDependency(cycle: cycle)
             errors.append(error)
             
             return T(wrapped: ThrowingProvider {
@@ -32,41 +49,18 @@ class Validator: ProviderProtocol {
             })
         }
 
-        bindingStack.append(binding)
+        return T.wrap {
+            self.validate(binding: binding, resolvedType: T.element)
+        }
+    }
+
+    @discardableResult
+    func validate(binding: AnyBinding, resolvedType: Any.Type) -> AnyProvider {
+        bindingStack.append(ProviderInfo(binding: binding, resolvedType: resolvedType))
         defer {
             bindingStack.removeLast()
         }
-
-        let provider = binding.createProvider(provider: self)
-
-        return provider.wrap()
-    }
-
-    func validate<B>(binding: B) where B: BindingBase, B.Element: ProviderBase {
-        bindingStack.append(binding)
-        defer {
-            bindingStack.removeLast()
-        }
-
-        _ = provider() as B.Element
-    }
-}
-
-class ValidationBinder<Element>: BinderProtocol {
-    private let elementType: Element.Type
-    private let container: Container
-    private(set) var errors = [ValidationError]()
-    
-    init(elementType: Element.Type, container: Container) {
-        self.elementType = elementType
-        self.container = container
-    }
-    
-    public func register<B>(binding: B) where B: BindingBase, B.Element: ProviderBase, B.Element.Element == Element {
-        container.register(binding: binding)
         
-        let validator = Validator(container: container)
-        validator.validate(binding: binding)
-        errors.append(contentsOf: validator.errors)
+        return binding.createProvider(provider: self)
     }
 }

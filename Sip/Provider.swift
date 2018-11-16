@@ -37,21 +37,17 @@ extension AnyProvider {
         }
     }
     
-    func wrap<T>() -> T where T: AnyProvider {
-        var providerStack = [AnyProvider.Type]()
-        var providerType: AnyProvider.Type = T.self
-        
-        while let elementType = providerType.element as? AnyProvider.Type {
-            providerStack.append(elementType)
-            providerType = elementType
+    static func wrap(providerFactory: @escaping () -> AnyProvider) -> Self {
+        guard let providerType = Self.element as? AnyProvider.Type else {
+            return Self(wrapped: providerFactory())
         }
         
-        var wrappedProvider: AnyProvider = self
-        while let elementType = providerStack.popLast() {
-            wrappedProvider = WrappingProvider(wrapped: elementType.init(wrapped: wrappedProvider))
+        // Self is provider's provider
+        if providerType.element is AnyProvider.Type {
+            return Self(wrapped: providerType.wrap(providerFactory: providerFactory))
         }
         
-        return T(wrapped: wrappedProvider)
+        return Self(wrapped: WrappingProvider(factory: providerFactory))
     }
 }
 
@@ -109,13 +105,17 @@ struct WrappingProvider: AnyProvider {
         return AnyProvider.self
     }
     
-    private let provider: AnyProvider
+    private let providerFactory: () -> AnyProvider
     
     init(wrapped: AnyProvider) {
-        self.provider = wrapped
+        self.init { wrapped }
+    }
+    
+    init(factory: @escaping () -> AnyProvider) {
+        self.providerFactory = factory
     }
     
     func getAny() throws -> Any {
-        return provider
+        return providerFactory()
     }
 }

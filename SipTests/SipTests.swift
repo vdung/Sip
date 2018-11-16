@@ -76,7 +76,7 @@ class SipTests: XCTestCase {
             }
             
             switch error {
-            case .allErrors(let errors):
+            case .multipleErrors(let errors):
                 XCTAssertEqual(errors.count, 5)
             default:
                 XCTFail("Expected more than 1 errors")
