@@ -24,7 +24,7 @@ struct ParentComponent: Component {
         binder.to(factory: Parent.init)
     }
 
-    static func configure<Builder>(builder: Builder) where ParentComponent == Builder.ComponentElement, Builder: ComponentBuilderProtocol {
+    static func configure<Builder>(builder: Builder) where Builder: ComponentBuilderProtocol {
         builder.include(ParentModule())
         builder.subcomponent(ChildComponent.self)
     }
@@ -51,7 +51,7 @@ struct ChildComponent: Component {
         binder.to(factory: Child.init)
     }
 
-    static func configure<Builder>(builder: Builder) where ChildComponent == Builder.ComponentElement, Builder: ComponentBuilderProtocol {
+    static func configure<Builder>(builder: Builder) where Builder: ComponentBuilderProtocol {
         builder.include(ChildModule())
     }
 }

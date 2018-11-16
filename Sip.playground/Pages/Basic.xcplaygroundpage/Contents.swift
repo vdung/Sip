@@ -77,7 +77,7 @@ struct CoffeShop: Component {
         return binder.to(injector: CoffeeMaker.inject)
     }
 
-    static func configure<Builder>(builder: Builder) where CoffeShop == Builder.ComponentElement, Builder: ComponentBuilderProtocol {
+    static func configure<Builder>(builder: Builder) where Builder: ComponentBuilderProtocol {
         builder.include(PumpModule())
         builder.include(DripCoffeeModule())
     }

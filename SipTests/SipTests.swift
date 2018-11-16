@@ -41,7 +41,7 @@ private struct TestComponent: Component {
 
     typealias Root = Injector<FooTest>
 
-    static func configure<Builder>(builder: Builder) where TestComponent == Builder.ComponentElement, Builder: ComponentBuilderProtocol {
+    static func configure<Builder>(builder: Builder) where Builder: ComponentBuilderProtocol {
         builder.include(Module())
     }
 
@@ -53,7 +53,7 @@ private struct TestComponent: Component {
 private struct InvalidComponent: Component {
     typealias Root = Injector<FooTest>
     
-    static func configure<Builder>(builder: Builder) where InvalidComponent == Builder.ComponentElement, Builder : ComponentBuilderProtocol {
+    static func configure<Builder>(builder: Builder) where Builder : ComponentBuilderProtocol {
         
     }
     

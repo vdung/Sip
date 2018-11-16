@@ -40,7 +40,7 @@ private struct BazComponent: Component {
         binder.sharedInScope().to(factory: Baz.init)
     }
 
-    static func configure<Builder>(builder: Builder) where BazComponent == Builder.ComponentElement, Builder: ComponentBuilderProtocol {
+    static func configure<Builder>(builder: Builder) where Builder: ComponentBuilderProtocol {
     }
 }
 
@@ -54,7 +54,7 @@ private struct TestComponent: Component {
 
     typealias Root = Bar
 
-    static func configure<Builder>(builder: Builder) where TestComponent == Builder.ComponentElement, Builder: ComponentBuilderProtocol {
+    static func configure<Builder>(builder: Builder) where Builder: ComponentBuilderProtocol {
         builder.include(Module())
         builder.subcomponent(BazComponent.self)
     }

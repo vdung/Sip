@@ -38,7 +38,7 @@ private struct TestComponent: Component {
 
     typealias Root = Tagged<BarTag>
 
-    static func configure<Builder>(builder: Builder) where TestComponent == Builder.ComponentElement, Builder: ComponentBuilderProtocol {
+    static func configure<Builder>(builder: Builder) where Builder: ComponentBuilderProtocol {
         builder.include(Module())
     }
 

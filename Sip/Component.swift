@@ -6,7 +6,6 @@
 //
 
 public protocol ComponentBuilderProtocol {
-    associatedtype ComponentElement: Component
 
     func include(_ module: Module)
     func subcomponent<C: Component>(_ componentType: C.Type)
@@ -16,7 +15,7 @@ public protocol Component {
     associatedtype Root
 
     static func configureRoot<B>(binder: B) where B: BinderProtocol, B.Element == Root
-    static func configure<Builder>(builder: Builder) where Builder: ComponentBuilderProtocol, Builder.ComponentElement == Self
+    static func configure<Builder>(builder: Builder) where Builder: ComponentBuilderProtocol
 }
 
 public class ComponentBuilder<ComponentElement: Component> {
@@ -83,9 +82,9 @@ extension ComponentBuilder: ComponentBuilderProtocol {
 public extension Component {
     fileprivate static func builder(graph: Graph) -> ComponentBuilder<Self> {
         let builder = ComponentBuilder<Self>(graph: graph)
+        
         configure(builder: builder)
         configureRoot(binder: graph.bind(Root.self))
-        
         
         return builder
     }

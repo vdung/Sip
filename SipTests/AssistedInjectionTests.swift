@@ -41,7 +41,7 @@ private struct FooComponent: Component {
         }
     }
 
-    static func configure<Builder>(builder: Builder) where FooComponent == Builder.ComponentElement, Builder: ComponentBuilderProtocol {
+    static func configure<Builder>(builder: Builder) where Builder: ComponentBuilderProtocol {
         builder.include(Module())
     }
 
