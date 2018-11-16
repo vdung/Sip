@@ -7,9 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C30A7F83219CF46B00011981 /* AssistedInjectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30A7F82219CF46B00011981 /* AssistedInjectionTests.swift */; };
-		C32F6F2C219E5D0D007DF7E2 /* ThrowingProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32F6F2B219E5D0D007DF7E2 /* ThrowingProviderTests.swift */; };
-		C32F6F2E219E752A007DF7E2 /* CyclicDependencyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32F6F2D219E752A007DF7E2 /* CyclicDependencyTests.swift */; };
+		C32F6F5C219EB69C007DF7E2 /* SipTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32F6F5B219EB69C007DF7E2 /* SipTests.swift */; };
+		C32F6F5E219EB69C007DF7E2 /* Sip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3CA080221994214000DBFAD /* Sip.framework */; };
+		C32F6F6A219EB73B007DF7E2 /* ScopeBindingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32F6F64219EB73B007DF7E2 /* ScopeBindingTests.swift */; };
+		C32F6F6B219EB73B007DF7E2 /* TaggedBindingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32F6F65219EB73B007DF7E2 /* TaggedBindingTests.swift */; };
+		C32F6F6C219EB73B007DF7E2 /* CyclicDependencyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32F6F66219EB73B007DF7E2 /* CyclicDependencyTests.swift */; };
+		C32F6F6D219EB73B007DF7E2 /* ThrowingProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32F6F67219EB73B007DF7E2 /* ThrowingProviderTests.swift */; };
+		C32F6F6E219EB73B007DF7E2 /* CollectionBindingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32F6F68219EB73B007DF7E2 /* CollectionBindingTests.swift */; };
+		C32F6F6F219EB73B007DF7E2 /* AssistedInjectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32F6F69219EB73B007DF7E2 /* AssistedInjectionTests.swift */; };
 		C3B05194219BDF1400762674 /* BinderHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B05192219BDF1400762674 /* BinderHelper.swift */; };
 		C3B05195219BDF1400762674 /* InjectorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B05193219BDF1400762674 /* InjectorHelper.swift */; };
 		C3B0519A219BE2DF00762674 /* Sip.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CA080521994214000DBFAD /* Sip.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -31,13 +36,8 @@
 		C3B051AB219BE2DF00762674 /* BinderDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA082421994343000DBFAD /* BinderDecorator.swift */; };
 		C3B051AC219BE2DF00762674 /* KeyedBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA084321998623000DBFAD /* KeyedBinder.swift */; };
 		C3B051AD219BE2DF00762674 /* TaggedBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA0839219943B6000DBFAD /* TaggedBinder.swift */; };
-		C3B051B6219BF2F200762674 /* TaggedBindingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B051B5219BF2F200762674 /* TaggedBindingTests.swift */; };
-		C3B051B8219BF70300762674 /* ScopeBindingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B051B7219BF70300762674 /* ScopeBindingTests.swift */; };
-		C3B051BA219BFAE000762674 /* CollectionBindingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B051B9219BFAE000762674 /* CollectionBindingTests.swift */; };
 		C3B051BC219C1AB900762674 /* AssistedInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B051BB219C1AB900762674 /* AssistedInjection.swift */; };
 		C3B051BE219C396700762674 /* AssistedInjectionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B051BD219C396700762674 /* AssistedInjectionHelper.swift */; };
-		C3CA080C21994214000DBFAD /* Sip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3CA080221994214000DBFAD /* Sip.framework */; };
-		C3CA081121994214000DBFAD /* SipTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA081021994214000DBFAD /* SipTests.swift */; };
 		C3CA081321994214000DBFAD /* Sip.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CA080521994214000DBFAD /* Sip.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3CA082C21994343000DBFAD /* Component.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA081E21994342000DBFAD /* Component.swift */; };
 		C3CA082E21994343000DBFAD /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA082021994343000DBFAD /* Graph.swift */; };
@@ -59,7 +59,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		C3CA080D21994214000DBFAD /* PBXContainerItemProxy */ = {
+		C32F6F5F219EB69C007DF7E2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C3CA07F921994214000DBFAD /* Project object */;
 			proxyType = 1;
@@ -81,21 +81,21 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		C30A7F82219CF46B00011981 /* AssistedInjectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistedInjectionTests.swift; sourceTree = "<group>"; };
-		C32F6F2B219E5D0D007DF7E2 /* ThrowingProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThrowingProviderTests.swift; sourceTree = "<group>"; };
-		C32F6F2D219E752A007DF7E2 /* CyclicDependencyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyclicDependencyTests.swift; sourceTree = "<group>"; };
+		C32F6F59219EB69C007DF7E2 /* SipTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SipTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C32F6F5B219EB69C007DF7E2 /* SipTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SipTests.swift; sourceTree = "<group>"; };
+		C32F6F64219EB73B007DF7E2 /* ScopeBindingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeBindingTests.swift; sourceTree = "<group>"; };
+		C32F6F65219EB73B007DF7E2 /* TaggedBindingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaggedBindingTests.swift; sourceTree = "<group>"; };
+		C32F6F66219EB73B007DF7E2 /* CyclicDependencyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CyclicDependencyTests.swift; sourceTree = "<group>"; };
+		C32F6F67219EB73B007DF7E2 /* ThrowingProviderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThrowingProviderTests.swift; sourceTree = "<group>"; };
+		C32F6F68219EB73B007DF7E2 /* CollectionBindingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionBindingTests.swift; sourceTree = "<group>"; };
+		C32F6F69219EB73B007DF7E2 /* AssistedInjectionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssistedInjectionTests.swift; sourceTree = "<group>"; };
 		C3B05192219BDF1400762674 /* BinderHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinderHelper.swift; sourceTree = "<group>"; };
 		C3B05193219BDF1400762674 /* InjectorHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InjectorHelper.swift; sourceTree = "<group>"; };
 		C3B051B3219BE2DF00762674 /* SipCocoa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SipCocoa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C3B051B5219BF2F200762674 /* TaggedBindingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaggedBindingTests.swift; sourceTree = "<group>"; };
-		C3B051B7219BF70300762674 /* ScopeBindingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopeBindingTests.swift; sourceTree = "<group>"; };
-		C3B051B9219BFAE000762674 /* CollectionBindingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionBindingTests.swift; sourceTree = "<group>"; };
 		C3B051BB219C1AB900762674 /* AssistedInjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistedInjection.swift; sourceTree = "<group>"; };
 		C3B051BD219C396700762674 /* AssistedInjectionHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssistedInjectionHelper.swift; sourceTree = "<group>"; };
 		C3CA080221994214000DBFAD /* Sip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Sip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3CA080521994214000DBFAD /* Sip.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sip.h; sourceTree = "<group>"; };
-		C3CA080B21994214000DBFAD /* SipTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SipTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C3CA081021994214000DBFAD /* SipTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SipTests.swift; sourceTree = "<group>"; };
 		C3CA081C219942E6000DBFAD /* Sip.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Sip.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C3CA081E21994342000DBFAD /* Component.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Component.swift; sourceTree = "<group>"; };
 		C3CA082021994343000DBFAD /* Graph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.swift; sourceTree = "<group>"; };
@@ -118,6 +118,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		C32F6F56219EB69C007DF7E2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C32F6F5E219EB69C007DF7E2 /* Sip.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C3B051AE219BE2DF00762674 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -132,14 +140,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C3CA080821994214000DBFAD /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C3CA080C21994214000DBFAD /* Sip.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		C3CA085D219AB5A4000DBFAD /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -150,6 +150,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C32F6F5A219EB69C007DF7E2 /* SipTests */ = {
+			isa = PBXGroup;
+			children = (
+				C32F6F69219EB73B007DF7E2 /* AssistedInjectionTests.swift */,
+				C32F6F68219EB73B007DF7E2 /* CollectionBindingTests.swift */,
+				C32F6F66219EB73B007DF7E2 /* CyclicDependencyTests.swift */,
+				C32F6F64219EB73B007DF7E2 /* ScopeBindingTests.swift */,
+				C32F6F5B219EB69C007DF7E2 /* SipTests.swift */,
+				C32F6F65219EB73B007DF7E2 /* TaggedBindingTests.swift */,
+				C32F6F67219EB73B007DF7E2 /* ThrowingProviderTests.swift */,
+			);
+			path = SipTests;
+			sourceTree = "<group>";
+		};
 		C3B05191219BDEE700762674 /* Generated */ = {
 			isa = PBXGroup;
 			children = (
@@ -164,10 +178,10 @@
 			isa = PBXGroup;
 			children = (
 				C3CA081C219942E6000DBFAD /* Sip.playground */,
-				C3CA0861219AB5A4000DBFAD /* SipGen */,
-				C3CA080321994214000DBFAD /* Products */,
 				C3CA080421994214000DBFAD /* Sip */,
-				C3CA080F21994214000DBFAD /* SipTests */,
+				C3CA0861219AB5A4000DBFAD /* SipGen */,
+				C32F6F5A219EB69C007DF7E2 /* SipTests */,
+				C3CA080321994214000DBFAD /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -175,9 +189,9 @@
 			isa = PBXGroup;
 			children = (
 				C3CA080221994214000DBFAD /* Sip.framework */,
-				C3CA080B21994214000DBFAD /* SipTests.xctest */,
 				C3CA0860219AB5A4000DBFAD /* SipGen */,
 				C3B051B3219BE2DF00762674 /* SipCocoa.framework */,
+				C32F6F59219EB69C007DF7E2 /* SipTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -185,9 +199,8 @@
 		C3CA080421994214000DBFAD /* Sip */ = {
 			isa = PBXGroup;
 			children = (
-				C3B05191219BDEE700762674 /* Generated */,
-				C3CA08422199718D000DBFAD /* Decorator */,
 				C3CA080521994214000DBFAD /* Sip.h */,
+				C3B051BB219C1AB900762674 /* AssistedInjection.swift */,
 				C3CA082721994343000DBFAD /* Binder.swift */,
 				C3CA082421994343000DBFAD /* BinderDecorator.swift */,
 				C3CA082521994343000DBFAD /* Binding.swift */,
@@ -200,23 +213,10 @@
 				C3CA082221994343000DBFAD /* ProviderProtocol.swift */,
 				C3CA082921994343000DBFAD /* Sip.swift */,
 				C3CA082621994343000DBFAD /* Validator.swift */,
-				C3B051BB219C1AB900762674 /* AssistedInjection.swift */,
+				C3CA08422199718D000DBFAD /* Decorator */,
+				C3B05191219BDEE700762674 /* Generated */,
 			);
 			path = Sip;
-			sourceTree = "<group>";
-		};
-		C3CA080F21994214000DBFAD /* SipTests */ = {
-			isa = PBXGroup;
-			children = (
-				C3CA081021994214000DBFAD /* SipTests.swift */,
-				C3B051B5219BF2F200762674 /* TaggedBindingTests.swift */,
-				C3B051B7219BF70300762674 /* ScopeBindingTests.swift */,
-				C3B051B9219BFAE000762674 /* CollectionBindingTests.swift */,
-				C30A7F82219CF46B00011981 /* AssistedInjectionTests.swift */,
-				C32F6F2B219E5D0D007DF7E2 /* ThrowingProviderTests.swift */,
-				C32F6F2D219E752A007DF7E2 /* CyclicDependencyTests.swift */,
-			);
-			path = SipTests;
 			sourceTree = "<group>";
 		};
 		C3CA08422199718D000DBFAD /* Decorator */ = {
@@ -260,6 +260,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		C32F6F58219EB69C007DF7E2 /* SipTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C32F6F61219EB69C007DF7E2 /* Build configuration list for PBXNativeTarget "SipTests" */;
+			buildPhases = (
+				C32F6F55219EB69C007DF7E2 /* Sources */,
+				C32F6F56219EB69C007DF7E2 /* Frameworks */,
+				C32F6F57219EB69C007DF7E2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C32F6F60219EB69C007DF7E2 /* PBXTargetDependency */,
+			);
+			name = SipTests;
+			productName = SipTests;
+			productReference = C32F6F59219EB69C007DF7E2 /* SipTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		C3B05198219BE2DF00762674 /* SipCocoa */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C3B051B0219BE2DF00762674 /* Build configuration list for PBXNativeTarget "SipCocoa" */;
@@ -296,24 +314,6 @@
 			productReference = C3CA080221994214000DBFAD /* Sip.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		C3CA080A21994214000DBFAD /* SipTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C3CA081921994214000DBFAD /* Build configuration list for PBXNativeTarget "SipTests" */;
-			buildPhases = (
-				C3CA080721994214000DBFAD /* Sources */,
-				C3CA080821994214000DBFAD /* Frameworks */,
-				C3CA080921994214000DBFAD /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				C3CA080E21994214000DBFAD /* PBXTargetDependency */,
-			);
-			name = SipTests;
-			productName = SipTests;
-			productReference = C3CA080B21994214000DBFAD /* SipTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		C3CA085F219AB5A4000DBFAD /* SipGen */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C3CA0866219AB5A4000DBFAD /* Build configuration list for PBXNativeTarget "SipGen" */;
@@ -341,12 +341,12 @@
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Cao Viet Dung";
 				TargetAttributes = {
+					C32F6F58219EB69C007DF7E2 = {
+						CreatedOnToolsVersion = 10.1;
+					};
 					C3CA080121994214000DBFAD = {
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1010;
-					};
-					C3CA080A21994214000DBFAD = {
-						CreatedOnToolsVersion = 10.1;
 					};
 					C3CA085F219AB5A4000DBFAD = {
 						CreatedOnToolsVersion = 10.1;
@@ -366,14 +366,21 @@
 			projectRoot = "";
 			targets = (
 				C3CA080121994214000DBFAD /* Sip */,
-				C3CA080A21994214000DBFAD /* SipTests */,
 				C3CA085F219AB5A4000DBFAD /* SipGen */,
 				C3B05198219BE2DF00762674 /* SipCocoa */,
+				C32F6F58219EB69C007DF7E2 /* SipTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		C32F6F57219EB69C007DF7E2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C3B051AF219BE2DF00762674 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -388,16 +395,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C3CA080921994214000DBFAD /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		C32F6F55219EB69C007DF7E2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C32F6F6A219EB73B007DF7E2 /* ScopeBindingTests.swift in Sources */,
+				C32F6F6F219EB73B007DF7E2 /* AssistedInjectionTests.swift in Sources */,
+				C32F6F6B219EB73B007DF7E2 /* TaggedBindingTests.swift in Sources */,
+				C32F6F5C219EB69C007DF7E2 /* SipTests.swift in Sources */,
+				C32F6F6C219EB73B007DF7E2 /* CyclicDependencyTests.swift in Sources */,
+				C32F6F6D219EB73B007DF7E2 /* ThrowingProviderTests.swift in Sources */,
+				C32F6F6E219EB73B007DF7E2 /* CollectionBindingTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C3B0519B219BE2DF00762674 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -450,20 +464,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C3CA080721994214000DBFAD /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C3CA081121994214000DBFAD /* SipTests.swift in Sources */,
-				C30A7F83219CF46B00011981 /* AssistedInjectionTests.swift in Sources */,
-				C32F6F2C219E5D0D007DF7E2 /* ThrowingProviderTests.swift in Sources */,
-				C32F6F2E219E752A007DF7E2 /* CyclicDependencyTests.swift in Sources */,
-				C3B051BA219BFAE000762674 /* CollectionBindingTests.swift in Sources */,
-				C3B051B6219BF2F200762674 /* TaggedBindingTests.swift in Sources */,
-				C3B051B8219BF70300762674 /* ScopeBindingTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		C3CA085C219AB5A4000DBFAD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -475,20 +475,60 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		C3CA080E21994214000DBFAD /* PBXTargetDependency */ = {
+		C32F6F60219EB69C007DF7E2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C3CA080121994214000DBFAD /* Sip */;
-			targetProxy = C3CA080D21994214000DBFAD /* PBXContainerItemProxy */;
+			targetProxy = C32F6F5F219EB69C007DF7E2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		C32F6F62219EB69C007DF7E2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Sip.xcodeproj/SipTests_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_BUNDLE_IDENTIFIER = vdung.SipTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 4.2;
+			};
+			name = Debug;
+		};
+		C32F6F63219EB69C007DF7E2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Sip.xcodeproj/SipTests_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_BUNDLE_IDENTIFIER = vdung.SipTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 4.2;
+			};
+			name = Release;
+		};
 		C3B051B1219BE2DF00762674 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -514,7 +554,7 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -709,50 +749,6 @@
 			};
 			name = Release;
 		};
-		C3CA081A21994214000DBFAD /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = Sip.xcodeproj/SipTests_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = vdung.SipTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = macosx;
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		C3CA081B21994214000DBFAD /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = Sip.xcodeproj/SipTests_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = vdung.SipTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = macosx;
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 		C3CA0864219AB5A4000DBFAD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -780,6 +776,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		C32F6F61219EB69C007DF7E2 /* Build configuration list for PBXNativeTarget "SipTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C32F6F62219EB69C007DF7E2 /* Debug */,
+				C32F6F63219EB69C007DF7E2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C3B051B0219BE2DF00762674 /* Build configuration list for PBXNativeTarget "SipCocoa" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -803,15 +808,6 @@
 			buildConfigurations = (
 				C3CA081721994214000DBFAD /* Debug */,
 				C3CA081821994214000DBFAD /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		C3CA081921994214000DBFAD /* Build configuration list for PBXNativeTarget "SipTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C3CA081A21994214000DBFAD /* Debug */,
-				C3CA081B21994214000DBFAD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

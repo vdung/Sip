@@ -17,7 +17,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C3CA080A21994214000DBFAD"
+               BlueprintIdentifier = "C32F6F58219EB69C007DF7E2"
                BuildableName = "SipTests.xctest"
                BlueprintName = "SipTests"
                ReferencedContainer = "container:Sip.xcodeproj">
