@@ -48,10 +48,10 @@ public extension BinderProtocol {
         }
     }
 
-    public func to(file: StaticString=#file, line: Int=#line, function: StaticString=#function, factory: @escaping () -> Element) {
+    public func to(file: StaticString=#file, line: Int=#line, function: StaticString=#function, factory: @escaping () throws -> Element) {
         to(file: file, line: line, function: function) { _ in
-            return Provider {
-                factory()
+            return ThrowingProvider {
+                try factory()
             }
         }
     }

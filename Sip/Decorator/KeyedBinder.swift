@@ -3,7 +3,6 @@
 //  Sip
 //
 //  Created by Cao Viet Dung on 2018/11/12.
-//  Copyright © 2018 Cao Viet Dung. All rights reserved.
 //
 
 private class KeyedBinding<UnderlyingBinding, Key> : DelegatedBinding, BindingBase where UnderlyingBinding: BindingBase, UnderlyingBinding.Element: ProviderBase {

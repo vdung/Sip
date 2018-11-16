@@ -37,9 +37,10 @@ func generateBinderHelper(toFile path: URL) throws {
     try content.write(to: path, atomically: true, encoding: .utf8)
 }
 
-func generateProvider(arity: Int) -> String {
+func generateProvider(arity: Int, throwing: Bool = false) -> String {
+    let providerType = throwing ? "ThrowingProvider" : "Provider"
     return (1...arity).map {
-        "            let p\($0): Provider<T\($0)> = p.provider()"
+        "            let p\($0): \(providerType)<T\($0)> = p.provider()"
         }.joined(separator: "\n")
 }
 
@@ -49,12 +50,12 @@ func generateBinderFunc(arity: Int) -> String {
     let content = """
 
         // \(arity)-arity `to(factory:)` function.
-        public func to<\(arityTypes)>(\(debugArgs), factory: @escaping ((\(arityTypes))) -> Element) {
-            to(file: file, line: line, function: function, creator: { p -> Provider<Element> in
-    \(generateProvider(arity: arity))
+        public func to<\(arityTypes)>(\(debugArgs), factory: @escaping ((\(arityTypes))) throws -> Element) {
+            to(file: file, line: line, function: function, creator: { p -> ThrowingProvider<Element> in
+    \(generateProvider(arity: arity, throwing: true))
 
-                return Provider {
-                    factory((\((1...arity).map { "p\($0).get()" }.joined(separator: ", "))))
+                return ThrowingProvider {
+                    try factory((\((1...arity).map { "try p\($0).get()" }.joined(separator: ", "))))
                 }
             })
         }

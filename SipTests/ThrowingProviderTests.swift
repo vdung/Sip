@@ -10,7 +10,9 @@ import XCTest
 @testable import Sip
 
 private struct Foo {
-    
+    init() throws {
+        throw FooError.foo
+    }
 }
 
 private struct Bar {
@@ -30,11 +32,7 @@ private struct TestComponent: Component {
     typealias Root = Test
     struct Module: Sip.Module {
         func configure(binder: BinderDelegate) {
-            binder.bind(Foo.self).to { _ in
-                ThrowingProvider<Foo> {
-                    throw FooError.foo
-                }
-            }
+            binder.bind(Foo.self).to(factory: Foo.init)
             binder.bind(Bar.self).to(factory: Bar.init)
         }
     }
