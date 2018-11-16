@@ -19,14 +19,8 @@ public struct Tagged<T: Tag> {
     }
 }
 
-public extension ProviderBase {
-    func tagged<TagType: Tag>() -> Provider<Tagged<TagType>> where TagType.Element == Element {
-        return to { value in Tagged(value: value) }
-    }
-}
-
 private class TaggedBinding<UnderlyingBinding, TagType> : DelegatedBinding, BindingBase where UnderlyingBinding: BindingBase, UnderlyingBinding.Element: ProviderBase, TagType: Tag, TagType.Element == UnderlyingBinding.Element.Element {
-    typealias Element = Provider<Tagged<TagType>>
+    typealias Element = ThrowingProvider<Tagged<TagType>>
 
     private let underlyingBinding: UnderlyingBinding
 
@@ -38,10 +32,10 @@ private class TaggedBinding<UnderlyingBinding, TagType> : DelegatedBinding, Bind
         self.underlyingBinding = binding
     }
 
-    func createElement(provider: ProviderProtocol) -> Provider<Tagged<TagType>> {
+    func createElement(provider: ProviderProtocol) -> ThrowingProvider<Tagged<TagType>> {
         let p = underlyingBinding.createElement(provider: provider)
-        return Provider {
-            return Tagged<TagType>(value: p.get())
+        return ThrowingProvider {
+            return Tagged<TagType>(value: try p.get())
         }
     }
 

@@ -7,7 +7,7 @@
 
 private class SharedBinding<UnderlyingBinding> : DelegatedBinding, BindingBase where UnderlyingBinding: BindingBase, UnderlyingBinding.Element: ProviderBase {
     typealias Value = UnderlyingBinding.Element.Element
-    typealias Element = Provider<Value>
+    typealias Element = ThrowingProvider<Value>
 
     private var value: Value?
     private let underlyingBinding: UnderlyingBinding
@@ -24,13 +24,13 @@ private class SharedBinding<UnderlyingBinding> : DelegatedBinding, BindingBase w
         return createElement(provider: provider)
     }
 
-    func createElement(provider: ProviderProtocol) -> Provider<Value> {
-        return Provider {
+    func createElement(provider: ProviderProtocol) -> ThrowingProvider<Value> {
+        return ThrowingProvider {
             if let value = self.value {
                 return value
             }
             let p = self.underlyingBinding.createElement(provider: provider)
-            self.value = p.get()
+            self.value = try p.get()
             return self.value!
         }
     }

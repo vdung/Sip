@@ -22,6 +22,7 @@ public protocol Component {
 public class ComponentBuilder<ComponentElement: Component> {
 
     fileprivate let graph: Graph
+    fileprivate var errors: [ValidationError] = []
 
     init(graph: Graph) {
         self.graph = graph
@@ -43,8 +44,11 @@ extension ComponentBuilder: ComponentBuilderProtocol {
         graph.bind(ComponentBuilder<C>.self).to {
             let subGraph = self.graph.createSubContainer()
             let subBuilder = ComponentBuilder<C>(graph: subGraph)
+            let validator = ValidationBinder(elementType: componentType.Root.self, container: subGraph)
             componentType.configure(builder: subBuilder)
-            componentType.configureRoot(binder: subGraph.bind(componentType.Root.self))
+            componentType.configureRoot(binder: validator)
+            
+            self.errors.append(contentsOf: validator.errors + subBuilder.errors)
 
             return subBuilder
         }
@@ -55,10 +59,17 @@ public extension Component {
     public static func builder() throws -> ComponentBuilder<Self> {
         let graph = Graph()
         let builder = ComponentBuilder<Self>(graph: graph)
+        let validator = ValidationBinder(elementType: Root.self, container: graph)
         configure(builder: builder)
-        configureRoot(binder: graph.bind(Root.self))
+        configureRoot(binder: validator)
 
-        try graph.validate(Root.self)
+        let errors = validator.errors + builder.errors
+        if errors.count > 1 {
+            throw ValidationError.allErrors(errors)
+        }
+        if errors.count == 1 {
+            throw errors[0]
+        }
 
         return builder
     }

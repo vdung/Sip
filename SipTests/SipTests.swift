@@ -50,10 +50,38 @@ private struct TestComponent: Component {
     }
 }
 
+private struct InvalidComponent: Component {
+    typealias Root = Injector<FooTest>
+    
+    static func configure<Builder>(builder: Builder) where InvalidComponent == Builder.ComponentElement, Builder : ComponentBuilderProtocol {
+        
+    }
+    
+    static func configureRoot<B>(binder: B) where B : BinderProtocol, InvalidComponent.Root == B.Element {
+        binder.to(injector: FooTest.inject)
+    }
+}
+
 class SipTests: XCTestCase {
 
     func testAllUseCases() {
         XCTAssertNoThrow(try TestComponent.builder().build().inject(FooTest()))
+    }
+    
+    func testValidationError() {
+        XCTAssertThrowsError(try InvalidComponent.builder(), "Expected validation error") {
+            guard let error = $0 as? ValidationError else {
+                XCTFail("Expected a validation error")
+                return
+            }
+            
+            switch error {
+            case .allErrors(let errors):
+                XCTAssertEqual(errors.count, 5)
+            default:
+                XCTFail("Expected more than 1 errors")
+            }
+        }
     }
 
 }

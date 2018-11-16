@@ -50,13 +50,13 @@ func generateBinderFunc(arity: Int) -> String {
 
         // \(arity)-arity `to(factory:)` function.
         public func to<\(arityTypes)>(\(debugArgs), factory: @escaping ((\(arityTypes))) -> Element) {
-            return to(file: file, line: line, function: function) { p in
+            to(file: file, line: line, function: function, creator: { p -> Provider<Element> in
     \(generateProvider(arity: arity))
 
                 return Provider {
                     factory((\((1...arity).map { "p\($0).get()" }.joined(separator: ", "))))
                 }
-            }
+            })
         }
     """
 
@@ -82,7 +82,7 @@ func generateInjectorFunc(arity: Int) -> String {
 
         // \(arity)-arity `to(injector:)` function.
         public func to<\(arityTypes)>(\(debugArgs), injector: @escaping (InjectionHost) -> (\(arityTypes)) -> Void) {
-            return to(file: file, line: line, function: function) { p in
+            to(file: file, line: line, function: function, creator: { p -> Provider<Element> in
     \(generateProvider(arity: arity))
 
                 return Provider {
@@ -90,7 +90,7 @@ func generateInjectorFunc(arity: Int) -> String {
                         injector(host)(\((1...arity).map { "p\($0).get()" }.joined(separator: ", ")))
                     }
                 }
-            }
+            })
         }
     """
 
@@ -117,8 +117,8 @@ func generateAssistedInjectionFunc(arity: Int) -> String {
     let content = """
 
         // \(arity)-arity `to(elementFactory:)` function.
-        public func to<\(arityTypes)>(\(debugArgs), elementFactory: @escaping ((\(arityTypes), Argument) -> Output) {
-            return to(file: file, line: line, function: function) { p in
+        public func to<\(arityTypes)>(\(debugArgs), elementFactory: @escaping (\(arityTypes), Argument) -> Output) {
+            to(file: file, line: line, function: function, creator: { p -> Provider<Element> in
     \(generateProvider(arity: arity))
 
                 return Provider {
@@ -126,7 +126,7 @@ func generateAssistedInjectionFunc(arity: Int) -> String {
                         elementFactory(\((1...arity).map { "p\($0).get()" }.joined(separator: ", ")), argument)
                     }
                 }
-            }
+            })
         }
     """
 

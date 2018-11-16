@@ -9,7 +9,7 @@
 private class KeyedBinding<UnderlyingBinding, Key> : DelegatedBinding, BindingBase where UnderlyingBinding: BindingBase, UnderlyingBinding.Element: ProviderBase {
 
     typealias Value = UnderlyingBinding.Element.Element
-    typealias Element = Provider<(key: Key, value: Value)>
+    typealias Element = ThrowingProvider<(key: Key, value: Value)>
 
     private let underlyingBinding: UnderlyingBinding
     private let key: Key
@@ -27,11 +27,11 @@ private class KeyedBinding<UnderlyingBinding, Key> : DelegatedBinding, BindingBa
         return KeyedBinding(binding: underlyingBinding, key: key)
     }
 
-    func createElement(provider: ProviderProtocol) -> Provider<(key: Key, value: UnderlyingBinding.Element.Element)> {
+    func createElement(provider: ProviderProtocol) -> ThrowingProvider<(key: Key, value: UnderlyingBinding.Element.Element)> {
         let p = underlyingBinding.createElement(provider: provider)
         let key = self.key
-        return Provider {
-            (key, p.get())
+        return ThrowingProvider {
+            (key, try p.get())
         }
     }
 }

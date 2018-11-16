@@ -22,35 +22,51 @@ class Validator: ProviderProtocol {
 
     func provider<T>() -> T where T: AnyProvider {
         let type = container.unwrapType(T.self)
+        
         guard let binding = container.getBinding(forType: type) else {
-            errors.append(ValidationError.unsatisfiedDependency(type, requiredBy: bindingStack.last!))
-            return T.init()
+            let error = ValidationError.unsatisfiedDependency(type, requiredBy: bindingStack.last!)
+            errors.append(error)
+            
+            return T(wrapped: ThrowingProvider {
+                throw error
+            })
         }
 
         bindingStack.append(binding)
         defer {
-            _ = bindingStack.popLast()
+            bindingStack.removeLast()
         }
 
-        var provider = binding.createProvider(provider: self)
+        let provider = binding.createProvider(provider: self)
 
-        provider = container.wrapProvider(provider, rawType: T.self)
-
-        return provider.getAny() as! T
+        return provider.wrap()
     }
 
-    func validate<T>(_ type: T.Type, file: StaticString = #file, line: Int = #line, function: StaticString = #function) throws {
-        bindingStack.append(Binding<Provider<T>>(file: file, line: line, function: function, bindingType: .unique) { _ in
-            preconditionFailure("Should not ever be called")
-        })
+    func validate<B>(binding: B) where B: BindingBase, B.Element: ProviderBase {
+        bindingStack.append(binding)
         defer {
-            _ = bindingStack.popLast()
+            bindingStack.removeLast()
         }
 
-        _ = provider() as Provider<T>
+        _ = provider() as B.Element
+    }
+}
 
-        if errors.count > 0 {
-            throw ValidationError.allErrors(errors)
-        }
+class ValidationBinder<Element>: BinderProtocol {
+    private let elementType: Element.Type
+    private let container: Container
+    private(set) var errors = [ValidationError]()
+    
+    init(elementType: Element.Type, container: Container) {
+        self.elementType = elementType
+        self.container = container
+    }
+    
+    public func register<B>(binding: B) where B: BindingBase, B.Element: ProviderBase, B.Element.Element == Element {
+        container.register(binding: binding)
+        
+        let validator = Validator(container: container)
+        validator.validate(binding: binding)
+        errors.append(contentsOf: validator.errors)
     }
 }

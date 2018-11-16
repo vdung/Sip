@@ -37,7 +37,7 @@ extension Dictionary: CollectionBindingResult {
 
 private class CollectionBinding<UnderlyingBinding, CollectionType>: DelegatedBinding, BindingBase where CollectionType: CollectionBindingResult, UnderlyingBinding: BindingBase, UnderlyingBinding.Element: ProviderBase, UnderlyingBinding.Element.Element == CollectionType.Element {
 
-    typealias Element = Provider<CollectionType>
+    typealias Element = ThrowingProvider<CollectionType>
     typealias CollectionBindingType = CollectionBinding<UnderlyingBinding, CollectionType>
 
     private let collectionType: CollectionType.Type
@@ -63,8 +63,11 @@ private class CollectionBinding<UnderlyingBinding, CollectionType>: DelegatedBin
     }
 
     private func addBinding(_ binding: AnyBinding) {
-        if binding.element != Element.self {
-            preconditionFailure("Expected a binding for \(Element.self), got \(binding)")
+        guard let providerType = binding.element as? AnyProvider.Type else {
+            preconditionFailure("Expected a binding of a provider, got \(binding)")
+        }
+        if providerType.element != Element.Element.self {
+            preconditionFailure("Expected a binding for \(Element.Element.self), got \(binding)")
         }
         bindings.append(binding)
     }
@@ -73,14 +76,14 @@ private class CollectionBinding<UnderlyingBinding, CollectionType>: DelegatedBin
         return CollectionBinding(collectionType: collectionType, firstBinding: firstBinding, otherBindings: bindings)
     }
 
-    func createElement(provider: ProviderProtocol) -> Provider<CollectionType> {
+    func createElement(provider: ProviderProtocol) -> ThrowingProvider<CollectionType> {
         let firstProvider = firstBinding.createElement(provider: provider)
-        let addedProviders = bindings.map { $0.createProvider(provider: provider) as! Element }
+        let addedProviders = bindings.map { Element(wrapped: $0.createProvider(provider: provider)) }
 
-        return Provider {
-            addedProviders.reduce(self.collectionType.create(firstProvider.get()), { (result, p) in
+        return ThrowingProvider {
+            try addedProviders.reduce(self.collectionType.create(try firstProvider.get()), { (result, p) in
                 var newResult = result
-                return newResult.mergeWith(p.get())
+                return newResult.mergeWith(try p.get())
             })
         }
     }

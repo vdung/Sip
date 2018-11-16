@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C30A7F83219CF46B00011981 /* AssistedInjectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30A7F82219CF46B00011981 /* AssistedInjectionTests.swift */; };
+		C32F6F2C219E5D0D007DF7E2 /* ThrowingProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32F6F2B219E5D0D007DF7E2 /* ThrowingProviderTests.swift */; };
 		C3B05194219BDF1400762674 /* BinderHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B05192219BDF1400762674 /* BinderHelper.swift */; };
 		C3B05195219BDF1400762674 /* InjectorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B05193219BDF1400762674 /* InjectorHelper.swift */; };
 		C3B0519A219BE2DF00762674 /* Sip.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CA080521994214000DBFAD /* Sip.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -80,6 +81,7 @@
 
 /* Begin PBXFileReference section */
 		C30A7F82219CF46B00011981 /* AssistedInjectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistedInjectionTests.swift; sourceTree = "<group>"; };
+		C32F6F2B219E5D0D007DF7E2 /* ThrowingProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThrowingProviderTests.swift; sourceTree = "<group>"; };
 		C3B05192219BDF1400762674 /* BinderHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinderHelper.swift; sourceTree = "<group>"; };
 		C3B05193219BDF1400762674 /* InjectorHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InjectorHelper.swift; sourceTree = "<group>"; };
 		C3B051B3219BE2DF00762674 /* SipCocoa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SipCocoa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -209,6 +211,7 @@
 				C3B051B7219BF70300762674 /* ScopeBindingTests.swift */,
 				C3B051B9219BFAE000762674 /* CollectionBindingTests.swift */,
 				C30A7F82219CF46B00011981 /* AssistedInjectionTests.swift */,
+				C32F6F2B219E5D0D007DF7E2 /* ThrowingProviderTests.swift */,
 			);
 			path = SipTests;
 			sourceTree = "<group>";
@@ -450,6 +453,7 @@
 			files = (
 				C3CA081121994214000DBFAD /* SipTests.swift in Sources */,
 				C30A7F83219CF46B00011981 /* AssistedInjectionTests.swift in Sources */,
+				C32F6F2C219E5D0D007DF7E2 /* ThrowingProviderTests.swift in Sources */,
 				C3B051BA219BFAE000762674 /* CollectionBindingTests.swift in Sources */,
 				C3B051B6219BF2F200762674 /* TaggedBindingTests.swift in Sources */,
 				C3B051B8219BF70300762674 /* ScopeBindingTests.swift in Sources */,

@@ -38,18 +38,18 @@ public extension BinderDelegate {
 
 public extension BinderProtocol {
 
-    internal func to(file: StaticString=#file, line: Int=#line, function: StaticString=#function, bindingType: BindingType = .unique, creator: @escaping CreatorFunc<Provider<Element>>) {
-        return register(binding: Binding(file: file, line: line, function: function, bindingType: bindingType, create: creator))
+    internal func to<P>(file: StaticString=#file, line: Int=#line, function: StaticString=#function, bindingType: BindingType = .unique, creator: @escaping CreatorFunc<P>) where P: ProviderBase, P.Element == Element {
+        register(binding: Binding(file: file, line: line, function: function, bindingType: bindingType, create: creator))
     }
 
     public func to(file: StaticString=#file, line: Int=#line, function: StaticString=#function, value: Element) {
-        return to(file: file, line: line, function: function) {
+        to(file: file, line: line, function: function) {
             _ in Provider { value }
         }
     }
 
     public func to(file: StaticString=#file, line: Int=#line, function: StaticString=#function, factory: @escaping () -> Element) {
-        return to(file: file, line: line, function: function) { _ in
+        to(file: file, line: line, function: function) { _ in
             return Provider {
                 factory()
             }

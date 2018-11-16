@@ -48,9 +48,4 @@ class Graph: Container {
     func createSubContainer() -> Graph {
         return Graph(entries: entries.mapValues { $0.copy() })
     }
-
-    func validate<T>(_ type: T.Type, file: StaticString = #file, line: Int = #line, function: StaticString = #function) throws {
-        let validator = Validator(container: self)
-        try validator.validate(type, file: file, line: line, function: function)
-    }
 }
