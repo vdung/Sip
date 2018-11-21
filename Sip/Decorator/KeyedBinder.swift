@@ -16,14 +16,14 @@ private class KeyedBinding<UnderlyingBinding, Key> : DelegatedBinding, BindingBa
     var delegate: AnyBinding {
         return underlyingBinding
     }
+    
+    required convenience init(copy: KeyedBinding<UnderlyingBinding, Key>) {
+        self.init(binding: UnderlyingBinding(copy: copy.underlyingBinding), key: copy.key)
+    }
 
     init(binding: UnderlyingBinding, key: Key) {
         self.underlyingBinding = binding
         self.key = key
-    }
-
-    func copy() -> AnyBinding {
-        return KeyedBinding(binding: underlyingBinding, key: key)
     }
 
     func createElement(provider: ProviderProtocol) -> ThrowingProvider<(key: Key, value: UnderlyingBinding.Element.Element)> {

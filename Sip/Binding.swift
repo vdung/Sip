@@ -8,6 +8,15 @@
 public enum BindingType {
     case unique
     case collection((AnyBinding) -> Void)
+    
+    func isMultiBinding() -> Bool {
+        switch self {
+        case .collection:
+            return true
+        default:
+            return false
+        }
+    }
 
     func acceptBinding(_ binding: AnyBinding) {
         switch self {
@@ -32,13 +41,17 @@ public protocol AnyBinding {
 
 public protocol BindingBase: AnyBinding, CustomStringConvertible {
     associatedtype Element
-
+    init(copy: Self)
     func createElement(provider: ProviderProtocol) -> Element
 }
 
 extension BindingBase where Element: AnyProvider {
     public func createProvider(provider: ProviderProtocol) -> AnyProvider {
         return createElement(provider: provider)
+    }
+    
+    public func copy() -> AnyBinding {
+        return Self.init(copy: self)
     }
 }
 
@@ -50,7 +63,7 @@ protocol DelegatedBinding {
     var delegate: AnyBinding { get }
 }
 
-extension DelegatedBinding where Self: BindingBase {
+extension DelegatedBinding where Self: AnyBinding {
     var file: StaticString { return delegate.file }
     var line: Int { return delegate.line }
     var function: StaticString { return delegate.function }
@@ -67,12 +80,6 @@ public struct Binding<Element> {
     let create: CreatorFunc<Element>
 }
 
-extension Binding {
-    func convert<U>(converter: (@escaping CreatorFunc<Element>) -> CreatorFunc<U>) -> Binding<U> {
-        return Binding<U>(file: file, line: line, function: function, bindingType: bindingType, create: converter(create))
-    }
-}
-
 extension AnyBinding {
     public var description: String {
         return "type \(element) in file \(file) line \(line)"
@@ -80,8 +87,9 @@ extension AnyBinding {
 }
 
 extension Binding: AnyBinding, BindingBase, CustomStringConvertible where Element: AnyProvider {
-    public func copy() -> AnyBinding {
-        return Binding(file: file, line: line, function: function, bindingType: bindingType, create: create)
+    
+    public init(copy: Binding<Element>) {
+        self.init(file: copy.file, line: copy.line, function: copy.function, bindingType: copy.bindingType, create: copy.create)
     }
 
     public func createElement(provider: ProviderProtocol) -> Element {

@@ -19,30 +19,12 @@ func ==(lhs: ContainerKey, rhs: ContainerKey) -> Bool {
     return lhs.type == rhs.type
 }
 
-class Graph: Container {
+struct Graph: ProviderProtocol {
 
-    fileprivate let parent: Container?
-    fileprivate var entries: [ContainerKey: AnyBinding] = [:]
-
-    convenience init() {
-        self.init(parent: nil)
-    }
-
-    fileprivate init(parent: Container?) {
-        self.parent = parent
-    }
-    
-    func register<B>(binding: B) where B: BindingBase, B.Element: ProviderBase {
-        let type = unwrapType(B.Element.Element.self)
-        if let existingBinding = getBinding(forType: type) {
-            existingBinding.bindingType.acceptBinding(binding)
-        } else {
-            entries[ContainerKey(type: B.Element.Element.self)] = binding
-        }
-    }
+    fileprivate let entries: [ContainerKey: AnyBinding]
     
     func provider<T>() -> T where T: AnyProvider {
-        let type = unwrapType(T.self)
+        let type = T.unwrap()
         guard let binding = getBinding(forType: type) else {
             preconditionFailure("Unsatisfied dependency: \(type)")
         }
@@ -55,18 +37,30 @@ class Graph: Container {
     func getBinding(forType type: Any.Type) -> AnyBinding? {
         let key = ContainerKey(type: type)
         
-        if let binding = entries[key] {
-            return binding
-        }
-        
-        if let binding = parent?.getBinding(forType: type) {
-            entries[key] = binding.copy()
-        }
-        
         return entries[key]
     }
+}
 
-    func createSubContainer() -> Graph {
-        return Graph(parent: self)
+extension ComponentInfo {
+    func buildGraph() -> Graph {
+        var entries = [ContainerKey: AnyBinding]()
+        
+        for key in getAllKeys() {
+            let allProviders = getAllProviderInfos(forType: key.type)
+            let firstProvider = allProviders[0]
+            
+            let binding = firstProvider.binding.copy()
+            
+            if allProviders.count > 1 {
+                // Assuming that the component has been validated
+                for p in allProviders.suffix(from: 1) {
+                    binding.bindingType.acceptBinding(p.binding.copy())
+                }
+            }
+            
+            entries[key] = binding
+        }
+        
+        return Graph(entries: entries)
     }
 }

@@ -51,6 +51,10 @@ private class CollectionBinding<UnderlyingBinding, CollectionType>: DelegatedBin
     var bindingType: BindingType {
         return BindingType.collection(self.addBinding)
     }
+    
+    required convenience init(copy: CollectionBinding<UnderlyingBinding, CollectionType>) {
+        self.init(collectionType: copy.collectionType, firstBinding: UnderlyingBinding(copy: copy.firstBinding), otherBindings: copy.bindings.map { $0.copy() })
+    }
 
     init(collectionType: CollectionType.Type, firstBinding: UnderlyingBinding, otherBindings: [AnyBinding]) {
         self.collectionType = collectionType
@@ -70,10 +74,6 @@ private class CollectionBinding<UnderlyingBinding, CollectionType>: DelegatedBin
             preconditionFailure("Expected a binding for \(Element.Element.self), got \(binding)")
         }
         bindings.append(binding)
-    }
-
-    func copy() -> AnyBinding {
-        return CollectionBinding(collectionType: collectionType, firstBinding: firstBinding, otherBindings: bindings)
     }
 
     func createElement(provider: ProviderProtocol) -> ThrowingProvider<CollectionType> {

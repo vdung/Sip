@@ -10,11 +10,11 @@ import XCTest
 
 
 private struct Foo {
-    let bar: Bar
+    let bar: Provider<Bar>
 }
 
 private struct Bar {
-    let foo: Provider<Foo>
+    let foo: Foo
 }
 
 private struct TestComponent: Component {
@@ -78,7 +78,7 @@ class CyclicDependencyTests: XCTestCase {
             }
             switch (error) {
             case .cyclicDependency(let cycle):
-                XCTAssertEqual(cycle.count, 4)
+                XCTAssertEqual(cycle.count, 3)
             default:
                 XCTFail("Expected cyclic dependency error")
             }

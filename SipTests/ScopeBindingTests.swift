@@ -71,8 +71,9 @@ class ScopeBindingTests: XCTestCase {
         let bar = barBuilder.build()
         let anotherBar = barBuilder.build()
 
-        XCTAssert(bar === anotherBar, "Multiple instances of bar")
+        XCTAssert(bar !== anotherBar, "Same instance of bar")
         XCTAssert(bar.foo === bar.fooProvider.get(), "Multiple instances of foo")
+        XCTAssert(bar.foo !== anotherBar.foo, "Same instance of foo")
 
         let baz = bar.bazBuilder.get().build()
         let anotherBaz = bar.bazBuilder.get().build()

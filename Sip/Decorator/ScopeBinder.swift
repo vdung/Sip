@@ -15,6 +15,11 @@ private class SharedBinding<UnderlyingBinding> : DelegatedBinding, BindingBase w
     var delegate: AnyBinding {
         return underlyingBinding
     }
+    
+    required convenience init(copy: SharedBinding<UnderlyingBinding>) {
+        self.init(binding: UnderlyingBinding(copy: copy.underlyingBinding))
+        self.value = copy.value
+    }
 
     init(binding: UnderlyingBinding) {
         self.underlyingBinding = binding
@@ -29,10 +34,6 @@ private class SharedBinding<UnderlyingBinding> : DelegatedBinding, BindingBase w
             self.value = try p.get()
             return self.value!
         }
-    }
-
-    func copy() -> AnyBinding {
-        return self
     }
 }
 

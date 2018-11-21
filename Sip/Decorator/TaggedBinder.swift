@@ -27,6 +27,10 @@ private class TaggedBinding<UnderlyingBinding, TagType> : DelegatedBinding, Bind
     var delegate: AnyBinding {
         return underlyingBinding
     }
+    
+    required convenience init(copy: TaggedBinding<UnderlyingBinding, TagType>) {
+        self.init(binding: UnderlyingBinding(copy: copy.underlyingBinding))
+    }
 
     init(binding: UnderlyingBinding) {
         self.underlyingBinding = binding
@@ -37,10 +41,6 @@ private class TaggedBinding<UnderlyingBinding, TagType> : DelegatedBinding, Bind
         return ThrowingProvider {
             return Tagged<TagType>(value: try p.get())
         }
-    }
-
-    func copy() -> AnyBinding {
-        return TaggedBinding(binding: underlyingBinding)
     }
 }
 

@@ -45,6 +45,15 @@ extension AnyProvider {
         
         return Self(wrapped: WrappingProvider(factory: providerFactory))
     }
+    
+    static func unwrap() -> Any.Type {
+        var type: AnyProvider.Type = self
+        while let elementType = type.element as? AnyProvider.Type {
+            type = elementType
+        }
+        
+        return type.element
+    }
 }
 
 public protocol ProviderBase: AnyProvider {
