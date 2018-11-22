@@ -32,11 +32,11 @@ class ProviderInfo {
         self.binding = binding
     }
     
-    var dependencies: [AnyProvider.Type] {
+    lazy var dependencies: [AnyProvider.Type] = { [unowned self] in
         let dependenciesInfo = DependenciesInfo()
-        _ = binding.createProvider(provider: dependenciesInfo)
+        _ = self.binding.createProvider(provider: dependenciesInfo)
         return dependenciesInfo.dependencies
-    }
+    }()
 }
 
 class ComponentInfo: ComponentBuilderProtocol, BinderDelegate {
@@ -67,8 +67,8 @@ class ComponentInfo: ComponentBuilderProtocol, BinderDelegate {
     
     func subcomponent<C>(_ componentType: C.Type) where C : Component {
         let child = ComponentInfo(parent: self, componentType: componentType)
-        
-        addProvider(ProviderInfo(component: child, binding: ComponentBuilder<C>.binding(componentInfo: child)), forType: ComponentBuilder<C>.self)
+        let provider = ComponentBuilder<C>.provider(componentInfo: child)
+        addProvider(provider, forType: ComponentBuilder<C>.self)
     }
 }
 

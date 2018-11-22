@@ -29,12 +29,17 @@ public struct ComponentBuilder<ComponentElement: Component> {
         return provider.get()
     }
     
-    static func binding(file: StaticString=#file, line: Int=#line, function: StaticString=#function, componentInfo: ComponentInfo) -> AnyBinding {
-        return Binding(file: file, line: line, function: function, bindingType: .unique) { _ -> Provider<ComponentBuilder<ComponentElement>> in
+    static func provider(file: StaticString=#file, line: Int=#line, function: StaticString=#function, componentInfo: ComponentInfo) -> ProviderInfo {
+        let binding = Binding(file: file, line: line, function: function, bindingType: .unique) { _ -> Provider<ComponentBuilder<ComponentElement>> in
             return Provider {
                 self.init(componentInfo: componentInfo)
             }
         }
+        
+        let provider = ProviderInfo(component: componentInfo, binding: binding)
+        provider.dependencies.append(Provider<ComponentElement.Root>.self)
+        
+        return provider
     }
 }
 

@@ -55,15 +55,15 @@ private class CollectionBinding<UnderlyingBinding, CollectionType>: DelegatedBin
     required convenience init(copy: CollectionBinding<UnderlyingBinding, CollectionType>) {
         self.init(collectionType: copy.collectionType, firstBinding: UnderlyingBinding(copy: copy.firstBinding), otherBindings: copy.bindings.map { $0.copy() })
     }
+    
+    convenience init(collectionType: CollectionType.Type, binding: UnderlyingBinding) {
+        self.init(collectionType: collectionType, firstBinding: binding, otherBindings: [CollectionBindingType]())
+    }
 
     init(collectionType: CollectionType.Type, firstBinding: UnderlyingBinding, otherBindings: [AnyBinding]) {
         self.collectionType = collectionType
         self.firstBinding = firstBinding
         self.bindings = otherBindings
-    }
-
-    convenience init(collectionType: CollectionType.Type, binding: UnderlyingBinding) {
-        self.init(collectionType: collectionType, firstBinding: binding, otherBindings: [CollectionBindingType]())
     }
 
     private func addBinding(_ binding: AnyBinding) {
@@ -115,7 +115,6 @@ public extension BinderDelegate {
 
     public func bind<T>(intoCollectionOf type: T.Type) -> CollectionBinder<Binder<[T]>> {
         return bind([T].self).decorate()
-
     }
 
     public func bind<Key: Hashable, T>(intoMapOf type: T.Type) -> CollectionBinder<Binder<[Key: T]>> {

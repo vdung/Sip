@@ -56,15 +56,30 @@ private struct TestComponent: Component {
     }
 }
 
-private struct InvalidComponent: Component {
+private struct InvalidChildComponent: Component {
     typealias Root = Injector<FooTest>
     
     static func configure<Builder>(builder: Builder) where Builder : ComponentBuilderProtocol {
-        
+    }
+    
+    static func configureRoot<B>(binder: B) where B : BinderProtocol, InvalidChildComponent.Root == B.Element {
+        binder.to(injector: FooTest.inject)
+    }
+}
+
+private struct InvalidComponent: Component {
+    typealias Root = InvalidComponent
+    
+    let fooBuilder: ComponentBuilder<TestComponent>
+    let invalidChildBuilder: ComponentBuilder<InvalidChildComponent>
+    
+    static func configure<Builder>(builder: Builder) where Builder : ComponentBuilderProtocol {
+        builder.subcomponent(TestComponent.self)
+        builder.subcomponent(InvalidChildComponent.self)
     }
     
     static func configureRoot<B>(binder: B) where B : BinderProtocol, InvalidComponent.Root == B.Element {
-        binder.to(injector: FooTest.inject)
+        binder.to(factory: InvalidComponent.init)
     }
 }
 
