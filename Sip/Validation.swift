@@ -12,6 +12,38 @@ enum ValidationError: Error {
     indirect case multipleErrors([ValidationError])
 }
 
+extension ValidationError: CustomStringConvertible {
+    var description: String {
+        switch self {
+        case .unsatisfiedDependency(let rawType, requiredBy: let bindingStack):
+            return """
+            Cannot find binding for \(rawType), required by:
+            \(bindingStack.reversed().enumerated().map({ (offset, binding) in
+                "\(String(repeating: " ", count: offset))\(binding)\n"
+            }).joined())
+            """
+            
+        case .boundMultipleTimes(let rawType, bindings: let bindings):
+            return """
+            Type \(rawType) is bound multiple times:
+            \(bindings.map({ "\($0)\n" }).joined())
+            """
+            
+        case .cyclicDependency(cycle: let bindings):
+            return """
+            Circular dependency detected:
+            \(bindings.map({ "\($0)\n" }).joined())
+            """
+            
+        case .multipleErrors(let errors):
+            return """
+            Multiple errors detected:
+            \(errors.map({ "\n\($0)" }).joined())
+            """
+        }
+    }
+}
+
 extension ProviderInfo {
     func validate(bindingStack: [ResolveInfo], errors: inout [ValidationError]) {
         for d in dependencies {

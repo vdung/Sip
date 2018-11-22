@@ -59,6 +59,13 @@ extension BindingBase {
     public var element: Any.Type { return Element.self }
 }
 
+
+extension BindingBase where Element: AnyProvider {
+    public var description: String {
+        return "Binding for \(Element.element) in file \(file) line \(line)"
+    }
+}
+
 protocol DelegatedBinding {
     var delegate: AnyBinding { get }
 }
@@ -78,12 +85,6 @@ public struct Binding<Element> {
     public let function: StaticString
     public var bindingType: BindingType = BindingType.unique
     let create: CreatorFunc<Element>
-}
-
-extension AnyBinding {
-    public var description: String {
-        return "type \(element) in file \(file) line \(line)"
-    }
 }
 
 extension Binding: AnyBinding, BindingBase, CustomStringConvertible where Element: AnyProvider {
