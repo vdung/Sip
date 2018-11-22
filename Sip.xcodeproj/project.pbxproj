@@ -18,6 +18,7 @@
 		C32F6F7321A40570007DF7E2 /* ComponentInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32F6F7221A40570007DF7E2 /* ComponentInfo.swift */; };
 		C32F6F7721A52A9D007DF7E2 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32F6F7621A52A9D007DF7E2 /* Validation.swift */; };
 		C32F6F7921A68CEF007DF7E2 /* CollectionElementsBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32F6F7821A68CEF007DF7E2 /* CollectionElementsBinder.swift */; };
+		C32F6F7B21A6B82F007DF7E2 /* CollectionBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32F6F7A21A6B82F007DF7E2 /* CollectionBinding.swift */; };
 		C3B05194219BDF1400762674 /* BinderHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B05192219BDF1400762674 /* BinderHelper.swift */; };
 		C3B05195219BDF1400762674 /* InjectorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B05193219BDF1400762674 /* InjectorHelper.swift */; };
 		C3B0519A219BE2DF00762674 /* Sip.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CA080521994214000DBFAD /* Sip.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -91,6 +92,7 @@
 		C32F6F7221A40570007DF7E2 /* ComponentInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentInfo.swift; sourceTree = "<group>"; };
 		C32F6F7621A52A9D007DF7E2 /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		C32F6F7821A68CEF007DF7E2 /* CollectionElementsBinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionElementsBinder.swift; sourceTree = "<group>"; };
+		C32F6F7A21A6B82F007DF7E2 /* CollectionBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionBinding.swift; sourceTree = "<group>"; };
 		C3B05192219BDF1400762674 /* BinderHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinderHelper.swift; sourceTree = "<group>"; };
 		C3B05193219BDF1400762674 /* InjectorHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InjectorHelper.swift; sourceTree = "<group>"; };
 		C3B051B3219BE2DF00762674 /* SipCocoa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SipCocoa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -204,6 +206,7 @@
 				C3CA082721994343000DBFAD /* Binder.swift */,
 				C3CA082421994343000DBFAD /* BinderDecorator.swift */,
 				C3CA082521994343000DBFAD /* Binding.swift */,
+				C32F6F7A21A6B82F007DF7E2 /* CollectionBinding.swift */,
 				C3CA081E21994342000DBFAD /* Component.swift */,
 				C32F6F7221A40570007DF7E2 /* ComponentInfo.swift */,
 				C3CA082021994343000DBFAD /* Graph.swift */,
@@ -447,6 +450,7 @@
 				C3CA083021994343000DBFAD /* ProviderProtocol.swift in Sources */,
 				C3B05195219BDF1400762674 /* InjectorHelper.swift in Sources */,
 				C3CA083321994343000DBFAD /* Binding.swift in Sources */,
+				C32F6F7B21A6B82F007DF7E2 /* CollectionBinding.swift in Sources */,
 				C3CA082F21994343000DBFAD /* Module.swift in Sources */,
 				C3CA082C21994343000DBFAD /* Component.swift in Sources */,
 				C3B05194219BDF1400762674 /* BinderHelper.swift in Sources */,

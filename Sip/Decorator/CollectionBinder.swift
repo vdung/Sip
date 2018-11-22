@@ -5,67 +5,6 @@
 //  Created by Cao Viet Dung on 2018/11/12.
 //
 
-public protocol CollectionBindingResult {
-    associatedtype Element
-    init(elements: Element...)
-    mutating func merge(_ other: Self) -> Self
-}
-
-extension Array: CollectionBindingResult {
-    public init(elements: Element...) {
-        self.init(elements)
-    }
-
-    public mutating func merge(_ other: Array<Element>) -> Array<Element> {
-        self.append(contentsOf: other)
-        return self
-    }
-}
-
-extension Dictionary: CollectionBindingResult {
-    public init(elements: Element...) {
-        self.init(uniqueKeysWithValues: elements)
-    }
-
-    public mutating func merge(_ other: Dictionary<Key, Value>) -> Dictionary<Key, Value> {
-        return self.merging(other) { (value1, value2) -> Value in
-            preconditionFailure("Duplicate keys for different binding: \(value1), \(value2)")
-        }
-    }
-}
-
-protocol CollectionBindingBase: class, BindingBase where Element: ProviderBase, Element.Element: CollectionBindingResult {
-    var bindings: [AnyBinding] { get set }
-    
-    func initialElementProvider(provider: ProviderProtocol) -> Element
-}
-
-extension CollectionBindingBase {
-    
-    func addBinding(_ binding: AnyBinding) {
-        guard let providerType = binding.element as? AnyProvider.Type else {
-            preconditionFailure("Expected a binding of a provider, got \(binding)")
-        }
-        if providerType.element != Element.Element.self {
-            preconditionFailure("Expected a binding for \(Element.Element.self), got \(binding)")
-        }
-        
-        bindings.append(binding)
-    }
-    
-    func createElement(provider: ProviderProtocol) -> Element {
-        let firstProvider = initialElementProvider(provider: provider)
-        let addedProviders = bindings.map { Element(wrapped: $0.createProvider(provider: provider)) }
-        
-        return Element(wrapped: ThrowingProvider {
-            try addedProviders.reduce(try firstProvider.get(), { (result, p) in
-                var newResult = result
-                return newResult.merge(try p.get())
-            })
-        })
-    }
-}
-
 private class CollectionBinding<UnderlyingBinding, CollectionType>: DelegatedBinding, CollectionBindingBase where CollectionType: CollectionBindingResult, UnderlyingBinding: BindingBase, UnderlyingBinding.Element: ProviderBase, UnderlyingBinding.Element.Element == CollectionType.Element {
     
     typealias Element = ThrowingProvider<CollectionType>
