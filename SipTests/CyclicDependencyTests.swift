@@ -78,7 +78,7 @@ class CyclicDependencyTests: XCTestCase {
             }
             switch (error) {
             case .cyclicDependency(let cycle):
-                XCTAssertEqual(cycle.count, 3)
+                XCTAssertEqual(cycle.count, 4)
             default:
                 XCTFail("Expected cyclic dependency error")
             }

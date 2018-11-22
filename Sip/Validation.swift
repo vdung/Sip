@@ -70,22 +70,24 @@ extension ComponentInfo {
         let rawType = resolvedType.unwrap()
         let providerInfos = getAllProviderInfos(forType: rawType)
         
+        if providerInfos.count == 0 {
+            errors.append(ValidationError.unsatisfiedDependency(rawType, requiredBy: bindingStack.map { $0.binding }))
+            
+            return
+        }
+        
         if let index = bindingStack.lastIndex(where: { $0.providerType.unwrap() == rawType }) {
             if bindingStack.suffix(from: index)
                 .filter({ $0.providerType.element != $0.providerType.unwrap() })
                 .count == 0 {
-                let cycle = bindingStack.suffix(from: index).map { $0.binding }
+                let cycle = bindingStack.suffix(from: index).map { $0.binding } + [providerInfos[0].binding]
                 errors.append(ValidationError.cyclicDependency(cycle: cycle))
             }
             
             return
         }
         
-        if providerInfos.count == 0 {
-            errors.append(ValidationError.unsatisfiedDependency(rawType, requiredBy: bindingStack.map { $0.binding }))
-            
-            return
-        }
+        
         
         let uniqueBindingCount = providerInfos.filter {
             !$0.binding.bindingType.isMultiBinding()
