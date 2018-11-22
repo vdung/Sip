@@ -44,8 +44,8 @@ private struct Child {
 
 private struct ChildModule: Module {
     func configure(binder b: BinderDelegate) {
-        b.bind([String].self).to(value: ["child string 3", "child string 4"])
-        b.bind([String: String].self).to(value: [
+        b.bind([String].self).elementsIntoCollection().to(value: ["child string 3", "child string 4"])
+        b.bind([String: String].self).elementsIntoCollection().to(value: [
             "c": "child string C",
             "d": "child string D"])
     }
