@@ -27,7 +27,7 @@ private class TaggedBinding<UnderlyingBinding, TagType> : DelegatedBinding, Bind
     var delegate: AnyBinding {
         return underlyingBinding
     }
-    
+
     required convenience init(copy: TaggedBinding<UnderlyingBinding, TagType>) {
         self.init(binding: UnderlyingBinding(copy: copy.underlyingBinding))
     }

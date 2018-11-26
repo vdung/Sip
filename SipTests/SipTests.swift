@@ -10,7 +10,7 @@ import XCTest
 @testable import Sip
 
 private protocol FooProtocol {
-    
+
 }
 
 private struct Foo: FooProtocol {
@@ -58,27 +58,27 @@ private struct TestComponent: Component {
 
 private struct InvalidChildComponent: Component {
     typealias Root = Injector<FooTest>
-    
-    static func configure<Builder>(builder: Builder) where Builder : ComponentBuilderProtocol {
+
+    static func configure<Builder>(builder: Builder) where Builder: ComponentBuilderProtocol {
     }
-    
-    static func configureRoot<B>(binder: B) where B : BinderProtocol, InvalidChildComponent.Root == B.Element {
+
+    static func configureRoot<B>(binder: B) where B: BinderProtocol, InvalidChildComponent.Root == B.Element {
         binder.to(injector: FooTest.inject)
     }
 }
 
 private struct InvalidComponent: Component {
     typealias Root = InvalidComponent
-    
+
     let fooBuilder: TestComponent.Builder
     let invalidChildBuilder: InvalidChildComponent.Builder
-    
-    static func configure<Builder>(builder: Builder) where Builder : ComponentBuilderProtocol {
+
+    static func configure<Builder>(builder: Builder) where Builder: ComponentBuilderProtocol {
         builder.subcomponent(TestComponent.self)
         builder.subcomponent(InvalidChildComponent.self)
     }
-    
-    static func configureRoot<B>(binder: B) where B : BinderProtocol, InvalidComponent.Root == B.Element {
+
+    static func configureRoot<B>(binder: B) where B: BinderProtocol, InvalidComponent.Root == B.Element {
         binder.to(factory: InvalidComponent.init)
     }
 }
@@ -88,14 +88,14 @@ class SipTests: XCTestCase {
     func testAllUseCases() {
         XCTAssertNoThrow(try TestComponent.builder().build().inject(FooTest()))
     }
-    
+
     func testValidationError() {
         XCTAssertThrowsError(try InvalidComponent.builder(), "Expected validation error") {
             guard let error = $0 as? ValidationError else {
                 XCTFail("Expected a validation error")
                 return
             }
-            
+
             switch error {
             case .multipleErrors(let errors):
                 XCTAssertEqual(errors.count, 6)

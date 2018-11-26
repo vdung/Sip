@@ -30,7 +30,7 @@ private class Bar {
 }
 
 private class Baz {
-    init() {}
+    init(foo: Foo) {}
 }
 
 private struct BazComponent: Component {

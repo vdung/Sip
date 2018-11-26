@@ -15,7 +15,7 @@ private class SharedBinding<UnderlyingBinding> : DelegatedBinding, BindingBase w
     var delegate: AnyBinding {
         return underlyingBinding
     }
-    
+
     required convenience init(copy: SharedBinding<UnderlyingBinding>) {
         self.init(binding: UnderlyingBinding(copy: copy.underlyingBinding))
         self.value = copy.value

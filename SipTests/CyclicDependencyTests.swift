@@ -8,7 +8,6 @@
 import XCTest
 @testable import Sip
 
-
 private struct Foo {
     let bar: Provider<Bar>
 }
@@ -24,12 +23,12 @@ private struct TestComponent: Component {
             binder.bind(Bar.self).to(factory: Bar.init)
         }
     }
-    
-    static func configure<Builder>(builder: Builder) where Builder : ComponentBuilderProtocol {
+
+    static func configure<Builder>(builder: Builder) where Builder: ComponentBuilderProtocol {
         builder.include(Module())
     }
-    
-    static func configureRoot<B>(binder: B) where B : BinderProtocol, Root == B.Element {
+
+    static func configureRoot<B>(binder: B) where B: BinderProtocol, Root == B.Element {
         binder.to(factory: Foo.init)
     }
 }
@@ -54,22 +53,22 @@ private struct InvalidComponent: Component {
             binder.bind(C.self).to(factory: C.init)
         }
     }
-    
-    static func configure<Builder>(builder: Builder) where Builder : ComponentBuilderProtocol {
+
+    static func configure<Builder>(builder: Builder) where Builder: ComponentBuilderProtocol {
         builder.include(Module())
     }
-    
-    static func configureRoot<B>(binder: B) where B : BinderProtocol, InvalidComponent.Root == B.Element {
+
+    static func configureRoot<B>(binder: B) where B: BinderProtocol, InvalidComponent.Root == B.Element {
         binder.to(factory: A.init)
     }
 }
 
 class CyclicDependencyTests: XCTestCase {
-    
+
     func testCyclicDependency() {
         XCTAssertNoThrow(try TestComponent.builder().build())
     }
-    
+
     func testCyclicDependecyFail() {
         XCTAssertThrowsError(try InvalidComponent.builder().build(), "Expected error") {
             guard let error = $0 as? ValidationError else {

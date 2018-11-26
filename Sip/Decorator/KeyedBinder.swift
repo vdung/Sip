@@ -16,7 +16,7 @@ private class KeyedBinding<UnderlyingBinding, Key> : DelegatedBinding, BindingBa
     var delegate: AnyBinding {
         return underlyingBinding
     }
-    
+
     required convenience init(copy: KeyedBinding<UnderlyingBinding, Key>) {
         self.init(binding: UnderlyingBinding(copy: copy.underlyingBinding), key: copy.key)
     }

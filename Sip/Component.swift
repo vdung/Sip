@@ -22,24 +22,24 @@ public protocol Component {
 public struct ComponentBuilder<ComponentElement: Component> {
 
     fileprivate let componentInfo: ComponentInfo
-    
+
     public func build() -> ComponentElement.Root {
         let graph = componentInfo.buildGraph()
         let provider: Provider<ComponentElement.Root> = graph.provider()
-        
+
         return provider.get()
     }
-    
+
     static func provider(file: StaticString=#file, line: Int=#line, function: StaticString=#function, componentInfo: ComponentInfo) -> ProviderInfo {
         let binding = Binding(file: file, line: line, function: function, bindingType: .unique) { _ -> Provider<ComponentElement.Builder> in
             return Provider {
                 self.init(componentInfo: componentInfo)
             }
         }
-        
+
         let provider = ProviderInfo(component: componentInfo, binding: binding)
         provider.dependencies.append(Provider<ComponentElement.Root>.self)
-        
+
         return provider
     }
 }
@@ -48,7 +48,7 @@ public extension Component {
     public static func builder() throws -> Builder {
         let componentInfo = ComponentInfo(parent: nil, componentType: Self.self)
         try componentInfo.validate()
-        
+
         return Builder(componentInfo: componentInfo)
     }
 }

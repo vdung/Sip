@@ -31,7 +31,7 @@ extension AnyBinding {
             return false
         }
     }
-    
+
     func acceptBinding(_ binding: AnyBinding) -> AnyBinding {
         switch bindingType {
         case .unique:
@@ -52,7 +52,7 @@ extension BindingBase where Element: AnyProvider {
     public func createProvider(provider: ProviderProtocol) -> AnyProvider {
         return createElement(provider: provider)
     }
-    
+
     public func copy() -> AnyBinding {
         return Self.init(copy: self)
     }
@@ -61,7 +61,6 @@ extension BindingBase where Element: AnyProvider {
 extension BindingBase {
     public var element: Any.Type { return Element.self }
 }
-
 
 extension BindingBase where Element: AnyProvider {
     public var description: String {
@@ -91,7 +90,7 @@ public struct Binding<Element> {
 }
 
 extension Binding: AnyBinding, BindingBase, CustomStringConvertible where Element: AnyProvider {
-    
+
     public init(copy: Binding<Element>) {
         self.init(file: copy.file, line: copy.line, function: copy.function, bindingType: copy.bindingType, create: copy.create)
     }

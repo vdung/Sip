@@ -14,21 +14,21 @@ public protocol CollectionBindingResult {
 protocol CollectionBindingBase: class, BindingBase where Element: ProviderBase, Element.Element: CollectionBindingResult {
     typealias CollectionType = Element.Element
     var bindings: [AnyBinding] { get set }
-    
+
     func initialElementProvider(provider: ProviderProtocol) -> Element
 }
 
 extension CollectionBindingBase {
-    
+
     func addBinding(_ binding: AnyBinding) -> Self {
         bindings.append(binding)
         return self
     }
-    
+
     func createElement(provider: ProviderProtocol) -> Element {
         let firstProvider = initialElementProvider(provider: provider)
         let addedProviders = bindings.map { Element(wrapped: $0.createProvider(provider: provider)) }
-        
+
         return Element(wrapped: ThrowingProvider {
             try addedProviders.reduce(into: firstProvider.get(), { (result: inout CollectionType, p) in
                 result.merge(try p.get())
@@ -41,7 +41,7 @@ extension Array: CollectionBindingResult {
     public init(elements: Element...) {
         self.init(elements)
     }
-    
+
     public mutating func merge(_ other: Array<Element>) {
         self.append(contentsOf: other)
     }
@@ -51,7 +51,7 @@ extension Dictionary: CollectionBindingResult {
     public init(elements: Element...) {
         self.init(uniqueKeysWithValues: elements)
     }
-    
+
     public mutating func merge(_ other: Dictionary<Key, Value>) {
         self.merge(other) { (value1, value2) -> Value in
             preconditionFailure("Duplicate keys for different binding: \(value1), \(value2)")

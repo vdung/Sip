@@ -25,33 +25,33 @@ extension AnyProvider {
                 guard let providerType = Element.self as? AnyProvider.Type else {
                     throw ProviderError.mismatchElement(type: Element.self, wrapped: value)
                 }
-                
+
                 return providerType.init(wrapped: wrapped) as! Element
             }
-            
+
             return value as! Element
         }
     }
-    
+
     static func wrap(providerFactory: @escaping () -> AnyProvider) -> Self {
         guard let providerType = Self.element as? AnyProvider.Type else {
             return Self(wrapped: providerFactory())
         }
-        
+
         // Self is provider's provider
         if providerType.element is AnyProvider.Type {
             return Self(wrapped: providerType.wrap(providerFactory: providerFactory))
         }
-        
+
         return Self(wrapped: WrappingProvider(factory: providerFactory))
     }
-    
+
     static func unwrap() -> Any.Type {
         var type: AnyProvider.Type = self
         while let elementType = type.element as? AnyProvider.Type {
             type = elementType
         }
-        
+
         return type.element
     }
 }
@@ -74,16 +74,15 @@ extension ProviderBase {
 
 public struct Provider<Element>: ProviderBase {
     let getter: () throws -> Element
-    
+
     public init(_ getter: @escaping () throws -> Element) {
         self.getter = getter
     }
-    
+
     public init(wrapped: AnyProvider) {
         self.init(wrapped.toGetter())
     }
-    
-    
+
     public func get() -> Element {
         return try! getter()
     }
@@ -91,15 +90,15 @@ public struct Provider<Element>: ProviderBase {
 
 public struct ThrowingProvider<Element>: ProviderBase {
     let getter: () throws -> Element
-    
+
     public init(_ getter: @escaping () throws -> Element) {
         self.getter = getter
     }
-    
+
     public init(wrapped: AnyProvider) {
         self.init(wrapped.toGetter())
     }
-    
+
     public func get() throws -> Element {
         return try getter()
     }
@@ -109,17 +108,17 @@ struct WrappingProvider: AnyProvider {
     static var element: Any.Type {
         return AnyProvider.self
     }
-    
+
     private let providerFactory: () -> AnyProvider
-    
+
     init(wrapped: AnyProvider) {
         self.init { wrapped }
     }
-    
+
     init(factory: @escaping () -> AnyProvider) {
         self.providerFactory = factory
     }
-    
+
     func getAny() throws -> Any {
         return providerFactory()
     }
