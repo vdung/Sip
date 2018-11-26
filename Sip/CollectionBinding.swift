@@ -8,10 +8,11 @@
 public protocol CollectionBindingResult {
     associatedtype Element
     init(elements: Element...)
-    mutating func merge(_ other: Self) -> Self
+    mutating func merge(_ other: Self)
 }
 
 protocol CollectionBindingBase: class, BindingBase where Element: ProviderBase, Element.Element: CollectionBindingResult {
+    typealias CollectionType = Element.Element
     var bindings: [AnyBinding] { get set }
     
     func initialElementProvider(provider: ProviderProtocol) -> Element
@@ -35,9 +36,8 @@ extension CollectionBindingBase {
         let addedProviders = bindings.map { Element(wrapped: $0.createProvider(provider: provider)) }
         
         return Element(wrapped: ThrowingProvider {
-            try addedProviders.reduce(try firstProvider.get(), { (result, p) in
-                var newResult = result
-                return newResult.merge(try p.get())
+            try addedProviders.reduce(into: firstProvider.get(), { (result: inout CollectionType, p) in
+                result.merge(try p.get())
             })
         })
     }
@@ -48,9 +48,8 @@ extension Array: CollectionBindingResult {
         self.init(elements)
     }
     
-    public mutating func merge(_ other: Array<Element>) -> Array<Element> {
+    public mutating func merge(_ other: Array<Element>) {
         self.append(contentsOf: other)
-        return self
     }
 }
 
@@ -59,8 +58,8 @@ extension Dictionary: CollectionBindingResult {
         self.init(uniqueKeysWithValues: elements)
     }
     
-    public mutating func merge(_ other: Dictionary<Key, Value>) -> Dictionary<Key, Value> {
-        return self.merging(other) { (value1, value2) -> Value in
+    public mutating func merge(_ other: Dictionary<Key, Value>) {
+        self.merge(other) { (value1, value2) -> Value in
             preconditionFailure("Duplicate keys for different binding: \(value1), \(value2)")
         }
     }
