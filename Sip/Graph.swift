@@ -5,29 +5,37 @@
 //  Created by Cao Viet Dung on 2018/11/12.
 //
 
-struct Graph: ProviderProtocol {
+class Graph: ProviderProtocol {
 
     fileprivate let entries: [BindingKey: AnyBinding]
+    fileprivate var providerCache: [BindingKey: AnyProvider] = [:]
+    
+    init(entries: [BindingKey: AnyBinding]) {
+        self.entries = entries
+    }
     
     func provider<T>() -> T where T: AnyProvider {
         let type = T.unwrap()
-        guard let binding = getBinding(forType: type) else {
+        let key = BindingKey(type: type)
+        
+        guard let binding = entries[key] else {
             preconditionFailure("Unsatisfied dependency: \(type)")
         }
         
         return T.wrap {
-            binding.createProvider(provider: self)
+            if let provider = self.providerCache[key] {
+                return provider
+            }
+            
+            let provider = binding.createProvider(provider: self)
+            self.providerCache[key] = provider
+            return provider
         }
-    }
-    
-    func getBinding(forType type: Any.Type) -> AnyBinding? {
-        let key = BindingKey(type: type)
-        
-        return entries[key]
     }
 }
 
 extension ComponentInfo {
+    
     func buildGraph() -> Graph {
         var entries = [BindingKey: AnyBinding]()
         
