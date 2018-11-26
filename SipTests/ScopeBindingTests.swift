@@ -20,9 +20,9 @@ private class Foo {
 private class Bar {
     let foo: Foo
     let fooProvider: Provider<Foo>
-    let bazBuilder: Provider<ComponentBuilder<BazComponent>>
+    let bazBuilder: Provider<BazComponent.Builder>
 
-    init(foo: Foo, fooProvider: Provider<Foo>, bazBuilder: Provider<ComponentBuilder<BazComponent>>) {
+    init(foo: Foo, fooProvider: Provider<Foo>, bazBuilder: Provider<BazComponent.Builder>) {
         self.foo = foo
         self.fooProvider = fooProvider
         self.bazBuilder = bazBuilder

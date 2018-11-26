@@ -13,6 +13,7 @@ public protocol ComponentBuilderProtocol {
 
 public protocol Component {
     associatedtype Root
+    typealias Builder = ComponentBuilder<Self>
 
     static func configureRoot<B>(binder: B) where B: BinderProtocol, B.Element == Root
     static func configure<Builder>(builder: Builder) where Builder: ComponentBuilderProtocol
@@ -30,7 +31,7 @@ public struct ComponentBuilder<ComponentElement: Component> {
     }
     
     static func provider(file: StaticString=#file, line: Int=#line, function: StaticString=#function, componentInfo: ComponentInfo) -> ProviderInfo {
-        let binding = Binding(file: file, line: line, function: function, bindingType: .unique) { _ -> Provider<ComponentBuilder<ComponentElement>> in
+        let binding = Binding(file: file, line: line, function: function, bindingType: .unique) { _ -> Provider<ComponentElement.Builder> in
             return Provider {
                 self.init(componentInfo: componentInfo)
             }
@@ -44,10 +45,10 @@ public struct ComponentBuilder<ComponentElement: Component> {
 }
 
 public extension Component {
-    public static func builder() throws -> ComponentBuilder<Self> {
+    public static func builder() throws -> Builder {
         let componentInfo = ComponentInfo(parent: nil, componentType: Self.self)
         try componentInfo.validate()
         
-        return ComponentBuilder(componentInfo: componentInfo)
+        return Builder(componentInfo: componentInfo)
     }
 }

@@ -70,8 +70,8 @@ private struct InvalidChildComponent: Component {
 private struct InvalidComponent: Component {
     typealias Root = InvalidComponent
     
-    let fooBuilder: ComponentBuilder<TestComponent>
-    let invalidChildBuilder: ComponentBuilder<InvalidChildComponent>
+    let fooBuilder: TestComponent.Builder
+    let invalidChildBuilder: InvalidChildComponent.Builder
     
     static func configure<Builder>(builder: Builder) where Builder : ComponentBuilderProtocol {
         builder.subcomponent(TestComponent.self)

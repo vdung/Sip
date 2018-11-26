@@ -12,7 +12,7 @@ import XCTest
 private struct Parent {
     let strings: [String]
     let stringMap: [String: String]
-    let childBuilder: ComponentBuilder<ChildComponent>
+    let childBuilder: ChildComponent.Builder
 }
 
 private struct ParentModule: Module {

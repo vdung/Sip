@@ -5,7 +5,7 @@ import Sip
 struct Parent {
     let strings: [String]
     let stringMap: [String: String]
-    let childBuilder: ComponentBuilder<ChildComponent>
+    let childBuilder: ChildComponent.Builder
 }
 
 struct ParentModule: Module {

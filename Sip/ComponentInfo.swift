@@ -67,8 +67,8 @@ class ComponentInfo: ComponentBuilderProtocol, BinderDelegate {
     
     func subcomponent<C>(_ componentType: C.Type) where C : Component {
         let child = ComponentInfo(parent: self, componentType: componentType)
-        let provider = ComponentBuilder<C>.provider(componentInfo: child)
-        addProvider(provider, forType: ComponentBuilder<C>.self)
+        let provider = C.Builder.provider(componentInfo: child)
+        addProvider(provider, forType: C.Builder.self)
     }
 }
 
