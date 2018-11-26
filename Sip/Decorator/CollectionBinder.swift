@@ -17,7 +17,9 @@ private class CollectionBinding<UnderlyingBinding, CollectionType>: DelegatedBin
     }
     
     var bindingType: BindingType {
-        return BindingType.collection(self.addBinding)
+        return BindingType.collection({ [unowned self] in
+            self.addBinding($0)
+        })
     }
     
     required convenience init(copy: CollectionBinding<UnderlyingBinding, CollectionType>) {

@@ -35,12 +35,12 @@ extension ComponentInfo {
             let allProviders = getAllProviderInfos(forType: key.type)
             let firstProvider = allProviders[0]
             
-            let binding = firstProvider.binding.copy()
+            var binding = firstProvider.binding.copy()
             
             if allProviders.count > 1 {
                 // Assuming that the component has been validated
                 for p in allProviders.suffix(from: 1) {
-                    binding.bindingType.acceptBinding(p.binding.copy())
+                    binding = binding.acceptBinding(p.binding.copy())
                 }
             }
             

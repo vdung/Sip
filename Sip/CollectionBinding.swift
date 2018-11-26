@@ -20,15 +20,9 @@ protocol CollectionBindingBase: class, BindingBase where Element: ProviderBase, 
 
 extension CollectionBindingBase {
     
-    func addBinding(_ binding: AnyBinding) {
-        guard let providerType = binding.element as? AnyProvider.Type else {
-            preconditionFailure("Expected a binding of a provider, got \(binding)")
-        }
-        if providerType.element != Element.Element.self {
-            preconditionFailure("Expected a binding for \(Element.Element.self), got \(binding)")
-        }
-        
+    func addBinding(_ binding: AnyBinding) -> Self {
         bindings.append(binding)
+        return self
     }
     
     func createElement(provider: ProviderProtocol) -> Element {

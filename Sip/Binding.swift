@@ -7,25 +7,7 @@
 
 public enum BindingType {
     case unique
-    case collection((AnyBinding) -> Void)
-    
-    func isMultiBinding() -> Bool {
-        switch self {
-        case .collection:
-            return true
-        default:
-            return false
-        }
-    }
-
-    func acceptBinding(_ binding: AnyBinding) {
-        switch self {
-        case .unique:
-            preconditionFailure("Type \(binding.element) is already bound to unique binding")
-        case .collection(let merge):
-            merge(binding)
-        }
-    }
+    case collection((AnyBinding) -> AnyBinding)
 }
 
 public protocol AnyBinding {
@@ -37,6 +19,27 @@ public protocol AnyBinding {
 
     func copy() -> AnyBinding
     func createProvider(provider: ProviderProtocol) -> AnyProvider
+}
+
+extension AnyBinding {
+
+    func isMultiBinding() -> Bool {
+        switch bindingType {
+        case .collection:
+            return true
+        default:
+            return false
+        }
+    }
+    
+    func acceptBinding(_ binding: AnyBinding) -> AnyBinding {
+        switch bindingType {
+        case .unique:
+            preconditionFailure("Type \(binding.element) is already bound to unique binding")
+        case .collection(let merge):
+            return merge(binding)
+        }
+    }
 }
 
 public protocol BindingBase: AnyBinding, CustomStringConvertible {

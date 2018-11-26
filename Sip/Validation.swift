@@ -90,7 +90,7 @@ extension ComponentInfo {
         
         
         let uniqueBindingCount = providerInfos.filter {
-            !$0.binding.bindingType.isMultiBinding()
+            !$0.binding.isMultiBinding()
             }.count
         
         if providerInfos.count > 1 && uniqueBindingCount > 0 {
