@@ -5,6 +5,20 @@
 //  Created by Cao Viet Dung on 2018/11/20.
 //
 
+struct BindingKey {
+    let type: Any.Type
+}
+
+extension BindingKey: Hashable {
+    var hashValue: Int {
+        return "\(type)".hashValue
+    }
+}
+
+func ==(lhs: BindingKey, rhs: BindingKey) -> Bool {
+    return lhs.type == rhs.type
+}
+
 class DependenciesInfo: ProviderProtocol {
     var dependencies: [AnyProvider.Type] = []
     
@@ -43,7 +57,7 @@ class ComponentInfo: ComponentBuilderProtocol, BinderDelegate {
     var parent: ComponentInfo?
     let rootType: AnyProvider.Type
     let componentType: Any.Type
-    var providers: [ContainerKey: [ProviderInfo]] = [:]
+    var providers: [BindingKey: [ProviderInfo]] = [:]
     
     init<C>(parent: ComponentInfo?, componentType: C.Type) where C: Component {
         self.parent = parent
@@ -55,7 +69,7 @@ class ComponentInfo: ComponentBuilderProtocol, BinderDelegate {
     }
     
     private func addProvider(_ providerInfo: ProviderInfo, forType type: Any.Type) {
-        let key = ContainerKey(type: type)
+        let key = BindingKey(type: type)
         var existing = providers[key, default: []]
         existing.append(providerInfo)
         providers[key] = existing
@@ -74,7 +88,7 @@ class ComponentInfo: ComponentBuilderProtocol, BinderDelegate {
 
 extension ComponentInfo {
     
-    func getAllKeys() -> [ContainerKey] {
+    func getAllKeys() -> [BindingKey] {
         var keys = Array(providers.keys)
         
         if let parent = self.parent {
@@ -85,7 +99,7 @@ extension ComponentInfo {
     }
     
     func getAllProviderInfos(forType rawType: Any.Type) -> [ProviderInfo] {
-        var providerInfos = providers[ContainerKey(type: rawType), default: []]
+        var providerInfos = providers[BindingKey(type: rawType), default: []]
         
         if let parent = self.parent {
             providerInfos.insert(contentsOf: parent.getAllProviderInfos(forType: rawType), at: 0)

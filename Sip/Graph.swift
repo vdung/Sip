@@ -5,23 +5,9 @@
 //  Created by Cao Viet Dung on 2018/11/12.
 //
 
-struct ContainerKey {
-    let type: Any.Type
-}
-
-extension ContainerKey: Hashable {
-    var hashValue: Int {
-        return "\(type)".hashValue
-    }
-}
-
-func ==(lhs: ContainerKey, rhs: ContainerKey) -> Bool {
-    return lhs.type == rhs.type
-}
-
 struct Graph: ProviderProtocol {
 
-    fileprivate let entries: [ContainerKey: AnyBinding]
+    fileprivate let entries: [BindingKey: AnyBinding]
     
     func provider<T>() -> T where T: AnyProvider {
         let type = T.unwrap()
@@ -35,7 +21,7 @@ struct Graph: ProviderProtocol {
     }
     
     func getBinding(forType type: Any.Type) -> AnyBinding? {
-        let key = ContainerKey(type: type)
+        let key = BindingKey(type: type)
         
         return entries[key]
     }
@@ -43,7 +29,7 @@ struct Graph: ProviderProtocol {
 
 extension ComponentInfo {
     func buildGraph() -> Graph {
-        var entries = [ContainerKey: AnyBinding]()
+        var entries = [BindingKey: AnyBinding]()
         
         for key in getAllKeys() {
             let allProviders = getAllProviderInfos(forType: key.type)
