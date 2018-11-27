@@ -6,12 +6,11 @@
 //
 
 private class CollectionElementsBinding<UnderlyingBinding>: DelegatedBinding, CollectionBindingBase where UnderlyingBinding: BindingBase, UnderlyingBinding.Element: ProviderBase, UnderlyingBinding.Element.Element: CollectionBindingResult {
-
     typealias CollectionType = UnderlyingBinding.Element.Element
     typealias Element = ThrowingProvider<CollectionType>
 
     private let firstBinding: UnderlyingBinding
-    var bindings: [AnyBinding]
+    var providers: [Element]
 
     var delegate: AnyBinding {
         return firstBinding
@@ -19,21 +18,21 @@ private class CollectionElementsBinding<UnderlyingBinding>: DelegatedBinding, Co
 
     var bindingType: BindingType {
         return BindingType.collection({ [unowned self] in
-            self.addBinding($0)
+            self.appendProvider($0)
         })
     }
 
     required convenience init(copy: CollectionElementsBinding<UnderlyingBinding>) {
-        self.init(firstBinding: UnderlyingBinding(copy: copy.firstBinding), otherBindings: copy.bindings.map { $0.copy() })
+        self.init(firstBinding: UnderlyingBinding(copy: copy.firstBinding), providers: copy.providers)
     }
-
+    
     convenience init(binding: UnderlyingBinding) {
-        self.init(firstBinding: binding, otherBindings: [AnyBinding]())
+        self.init(firstBinding: binding, providers: [Element]())
     }
-
-    init(firstBinding: UnderlyingBinding, otherBindings: [AnyBinding]) {
+    
+    init(firstBinding: UnderlyingBinding, providers: [Element]) {
         self.firstBinding = firstBinding
-        self.bindings = otherBindings
+        self.providers = providers
     }
 
     func initialElementProvider(provider: ProviderProtocol) -> ThrowingProvider<CollectionType> {

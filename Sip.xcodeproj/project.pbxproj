@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		C32F6F5C219EB69C007DF7E2 /* SipTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32F6F5B219EB69C007DF7E2 /* SipTests.swift */; };
 		C32F6F5E219EB69C007DF7E2 /* Sip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3CA080221994214000DBFAD /* Sip.framework */; };
-		C32F6F6A219EB73B007DF7E2 /* ScopeBindingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32F6F64219EB73B007DF7E2 /* ScopeBindingTests.swift */; };
+		C32F6F6A219EB73B007DF7E2 /* ScopedBindingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32F6F64219EB73B007DF7E2 /* ScopedBindingTests.swift */; };
 		C32F6F6B219EB73B007DF7E2 /* TaggedBindingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32F6F65219EB73B007DF7E2 /* TaggedBindingTests.swift */; };
 		C32F6F6C219EB73B007DF7E2 /* CyclicDependencyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32F6F66219EB73B007DF7E2 /* CyclicDependencyTests.swift */; };
 		C32F6F6D219EB73B007DF7E2 /* ThrowingProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32F6F67219EB73B007DF7E2 /* ThrowingProviderTests.swift */; };
@@ -19,6 +19,8 @@
 		C32F6F7721A52A9D007DF7E2 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32F6F7621A52A9D007DF7E2 /* Validation.swift */; };
 		C32F6F7921A68CEF007DF7E2 /* CollectionElementsBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32F6F7821A68CEF007DF7E2 /* CollectionElementsBinder.swift */; };
 		C32F6F7B21A6B82F007DF7E2 /* CollectionBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32F6F7A21A6B82F007DF7E2 /* CollectionBinding.swift */; };
+		C32F6F7F21ABE94D007DF7E2 /* MemoryManagementTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32F6F7E21ABE94D007DF7E2 /* MemoryManagementTests.swift */; };
+		C3A9488F21AE705D005372E3 /* ScopedBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A9488E21AE705D005372E3 /* ScopedBinder.swift */; };
 		C3B05194219BDF1400762674 /* BinderHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B05192219BDF1400762674 /* BinderHelper.swift */; };
 		C3B05195219BDF1400762674 /* InjectorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B05193219BDF1400762674 /* InjectorHelper.swift */; };
 		C3B0519A219BE2DF00762674 /* Sip.h in Headers */ = {isa = PBXBuildFile; fileRef = C3CA080521994214000DBFAD /* Sip.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -33,7 +35,6 @@
 		C3B051A5219BE2DF00762674 /* BinderHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B05192219BDF1400762674 /* BinderHelper.swift */; };
 		C3B051A6219BE2DF00762674 /* Sip.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA082921994343000DBFAD /* Sip.swift */; };
 		C3B051A7219BE2DF00762674 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA082A21994343000DBFAD /* Provider.swift */; };
-		C3B051A8219BE2DF00762674 /* ScopeBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA083B219943B6000DBFAD /* ScopeBinder.swift */; };
 		C3B051A9219BE2DF00762674 /* CollectionBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA083A219943B6000DBFAD /* CollectionBinder.swift */; };
 		C3B051AB219BE2DF00762674 /* BinderDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA082421994343000DBFAD /* BinderDecorator.swift */; };
 		C3B051AC219BE2DF00762674 /* KeyedBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA084321998623000DBFAD /* KeyedBinder.swift */; };
@@ -53,7 +54,6 @@
 		C3CA083821994343000DBFAD /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA082A21994343000DBFAD /* Provider.swift */; };
 		C3CA083C219943B6000DBFAD /* TaggedBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA0839219943B6000DBFAD /* TaggedBinder.swift */; };
 		C3CA083D219943B6000DBFAD /* CollectionBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA083A219943B6000DBFAD /* CollectionBinder.swift */; };
-		C3CA083E219943B6000DBFAD /* ScopeBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA083B219943B6000DBFAD /* ScopeBinder.swift */; };
 		C3CA084421998623000DBFAD /* KeyedBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA084321998623000DBFAD /* KeyedBinder.swift */; };
 		C3CA0863219AB5A4000DBFAD /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CA0862219AB5A4000DBFAD /* main.swift */; };
 /* End PBXBuildFile section */
@@ -83,7 +83,7 @@
 /* Begin PBXFileReference section */
 		C32F6F59219EB69C007DF7E2 /* SipTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SipTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C32F6F5B219EB69C007DF7E2 /* SipTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SipTests.swift; sourceTree = "<group>"; };
-		C32F6F64219EB73B007DF7E2 /* ScopeBindingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeBindingTests.swift; sourceTree = "<group>"; };
+		C32F6F64219EB73B007DF7E2 /* ScopedBindingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopedBindingTests.swift; sourceTree = "<group>"; };
 		C32F6F65219EB73B007DF7E2 /* TaggedBindingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaggedBindingTests.swift; sourceTree = "<group>"; };
 		C32F6F66219EB73B007DF7E2 /* CyclicDependencyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CyclicDependencyTests.swift; sourceTree = "<group>"; };
 		C32F6F67219EB73B007DF7E2 /* ThrowingProviderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThrowingProviderTests.swift; sourceTree = "<group>"; };
@@ -93,6 +93,8 @@
 		C32F6F7621A52A9D007DF7E2 /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		C32F6F7821A68CEF007DF7E2 /* CollectionElementsBinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionElementsBinder.swift; sourceTree = "<group>"; };
 		C32F6F7A21A6B82F007DF7E2 /* CollectionBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionBinding.swift; sourceTree = "<group>"; };
+		C32F6F7E21ABE94D007DF7E2 /* MemoryManagementTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryManagementTests.swift; sourceTree = "<group>"; };
+		C3A9488E21AE705D005372E3 /* ScopedBinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopedBinder.swift; sourceTree = "<group>"; };
 		C3B05192219BDF1400762674 /* BinderHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinderHelper.swift; sourceTree = "<group>"; };
 		C3B05193219BDF1400762674 /* InjectorHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InjectorHelper.swift; sourceTree = "<group>"; };
 		C3B051B3219BE2DF00762674 /* SipCocoa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SipCocoa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -113,7 +115,6 @@
 		C3CA082A21994343000DBFAD /* Provider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
 		C3CA0839219943B6000DBFAD /* TaggedBinder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaggedBinder.swift; sourceTree = "<group>"; };
 		C3CA083A219943B6000DBFAD /* CollectionBinder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionBinder.swift; sourceTree = "<group>"; };
-		C3CA083B219943B6000DBFAD /* ScopeBinder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeBinder.swift; sourceTree = "<group>"; };
 		C3CA084321998623000DBFAD /* KeyedBinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyedBinder.swift; sourceTree = "<group>"; };
 		C3CA0860219AB5A4000DBFAD /* SipGen */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SipGen; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3CA0862219AB5A4000DBFAD /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -158,10 +159,11 @@
 				C32F6F69219EB73B007DF7E2 /* AssistedInjectionTests.swift */,
 				C32F6F68219EB73B007DF7E2 /* CollectionBindingTests.swift */,
 				C32F6F66219EB73B007DF7E2 /* CyclicDependencyTests.swift */,
-				C32F6F64219EB73B007DF7E2 /* ScopeBindingTests.swift */,
+				C32F6F64219EB73B007DF7E2 /* ScopedBindingTests.swift */,
 				C32F6F5B219EB69C007DF7E2 /* SipTests.swift */,
 				C32F6F65219EB73B007DF7E2 /* TaggedBindingTests.swift */,
 				C32F6F67219EB73B007DF7E2 /* ThrowingProviderTests.swift */,
+				C32F6F7E21ABE94D007DF7E2 /* MemoryManagementTests.swift */,
 			);
 			path = SipTests;
 			sourceTree = "<group>";
@@ -227,9 +229,9 @@
 			children = (
 				C3CA083A219943B6000DBFAD /* CollectionBinder.swift */,
 				C32F6F7821A68CEF007DF7E2 /* CollectionElementsBinder.swift */,
-				C3CA083B219943B6000DBFAD /* ScopeBinder.swift */,
 				C3CA0839219943B6000DBFAD /* TaggedBinder.swift */,
 				C3CA084321998623000DBFAD /* KeyedBinder.swift */,
+				C3A9488E21AE705D005372E3 /* ScopedBinder.swift */,
 			);
 			path = Decorator;
 			sourceTree = "<group>";
@@ -406,13 +408,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C32F6F6A219EB73B007DF7E2 /* ScopeBindingTests.swift in Sources */,
+				C32F6F6A219EB73B007DF7E2 /* ScopedBindingTests.swift in Sources */,
 				C32F6F6F219EB73B007DF7E2 /* AssistedInjectionTests.swift in Sources */,
 				C32F6F6B219EB73B007DF7E2 /* TaggedBindingTests.swift in Sources */,
 				C32F6F5C219EB69C007DF7E2 /* SipTests.swift in Sources */,
 				C32F6F6C219EB73B007DF7E2 /* CyclicDependencyTests.swift in Sources */,
 				C32F6F6D219EB73B007DF7E2 /* ThrowingProviderTests.swift in Sources */,
 				C32F6F6E219EB73B007DF7E2 /* CollectionBindingTests.swift in Sources */,
+				C32F6F7F21ABE94D007DF7E2 /* MemoryManagementTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,7 +434,6 @@
 				C3B051A5219BE2DF00762674 /* BinderHelper.swift in Sources */,
 				C3B051A6219BE2DF00762674 /* Sip.swift in Sources */,
 				C3B051A7219BE2DF00762674 /* Provider.swift in Sources */,
-				C3B051A8219BE2DF00762674 /* ScopeBinder.swift in Sources */,
 				C3B051A9219BE2DF00762674 /* CollectionBinder.swift in Sources */,
 				C3B051AB219BE2DF00762674 /* BinderDecorator.swift in Sources */,
 				C3B051AC219BE2DF00762674 /* KeyedBinder.swift in Sources */,
@@ -454,11 +456,11 @@
 				C3CA082F21994343000DBFAD /* Module.swift in Sources */,
 				C3CA082C21994343000DBFAD /* Component.swift in Sources */,
 				C3B05194219BDF1400762674 /* BinderHelper.swift in Sources */,
+				C3A9488F21AE705D005372E3 /* ScopedBinder.swift in Sources */,
 				C32F6F7321A40570007DF7E2 /* ComponentInfo.swift in Sources */,
 				C3CA083721994343000DBFAD /* Sip.swift in Sources */,
 				C32F6F7721A52A9D007DF7E2 /* Validation.swift in Sources */,
 				C3CA083821994343000DBFAD /* Provider.swift in Sources */,
-				C3CA083E219943B6000DBFAD /* ScopeBinder.swift in Sources */,
 				C32F6F7921A68CEF007DF7E2 /* CollectionElementsBinder.swift in Sources */,
 				C3CA083D219943B6000DBFAD /* CollectionBinder.swift in Sources */,
 				C3B051BE219C396700762674 /* AssistedInjectionHelper.swift in Sources */,

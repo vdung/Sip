@@ -1,5 +1,5 @@
 //
-//  ScopeBindingTests.swift
+//  ScopedBindingTests.swift
 //  SipTests
 //
 //  Created by Cao Viet Dung on 2018/11/14.
@@ -30,7 +30,10 @@ private class Bar {
 }
 
 private class Baz {
-    init(foo: Foo) {}
+    let foo: Foo
+    init(foo: Foo) {
+        self.foo = foo
+    }
 }
 
 private struct BazComponent: Component {
@@ -79,5 +82,6 @@ class ScopeBindingTests: XCTestCase {
         let anotherBaz = bar.bazBuilder.get().build()
 
         XCTAssert(baz !== anotherBaz, "Same instance of baz")
+        XCTAssert(bar.foo === baz.foo, "Different instance in child component")
     }
 }

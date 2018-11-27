@@ -69,9 +69,9 @@ class CollectionBindingTests: XCTestCase {
         let parent = try ParentComponent.builder().build()
         let child = parent.childBuilder.build()
 
-        XCTAssertEqual(parent.strings, ["parent string 1", "parent string 2"])
+        XCTAssertEqual(parent.strings.sorted(), ["parent string 1", "parent string 2"])
         XCTAssertEqual(Array(parent.stringMap.keys).sorted(), ["a", "b"])
-        XCTAssertEqual(child.strings, ["parent string 1", "parent string 2", "child string 3", "child string 4"])
+        XCTAssertEqual(child.strings.sorted(), ["child string 3", "child string 4", "parent string 1", "parent string 2"])
         XCTAssertEqual(Array(child.stringMap.keys).sorted(), ["a", "b", "c", "d"])
     }
 }

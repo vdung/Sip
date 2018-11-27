@@ -7,7 +7,7 @@
 
 public enum BindingType {
     case unique
-    case collection((AnyBinding) -> AnyBinding)
+    case collection((AnyProvider) -> AnyBinding)
 }
 
 public protocol AnyBinding {
@@ -32,12 +32,12 @@ extension AnyBinding {
         }
     }
 
-    func acceptBinding(_ binding: AnyBinding) -> AnyBinding {
+    func acceptProvider(_ provider: AnyProvider) -> AnyBinding {
         switch bindingType {
         case .unique:
-            preconditionFailure("Type \(binding.element) is already bound to unique binding")
+            preconditionFailure("Type \(type(of: provider).element) is already bound to unique binding")
         case .collection(let merge):
-            return merge(binding)
+            return merge(provider)
         }
     }
 }

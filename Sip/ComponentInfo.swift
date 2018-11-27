@@ -26,9 +26,11 @@ class DependenciesInfo: ProviderProtocol {
 
     func provider<T>() -> T where T: AnyProvider {
         self.dependencies.append(T.self)
-        return T(wrapped: Provider {
-            preconditionFailure("Not implemented")
-        })
+        return T.wrap {
+            Provider {
+                preconditionFailure("Not implemented")
+            }
+        }
     }
 }
 
@@ -54,18 +56,18 @@ class ProviderInfo {
 }
 
 class ComponentInfo: ComponentBuilderProtocol, BinderDelegate {
-    var parent: ComponentInfo?
+    weak var parent: ComponentInfo?
+    
     let rootType: AnyProvider.Type
-    let componentType: Any.Type
     var providers: [BindingKey: [ProviderInfo]] = [:]
+    var parentDependencies = Set<BindingKey>()
 
     init<C>(parent: ComponentInfo?, componentType: C.Type) where C: Component {
         self.parent = parent
         self.rootType = Provider<C.Root>.self
-        self.componentType = componentType
 
-        componentType.configure(builder: self)
-        componentType.configureRoot(binder: bind(C.Root.self))
+        C.configure(builder: self)
+        C.configureRoot(binder: bind(C.Root.self))
     }
 
     private func addProvider(_ providerInfo: ProviderInfo, forType type: Any.Type) {
@@ -83,28 +85,5 @@ class ComponentInfo: ComponentBuilderProtocol, BinderDelegate {
         let child = ComponentInfo(parent: self, componentType: componentType)
         let provider = C.Builder.provider(componentInfo: child)
         addProvider(provider, forType: C.Builder.self)
-    }
-}
-
-extension ComponentInfo {
-
-    func getAllKeys() -> [BindingKey] {
-        var keys = Array(providers.keys)
-
-        if let parent = self.parent {
-            keys.insert(contentsOf: parent.getAllKeys(), at: 0)
-        }
-
-        return keys
-    }
-
-    func getAllProviderInfos(forType rawType: Any.Type) -> [ProviderInfo] {
-        var providerInfos = providers[BindingKey(type: rawType), default: []]
-
-        if let parent = self.parent {
-            providerInfos.insert(contentsOf: parent.getAllProviderInfos(forType: rawType), at: 0)
-        }
-
-        return providerInfos
     }
 }

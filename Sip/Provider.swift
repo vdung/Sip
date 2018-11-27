@@ -54,6 +54,16 @@ extension AnyProvider {
 
         return type.element
     }
+    
+    func unwrap() throws -> AnyProvider {
+        var unwrappedProvider: AnyProvider = self
+        while let _ = type(of: unwrappedProvider).element as? AnyProvider.Type,
+            let p = try unwrappedProvider.getAny() as? AnyProvider {
+            unwrappedProvider = p
+        }
+        
+        return unwrappedProvider
+    }
 }
 
 public protocol ProviderBase: AnyProvider {

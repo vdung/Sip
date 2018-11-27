@@ -21,25 +21,29 @@ public protocol Component {
 
 public struct ComponentBuilder<ComponentElement: Component> {
 
-    fileprivate let componentInfo: ComponentInfo
+    let builder: Graph.Builder<ComponentElement>
 
     public func build() -> ComponentElement.Root {
-        let graph = componentInfo.buildGraph()
-        let provider: Provider<ComponentElement.Root> = graph.provider()
-
+        let provider = builder.rootProvider()
         return provider.get()
     }
+}
 
+extension ComponentBuilder {
+    
     static func provider(file: StaticString=#file, line: Int=#line, function: StaticString=#function, componentInfo: ComponentInfo) -> ProviderInfo {
-        let binding = Binding(file: file, line: line, function: function, bindingType: .unique) { _ -> Provider<ComponentElement.Builder> in
+        let binding = Binding(file: file, line: line, function: function, bindingType: .unique) { parent -> Provider<ComponentElement.Builder> in
+            
+            let graphBuilder = Graph.Builder(ComponentElement.self, componentInfo: componentInfo, parent: parent)
+            
             return Provider {
-                self.init(componentInfo: componentInfo)
+                self.init(builder: graphBuilder)
             }
         }
-
+        
         let provider = ProviderInfo(component: componentInfo, binding: binding)
-        provider.dependencies.append(Provider<ComponentElement.Root>.self)
-
+        provider.dependencies = [Provider<ComponentElement.Root>.self]
+        
         return provider
     }
 }
@@ -48,7 +52,7 @@ public extension Component {
     public static func builder() throws -> Builder {
         let componentInfo = ComponentInfo(parent: nil, componentType: Self.self)
         try componentInfo.validate()
-
-        return Builder(componentInfo: componentInfo)
+        
+        return Builder(builder: Graph.Builder(Self.self, componentInfo: componentInfo, parent: nil))
     }
 }

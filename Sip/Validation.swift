@@ -56,6 +56,18 @@ extension ProviderInfo {
 }
 
 extension ComponentInfo {
+    
+    func ancestorHasBinding(forKey key: BindingKey) -> Bool {
+        var component = self
+        while let parent = component.parent {
+            if parent.providers.keys.contains(key) {
+                return true
+            }
+            component = parent
+        }
+        
+        return false
+    }
 
     func validate() throws {
         var errors = [ValidationError]()
@@ -71,10 +83,14 @@ extension ComponentInfo {
 
     func validate(resolvedType: AnyProvider.Type, bindingStack: [ResolveInfo], errors: inout [ValidationError]) {
         let rawType = resolvedType.unwrap()
-        let providerInfos = getAllProviderInfos(forType: rawType)
+        let key = BindingKey(type: rawType)
 
-        if providerInfos.count == 0 {
-            errors.append(ValidationError.unsatisfiedDependency(rawType, requiredBy: bindingStack.map { $0.binding }))
+        guard let providerInfos = self.providers[key] else {
+            if ancestorHasBinding(forKey: key) {
+                parentDependencies.insert(key)
+            } else {
+                errors.append(ValidationError.unsatisfiedDependency(rawType, requiredBy: bindingStack.map { $0.binding }))
+            }
 
             return
         }
@@ -89,22 +105,35 @@ extension ComponentInfo {
 
             return
         }
+        
+        let multiBindingCount = providerInfos
+            .filter { $0.binding.isMultiBinding() }
+            .count
 
-        let uniqueBindingCount = providerInfos.filter {
-            !$0.binding.isMultiBinding()
-            }.count
-
-        if providerInfos.count > 1 && uniqueBindingCount > 0 {
+        if providerInfos.count > 1 && providerInfos.count > multiBindingCount {
             errors.append(ValidationError.boundMultipleTimes(
                 resolvedType,
                 bindings: providerInfos.map { $0.binding }
             ))
         }
+        
+        if multiBindingCount > 0 && ancestorHasBinding(forKey: key) {
+            parentDependencies.insert(key)
+        }
 
         for p in providerInfos {
-            p.validate(bindingStack: bindingStack + [
-                ResolveInfo(providerType: resolvedType, binding: p.binding)
-                ], errors: &errors)
+            p.validate(
+                bindingStack: bindingStack.appending(ResolveInfo(providerType: resolvedType, binding: p.binding)),
+                errors: &errors
+            )
         }
+    }
+}
+
+private extension Array {
+    func appending(_ element: Element) -> Array {
+        var newArray = self
+        newArray.append(element)
+        return newArray
     }
 }

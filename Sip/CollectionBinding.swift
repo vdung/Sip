@@ -13,21 +13,22 @@ public protocol CollectionBindingResult {
 
 protocol CollectionBindingBase: class, BindingBase where Element: ProviderBase, Element.Element: CollectionBindingResult {
     typealias CollectionType = Element.Element
-    var bindings: [AnyBinding] { get set }
+    var providers: [Element] { get set }
 
     func initialElementProvider(provider: ProviderProtocol) -> Element
 }
 
 extension CollectionBindingBase {
 
-    func addBinding(_ binding: AnyBinding) -> Self {
-        bindings.append(binding)
-        return self
+    func appendProvider(_ provider: AnyProvider) -> Self {
+        let copy = Self.init(copy: self)
+        copy.providers.append(Element(wrapped: provider))
+        return copy
     }
 
     func createElement(provider: ProviderProtocol) -> Element {
         let firstProvider = initialElementProvider(provider: provider)
-        let addedProviders = bindings.map { Element(wrapped: $0.createProvider(provider: provider)) }
+        let addedProviders = providers
 
         return Element(wrapped: ThrowingProvider {
             try addedProviders.reduce(into: firstProvider.get(), { (result: inout CollectionType, p) in
