@@ -25,6 +25,7 @@ private struct FooTest {
     func inject(
         fooProtocol: FooProtocol,
         foo: Foo,
+        fooOptional: Foo?,
         fooProvider: Provider<Foo>,
         fooTagged: Tagged<FooTag>,
         fooArray: [Foo],
@@ -39,6 +40,7 @@ private struct TestComponent: Component {
             b.bind(String.self).to(value: "foo")
             b.bind(FooProtocol.self).to(factory: Foo.init)
             b.bind(Foo.self).to(factory: Foo.init)
+            b.bind(Optional<Foo>.self).to(factory: Foo.init)
             b.bind(tagged: FooTag.self).to(factory: Foo.init)
             b.bind(intoCollectionOf: Foo.self).to(value: Foo(value: "a"))
             b.bind(intoMapOf: Foo.self).mapKey("b").to(value: Foo(value: "b"))
@@ -98,7 +100,7 @@ class SipTests: XCTestCase {
             
             switch error {
             case .multipleErrors(let errors):
-                XCTAssertEqual(errors.count, 6)
+                XCTAssertEqual(errors.count, 7)
             default:
                 XCTFail("Expected more than 1 errors")
             }
