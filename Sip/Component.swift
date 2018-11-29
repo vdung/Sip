@@ -34,7 +34,7 @@ extension ComponentBuilder {
     static func provider(file: StaticString=#file, line: Int=#line, function: StaticString=#function, componentInfo: ComponentInfo) -> ProviderInfo {
         let binding = Binding(file: file, line: line, function: function, bindingType: .unique) { parent -> Provider<ComponentElement.Builder> in
             
-            let graphBuilder = Graph.Builder(ComponentElement.self, componentInfo: componentInfo, parent: parent)
+            let graphBuilder = Graph.Builder<ComponentElement>(componentInfo: componentInfo, parent: parent)
             
             return Provider {
                 self.init(builder: graphBuilder)
@@ -51,8 +51,8 @@ extension ComponentBuilder {
 public extension Component {
     public static func builder() throws -> Builder {
         let componentInfo = ComponentInfo(parent: nil, componentType: Self.self)
-        try componentInfo.validate()
+        try componentInfo.finalize()
         
-        return Builder(builder: Graph.Builder(Self.self, componentInfo: componentInfo, parent: nil))
+        return Builder(builder: Graph.Builder(componentInfo: componentInfo, parent: nil))
     }
 }

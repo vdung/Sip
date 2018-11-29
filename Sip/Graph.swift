@@ -110,7 +110,7 @@ class Graph: ProviderProtocol {
         private var parent: ProviderProtocol? = nil
         private var ancestorProviders: [BindingKey: AnyProvider] = [:]
         
-        init(_ componentType: C.Type, componentInfo: ComponentInfo, parent: ProviderProtocol?) {
+        init(componentInfo: ComponentInfo, parent: ProviderProtocol?) {
             self.componentInfo = componentInfo
             self.parent = parent
             defer {

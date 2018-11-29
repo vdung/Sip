@@ -48,9 +48,9 @@ extension ValidationError: CustomStringConvertible {
 
 extension ProviderInfo {
 
-    func validate(bindingStack: [ResolveInfo], errors: inout [ValidationError]) {
+    func finalize(bindingStack: [ResolveInfo], errors: inout [ValidationError]) {
         for d in dependencies {
-            component.validate(resolvedType: d, bindingStack: bindingStack, errors: &errors)
+            component.finalize(resolvedType: d, bindingStack: bindingStack, errors: &errors)
         }
     }
 }
@@ -69,9 +69,9 @@ extension ComponentInfo {
         return false
     }
 
-    func validate() throws {
+    func finalize() throws {
         var errors = [ValidationError]()
-        validate(resolvedType: rootType, bindingStack: [], errors: &errors)
+        finalize(resolvedType: rootType, bindingStack: [], errors: &errors)
 
         if errors.count == 1 {
             throw errors[0]
@@ -81,7 +81,7 @@ extension ComponentInfo {
         }
     }
 
-    func validate(resolvedType: AnyProvider.Type, bindingStack: [ResolveInfo], errors: inout [ValidationError]) {
+    func finalize(resolvedType: AnyProvider.Type, bindingStack: [ResolveInfo], errors: inout [ValidationError]) {
         let rawType = resolvedType.unwrap()
         let key = BindingKey(type: rawType)
 
@@ -122,7 +122,7 @@ extension ComponentInfo {
         }
 
         for p in providerInfos {
-            p.validate(
+            p.finalize(
                 bindingStack: bindingStack.appending(ResolveInfo(providerType: resolvedType, binding: p.binding)),
                 errors: &errors
             )
