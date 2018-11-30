@@ -13,6 +13,7 @@ public protocol ComponentBuilderProtocol {
 
 public protocol Component {
     associatedtype Root
+    associatedtype Seed = Void
     typealias Builder = ComponentBuilder<Self>
 
     static func configureRoot<B>(binder: B) where B: BinderProtocol, B.Element == Root
@@ -23,9 +24,15 @@ public struct ComponentBuilder<ComponentElement: Component> {
 
     let builder: Graph.Builder<ComponentElement>
 
-    public func build() -> ComponentElement.Root {
-        let provider = builder.rootProvider()
+    public func build(_ seed: ComponentElement.Seed) -> ComponentElement.Root {
+        let provider = builder.rootProvider(seed)
         return provider.get()
+    }
+}
+
+public extension ComponentBuilder where ComponentElement.Seed == Void {
+    public func build() -> ComponentElement.Root {
+        return self.build(())
     }
 }
 

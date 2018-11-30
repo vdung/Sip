@@ -59,12 +59,14 @@ class ComponentInfo: ComponentBuilderProtocol, BinderDelegate {
     weak var parent: ComponentInfo?
     
     let rootType: AnyProvider.Type
+    let seedType: Any.Type
     var providers: [BindingKey: [ProviderInfo]] = [:]
     var parentDependencies = Set<BindingKey>()
 
     init<C>(parent: ComponentInfo?, componentType: C.Type) where C: Component {
         self.parent = parent
         self.rootType = Provider<C.Root>.self
+        self.seedType = C.Seed.self
 
         C.configure(builder: self)
         C.configureRoot(binder: bind(C.Root.self))

@@ -37,7 +37,6 @@ private struct FooTest {
 private struct TestComponent: Component {
     struct Module: Sip.Module {
         func configure(binder b: BinderDelegate) {
-            b.bind(String.self).to(value: "foo")
             b.bind(FooProtocol.self).to(factory: Foo.init)
             b.bind(Foo.self).to(factory: Foo.init)
             b.bind(Optional<Foo>.self).to(factory: Foo.init)
@@ -48,6 +47,7 @@ private struct TestComponent: Component {
     }
 
     typealias Root = Injector<FooTest>
+    typealias Seed = String
 
     static func configure<Builder>(builder: Builder) where Builder: ComponentBuilderProtocol {
         builder.include(Module())
@@ -88,7 +88,7 @@ private struct InvalidComponent: Component {
 class SipTests: XCTestCase {
 
     func testAllUseCases() {
-        XCTAssertNoThrow(try TestComponent.builder().build().inject(FooTest()))
+        XCTAssertNoThrow(try TestComponent.builder().build("foo").inject(FooTest()))
     }
 
     func testValidationError() {

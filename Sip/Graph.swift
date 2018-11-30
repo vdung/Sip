@@ -43,9 +43,12 @@ class Graph: ProviderProtocol {
     fileprivate let parent: ProviderProtocol?
     fileprivate var providerCache: [BindingKey: PlaceholderProvider] = [:]
 
-    init(component: ComponentInfo, parent: ProviderProtocol?) {
+    init(component: ComponentInfo, seedProvider: AnyProvider, parent: ProviderProtocol?) {
         self.component = component
         self.parent = parent
+        self.providerCache[BindingKey(type: component.seedType)] = PlaceholderProvider {
+            seedProvider
+        }
     }
 
     func provider<T>() -> T where T: AnyProvider {
@@ -66,6 +69,14 @@ class Graph: ProviderProtocol {
     
     private func buildProvider<T>(forType providerType: T.Type) -> AnyProvider where T: AnyProvider {
         let rawType = providerType.unwrap()
+        if rawType == component.seedType {
+            return PlaceholderProvider {
+                Provider {
+                    preconditionFailure("Seed is not initialized")
+                }
+            }
+        }
+        
         let key = BindingKey(type: rawType)
         
         guard let providerInfos = component.providers[key] else {
@@ -117,7 +128,9 @@ class Graph: ProviderProtocol {
                 self.parent = nil
             }
             
-            let graph = Graph(component: componentInfo, parent: self)
+            let graph = Graph(component: componentInfo, seedProvider: Provider<C.Seed> {
+                preconditionFailure("Seed is not initialized")
+            }, parent: self)
             let _: Provider<C.Root> = graph.provider()
             
             graph.finalize()
@@ -141,12 +154,14 @@ class Graph: ProviderProtocol {
             return provider
         }
         
-        func build() -> Graph {
-            return Graph(component: componentInfo, parent: self)
+        func build(_ seed: C.Seed) -> Graph {
+            return Graph(component: componentInfo, seedProvider: Provider<C.Seed> {
+                seed
+            }, parent: self)
         }
         
-        func rootProvider() -> Provider<C.Root> {
-            let graph = build()
+        func rootProvider(_ seed: C.Seed) -> Provider<C.Root> {
+            let graph = build(seed)
             let provider: Provider<C.Root> = graph.provider()
             
             graph.finalize()

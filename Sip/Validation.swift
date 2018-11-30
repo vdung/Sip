@@ -88,7 +88,7 @@ extension ComponentInfo {
         guard let providerInfos = self.providers[key] else {
             if ancestorHasBinding(forKey: key) {
                 parentDependencies.insert(key)
-            } else {
+            } else if rawType != seedType {
                 errors.append(ValidationError.unsatisfiedDependency(rawType, requiredBy: bindingStack.map { $0.binding }))
             }
 
