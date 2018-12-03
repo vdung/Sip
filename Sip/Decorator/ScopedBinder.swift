@@ -27,7 +27,7 @@ private class ScopedProvider<Element>: ProviderBase {
     }
 }
 
-private class ScopedBinding<UnderlyingBinding> : DelegatedBinding, BindingBase where UnderlyingBinding: BindingBase, UnderlyingBinding.Element: ProviderBase {
+private class ScopedBinding<UnderlyingBinding, Scoped> : DelegatedBinding, BindingBase where UnderlyingBinding: BindingBase, UnderlyingBinding.Element: ProviderBase, Scoped: Scope {
     typealias Value = UnderlyingBinding.Element.Element
     typealias Element = ScopedProvider<Value>
     
@@ -37,7 +37,11 @@ private class ScopedBinding<UnderlyingBinding> : DelegatedBinding, BindingBase w
         return underlyingBinding
     }
     
-    required convenience init(copy: ScopedBinding<UnderlyingBinding>) {
+    var scope: Scope.Type {
+        return Scoped.self
+    }
+    
+    required convenience init(copy: ScopedBinding<UnderlyingBinding, Scoped>) {
         self.init(binding: UnderlyingBinding(copy: copy.underlyingBinding))
     }
     
@@ -50,7 +54,7 @@ private class ScopedBinding<UnderlyingBinding> : DelegatedBinding, BindingBase w
     }
 }
 
-public class ScopedBinder<B>: BinderDecorator where B: BinderProtocol {
+public class ScopedBinder<B, Scoped>: BinderDecorator where B: BinderProtocol, Scoped: Scope {
     public typealias Element = B.Element
     typealias Wrapped = B
     
@@ -61,12 +65,12 @@ public class ScopedBinder<B>: BinderDecorator where B: BinderProtocol {
     }
     
     public func register<B>(binding: B) where B: BindingBase, B.Element: ProviderBase, B.Element.Element == Element {
-        return binder.register(binding: ScopedBinding(binding: binding))
+        return binder.register(binding: ScopedBinding<B, Scoped>(binding: binding))
     }
 }
 
 public extension BinderProtocol {
-    func sharedInScope() -> ScopedBinder<Self> {
+    func inScope<Scoped>(_: Scoped.Type) -> ScopedBinder<Self, Scoped> where Scoped: Scope {
         return decorate()
     }
 }

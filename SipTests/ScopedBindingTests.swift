@@ -36,22 +36,26 @@ private class Baz {
     }
 }
 
+private struct BazScoped: Scope {}
+
 private struct BazComponent: Component {
     typealias Root = Baz
 
     static func configureRoot<B>(binder: B) where B: BinderProtocol, BazComponent.Root == B.Element {
-        binder.sharedInScope().to(factory: Baz.init)
+        binder.inScope(BazScoped.self).to(factory: Baz.init)
     }
 
     static func configure<Builder>(builder: Builder) where Builder: ComponentBuilderProtocol {
     }
 }
 
+private struct TestScoped: Scope {}
+
 private struct TestComponent: Component {
     struct Module: Sip.Module {
         func configure(binder b: BinderDelegate) {
             b.bind(String.self).to(value: "foo")
-            b.bind(Foo.self).sharedInScope().to(factory: Foo.init)
+            b.bind(Foo.self).inScope(TestScoped.self).to(factory: Foo.init)
         }
     }
 
@@ -63,14 +67,14 @@ private struct TestComponent: Component {
     }
 
     static func configureRoot<B>(binder: B) where B: BinderProtocol, TestComponent.Root == B.Element {
-        binder.sharedInScope().to(factory: Bar.init)
+        binder.inScope(TestScoped.self).to(factory: Bar.init)
     }
 }
 
 class ScopeBindingTests: XCTestCase {
 
-    func testBindScope() {
-        let barBuilder = try! TestComponent.builder()
+    func testBindScope() throws {
+        let barBuilder = try TestComponent.builder()
         let bar = barBuilder.build()
         let anotherBar = barBuilder.build()
 
@@ -82,6 +86,6 @@ class ScopeBindingTests: XCTestCase {
         let anotherBaz = bar.bazBuilder.get().build()
 
         XCTAssert(baz !== anotherBaz, "Same instance of baz")
-        XCTAssert(bar.foo === baz.foo, "Different instance in child component")
+        XCTAssert(bar.foo === baz.foo, "Different foo instance in child component")
     }
 }

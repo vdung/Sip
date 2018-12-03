@@ -9,14 +9,19 @@
 import XCTest
 @testable import Sip
 
-private struct Parent {
+private struct Inner {
     let strings: [String]
     let stringMap: [String: String]
+}
+
+private struct Parent {
+    let inner: Inner
     let childBuilder: ChildComponent.Builder
 }
 
 private struct ParentModule: Module {
     func configure(binder b: BinderDelegate) {
+        b.bind(Inner.self).to(factory: Inner.init)
         b.bind(intoCollectionOf: String.self).to(value: "parent string 1")
         b.bind([String].self).intoCollection().to(value: "parent string 2")
         b.bind(intoMapOf: String.self).mapKey("a").to(value: "parent string A")
@@ -38,8 +43,7 @@ private struct ParentComponent: Component {
 }
 
 private struct Child {
-    let strings: [String]
-    let stringMap: [String: String]
+    let inner: Inner
 }
 
 private struct ChildModule: Module {
@@ -69,9 +73,9 @@ class CollectionBindingTests: XCTestCase {
         let parent = try ParentComponent.builder().build()
         let child = parent.childBuilder.build()
 
-        XCTAssertEqual(parent.strings.sorted(), ["parent string 1", "parent string 2"])
-        XCTAssertEqual(Array(parent.stringMap.keys).sorted(), ["a", "b"])
-        XCTAssertEqual(child.strings.sorted(), ["child string 3", "child string 4", "parent string 1", "parent string 2"])
-        XCTAssertEqual(Array(child.stringMap.keys).sorted(), ["a", "b", "c", "d"])
+        XCTAssertEqual(parent.inner.strings.sorted(), ["parent string 1", "parent string 2"])
+        XCTAssertEqual(Array(parent.inner.stringMap.keys).sorted(), ["a", "b"])
+        XCTAssertEqual(child.inner.strings.sorted(), ["child string 3", "child string 4", "parent string 1", "parent string 2"])
+        XCTAssertEqual(Array(child.inner.stringMap.keys).sorted(), ["a", "b", "c", "d"])
     }
 }

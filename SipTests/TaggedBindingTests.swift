@@ -49,8 +49,8 @@ private struct TestComponent: Component {
 
 class TaggedBindingTests: XCTestCase {
 
-    func testBindTagged() {
-        let bar = try! TestComponent.builder().build()
+    func testBindTagged() throws {
+        let bar = try TestComponent.builder().build()
 
         XCTAssert(bar.value.foo.value.value == "foo")
     }

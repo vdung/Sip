@@ -99,11 +99,6 @@ class Graph: ProviderProtocol {
             }
         }
         
-        if let parent = parent, component.parentDependencies.contains(key) {
-            let parentProvider: T = parent.provider()
-            binding = binding.acceptProvider(try! parentProvider.unwrap())
-        }
-        
         return binding.createProvider(provider: self)
     }
     

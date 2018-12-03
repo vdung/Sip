@@ -68,17 +68,44 @@ extension ComponentInfo {
         
         return false
     }
-
+    
     func finalize() throws {
         var errors = [ValidationError]()
-        finalize(resolvedType: rootType, bindingStack: [], errors: &errors)
-
+        finalize(bindingStack: [], errors: &errors)
+        
         if errors.count == 1 {
             throw errors[0]
         }
         if errors.count > 1 {
             throw ValidationError.multipleErrors(errors)
         }
+    }
+    
+    func finalize(bindingStack: [ResolveInfo], errors: inout [ValidationError]) {
+        var providerInfos = self.providers
+        
+        var component = self
+        while let parent = component.parent {
+            let parentProviders = parent.providers
+                .mapValues { providerInfos in
+                    providerInfos
+                        .filter {
+                            // We only copy unscoped bindings from ancestors.
+                            // For scoped bindings, get the provider directly.
+                            $0.binding.scope == Unscoped.self && $0.component === parent
+                        }
+                        .map {
+                            ProviderInfo(component: self, binding: $0.binding)
+                    }
+                }
+                .filter { $0.value.count > 0 }
+            
+            providerInfos.merge(parentProviders) { $1 + $0 }
+            component = parent
+        }
+        self.providers = providerInfos
+        
+        finalize(resolvedType: rootType, bindingStack: bindingStack, errors: &errors)
     }
 
     func finalize(resolvedType: AnyProvider.Type, bindingStack: [ResolveInfo], errors: inout [ValidationError]) {
@@ -116,17 +143,20 @@ extension ComponentInfo {
                 bindings: providerInfos.map { $0.binding }
             ))
         }
-        
-        if multiBindingCount > 0 && ancestorHasBinding(forKey: key) {
-            parentDependencies.insert(key)
-        }
 
         for p in providerInfos {
-            p.finalize(
-                bindingStack: bindingStack.appending(ResolveInfo(providerType: resolvedType, binding: p.binding)),
-                errors: &errors
-            )
+            let newStack = bindingStack.appending(ResolveInfo(providerType: resolvedType, binding: p.binding))
+            if p.component !== self {
+                p.component.finalize(bindingStack: newStack, errors: &errors)
+            } else {
+                p.finalize(
+                    bindingStack: newStack,
+                    errors: &errors
+                )
+            }
         }
+        
+        self.providers[key] = providerInfos
     }
 }
 

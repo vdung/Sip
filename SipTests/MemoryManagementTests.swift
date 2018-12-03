@@ -61,13 +61,13 @@ private class TestComponent: Component {
 
 class MemoryManagementTests: XCTestCase {
     
-    func testMemoryManagement() {
+    func testMemoryManagement() throws {
         weak var foo: Foo?
         weak var component: TestComponent?
         weak var subComponent: SubComponent?
         
-        autoreleasepool {
-            let componentBuilder = try! TestComponent.builder()
+        try autoreleasepool {
+            let componentBuilder = try TestComponent.builder()
             let c = componentBuilder.build()
             component = c
             foo = c.foo

@@ -15,6 +15,7 @@ public protocol AnyBinding {
     var line: Int { get }
     var function: StaticString { get }
     var element: Any.Type { get }
+    var scope: Scope.Type { get }
     var bindingType: BindingType { get }
 
     func copy() -> AnyBinding
@@ -77,6 +78,7 @@ extension DelegatedBinding where Self: AnyBinding {
     var line: Int { return delegate.line }
     var function: StaticString { return delegate.function }
     var bindingType: BindingType { return delegate.bindingType }
+    var scope: Scope.Type { return delegate.scope }
 }
 
 public typealias CreatorFunc<T> = (ProviderProtocol) -> T
@@ -86,13 +88,15 @@ public struct Binding<Element> {
     public let line: Int
     public let function: StaticString
     public var bindingType: BindingType = BindingType.unique
+    public var scope: Scope.Type = Unscoped.self
     let create: CreatorFunc<Element>
 }
 
 extension Binding: AnyBinding, BindingBase, CustomStringConvertible where Element: AnyProvider {
+    public typealias Scoped = Unscoped
 
     public init(copy: Binding<Element>) {
-        self.init(file: copy.file, line: copy.line, function: copy.function, bindingType: copy.bindingType, create: copy.create)
+        self.init(file: copy.file, line: copy.line, function: copy.function, bindingType: copy.bindingType, scope: copy.scope, create: copy.create)
     }
 
     public func createElement(provider: ProviderProtocol) -> Element {

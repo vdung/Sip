@@ -39,7 +39,7 @@ public extension ComponentBuilder where ComponentElement.Seed == Void {
 extension ComponentBuilder {
     
     static func provider(file: StaticString=#file, line: Int=#line, function: StaticString=#function, componentInfo: ComponentInfo) -> ProviderInfo {
-        let binding = Binding(file: file, line: line, function: function, bindingType: .unique) { parent -> Provider<ComponentElement.Builder> in
+        let binding = Binding(file: file, line: line, function: function, bindingType: .unique, scope: Unscoped.self) { parent -> Provider<ComponentElement.Builder> in
             
             let graphBuilder = Graph.Builder<ComponentElement>(componentInfo: componentInfo, parent: parent)
             

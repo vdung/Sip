@@ -39,7 +39,7 @@ public extension BinderDelegate {
 public extension BinderProtocol {
 
     internal func to<P>(file: StaticString=#file, line: Int=#line, function: StaticString=#function, bindingType: BindingType = .unique, creator: @escaping CreatorFunc<P>) where P: ProviderBase, P.Element == Element {
-        register(binding: Binding(file: file, line: line, function: function, bindingType: bindingType, create: creator))
+        register(binding: Binding(file: file, line: line, function: function, bindingType: bindingType, scope: Unscoped.self, create: creator))
     }
 
     public func to(file: StaticString=#file, line: Int=#line, function: StaticString=#function, value: Element) {
