@@ -8,15 +8,15 @@
 private class ScopedProvider<Element>: ProviderBase {
     let getter: () throws -> Element
     var element: Element?
-    
+
     init(_ getter: @escaping () throws -> Element) {
         self.getter = getter
     }
-    
+
     required convenience init(wrapped: AnyProvider) {
         self.init(wrapped.toGetter())
     }
-    
+
     public func get() throws -> Element {
         if let element = self.element {
             return element
@@ -30,25 +30,25 @@ private class ScopedProvider<Element>: ProviderBase {
 private class ScopedBinding<UnderlyingBinding, Scoped> : DelegatedBinding, BindingBase where UnderlyingBinding: BindingBase, UnderlyingBinding.Element: ProviderBase, Scoped: Scope {
     typealias Value = UnderlyingBinding.Element.Element
     typealias Element = ScopedProvider<Value>
-    
+
     private let underlyingBinding: UnderlyingBinding
-    
+
     var delegate: AnyBinding {
         return underlyingBinding
     }
-    
+
     var scope: Scope.Type {
         return Scoped.self
     }
-    
+
     required convenience init(copy: ScopedBinding<UnderlyingBinding, Scoped>) {
         self.init(binding: UnderlyingBinding(copy: copy.underlyingBinding))
     }
-    
+
     init(binding: UnderlyingBinding) {
         self.underlyingBinding = binding
     }
-    
+
     func createElement(provider: ProviderProtocol) -> ScopedProvider<Value> {
         return ScopedProvider(wrapped: self.underlyingBinding.createElement(provider: provider))
     }
@@ -57,13 +57,13 @@ private class ScopedBinding<UnderlyingBinding, Scoped> : DelegatedBinding, Bindi
 public class ScopedBinder<B, Scoped>: BinderDecorator where B: BinderProtocol, Scoped: Scope {
     public typealias Element = B.Element
     typealias Wrapped = B
-    
+
     private let binder: B
-    
+
     required init(binder: B) {
         self.binder = binder
     }
-    
+
     public func register<B>(binding: B) where B: BindingBase, B.Element: ProviderBase, B.Element.Element == Element {
         return binder.register(binding: ScopedBinding<B, Scoped>(binding: binding))
     }

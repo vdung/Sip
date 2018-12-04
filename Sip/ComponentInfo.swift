@@ -57,7 +57,7 @@ class ProviderInfo {
 
 class ComponentInfo: ComponentBuilderProtocol, BinderDelegate {
     weak var parent: ComponentInfo?
-    
+
     let rootType: AnyProvider.Type
     let seedType: Any.Type
     var providers: [BindingKey: [ProviderInfo]] = [:]

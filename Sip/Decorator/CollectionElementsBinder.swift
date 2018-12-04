@@ -25,11 +25,11 @@ private class CollectionElementsBinding<UnderlyingBinding>: DelegatedBinding, Co
     required convenience init(copy: CollectionElementsBinding<UnderlyingBinding>) {
         self.init(firstBinding: UnderlyingBinding(copy: copy.firstBinding), providers: copy.providers)
     }
-    
+
     convenience init(binding: UnderlyingBinding) {
         self.init(firstBinding: binding, providers: [Element]())
     }
-    
+
     init(firstBinding: UnderlyingBinding, providers: [Element]) {
         self.firstBinding = firstBinding
         self.providers = providers

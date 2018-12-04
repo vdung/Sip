@@ -56,7 +56,7 @@ extension ProviderInfo {
 }
 
 extension ComponentInfo {
-    
+
     func ancestorHasBinding(forKey key: BindingKey) -> Bool {
         var component = self
         while let parent = component.parent {
@@ -65,14 +65,14 @@ extension ComponentInfo {
             }
             component = parent
         }
-        
+
         return false
     }
-    
+
     func finalize() throws {
         var errors = [ValidationError]()
         finalize(bindingStack: [], errors: &errors)
-        
+
         if errors.count == 1 {
             throw errors[0]
         }
@@ -80,10 +80,10 @@ extension ComponentInfo {
             throw ValidationError.multipleErrors(errors)
         }
     }
-    
+
     func finalize(bindingStack: [ResolveInfo], errors: inout [ValidationError]) {
         var providerInfos = self.providers
-        
+
         var component = self
         while let parent = component.parent {
             let parentProviders = parent.providers
@@ -99,12 +99,12 @@ extension ComponentInfo {
                     }
                 }
                 .filter { $0.value.count > 0 }
-            
+
             providerInfos.merge(parentProviders) { $1 + $0 }
             component = parent
         }
         self.providers = providerInfos
-        
+
         finalize(resolvedType: rootType, bindingStack: bindingStack, errors: &errors)
     }
 
@@ -132,7 +132,7 @@ extension ComponentInfo {
 
             return
         }
-        
+
         let multiBindingCount = providerInfos
             .filter { $0.binding.isMultiBinding() }
             .count
@@ -155,7 +155,7 @@ extension ComponentInfo {
                 )
             }
         }
-        
+
         self.providers[key] = providerInfos
     }
 }

@@ -97,7 +97,7 @@ class SipTests: XCTestCase {
                 XCTFail("Expected a validation error")
                 return
             }
-            
+
             switch error {
             case .multipleErrors(let errors):
                 XCTAssertEqual(errors.count, 7)
