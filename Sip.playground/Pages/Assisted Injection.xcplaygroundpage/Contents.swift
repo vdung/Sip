@@ -26,10 +26,10 @@ struct Bar {
 
 struct FooComponent: Component {
     typealias Root = FooFactory
+    typealias Seed = String
 
     struct Module: Sip.Module {
-        func configure(binder: BinderDelegate) {
-            binder.bind(String.self).to(value: "bar")
+        func configure(binder: ModuleBinder) {
             binder.bind(Int.self).to(value: 2)
             binder.bind(factoryOf: Bar.self).to(elementFactory: Bar.init)
         }
@@ -44,6 +44,6 @@ struct FooComponent: Component {
     }
 }
 
-let factory = FooComponent.builder().build()
+let factory = FooComponent.builder().build("bar")
 print(factory.create(false))
 print(factory.create(false).bar)

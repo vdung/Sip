@@ -10,6 +10,8 @@ protocol Heater {
     var isHot: Bool { get }
 }
 
+struct CoffeShopScoped: Scope {}
+
 class Thermosiphon: Pump {
     let heater: Heater
 
@@ -59,14 +61,16 @@ class CoffeeMaker {
 }
 
 struct PumpModule: Module {
-    func configure(binder b: BinderDelegate) {
+    func configure(binder b: ModuleBinder) {
         b.bind(Pump.self).to(factory: Thermosiphon.init)
     }
 }
 
 struct DripCoffeeModule: Module {
-    func configure(binder b: BinderDelegate) {
-        b.bind(Heater.self).sharedInScope().to(factory: ElectricHeater.init)
+    func configure(binder b: ModuleBinder) {
+        b.bind(Heater.self)
+            .inScope(CoffeShopScoped.self)
+            .to(factory: ElectricHeater.init)
     }
 }
 
@@ -80,6 +84,7 @@ struct CoffeShop: Component {
     static func configure<Builder>(builder: Builder) where Builder: ComponentBuilderProtocol {
         builder.include(PumpModule())
         builder.include(DripCoffeeModule())
+        builder.scope(CoffeShopScoped.self)
     }
 }
 
