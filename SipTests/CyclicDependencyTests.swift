@@ -19,7 +19,7 @@ private struct Bar {
 private struct TestComponent: Component {
     typealias Root = Foo
     struct Module: Sip.Module {
-        func configure(binder: BinderDelegate) {
+        func configure(binder: ModuleBinder) {
             binder.bind(Bar.self).to(factory: Bar.init)
         }
     }
@@ -48,7 +48,7 @@ private struct C {
 private struct InvalidComponent: Component {
     typealias Root = A
     struct Module: Sip.Module {
-        func configure(binder: BinderDelegate) {
+        func configure(binder: ModuleBinder) {
             binder.bind(B.self).to(factory: B.init)
             binder.bind(C.self).to(factory: C.init)
         }

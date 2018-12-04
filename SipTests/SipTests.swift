@@ -36,7 +36,7 @@ private struct FooTest {
 
 private struct TestComponent: Component {
     struct Module: Sip.Module {
-        func configure(binder b: BinderDelegate) {
+        func configure(binder b: ModuleBinder) {
             b.bind(FooProtocol.self).to(factory: Foo.init)
             b.bind(Foo.self).to(factory: Foo.init)
             b.bind(Optional<Foo>.self).to(factory: Foo.init)

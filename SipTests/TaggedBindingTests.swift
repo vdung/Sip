@@ -30,7 +30,7 @@ private struct BarTag: Tag {
 
 private struct TestComponent: Component {
     struct Module: Sip.Module {
-        func configure(binder b: BinderDelegate) {
+        func configure(binder b: ModuleBinder) {
             b.bind(String.self).to(value: "foo")
             b.bind(tagged: FooTag.self).to(factory: Foo.init)
         }

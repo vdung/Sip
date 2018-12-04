@@ -31,7 +31,7 @@ private struct Test {
 private struct TestComponent: Component {
     typealias Root = Test
     struct Module: Sip.Module {
-        func configure(binder: BinderDelegate) {
+        func configure(binder: ModuleBinder) {
             binder.bind(Foo.self).to(factory: Foo.init)
             binder.bind(Bar.self).to(factory: Bar.init)
         }

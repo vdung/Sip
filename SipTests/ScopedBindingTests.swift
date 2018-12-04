@@ -67,7 +67,7 @@ private struct TestScoped: Scope {}
 
 private struct TestComponent: Component {
     struct Module: Sip.Module {
-        func configure(binder b: BinderDelegate) {
+        func configure(binder b: ModuleBinder) {
             b.bind(String.self).to(value: "foo")
             b.bind(Foo.self).inScope(TestScoped.self).to(factory: Foo.init)
         }

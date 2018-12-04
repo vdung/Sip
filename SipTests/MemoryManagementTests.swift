@@ -44,7 +44,7 @@ private class TestComponent: Component {
 
         let foo = Foo()
 
-        func configure(binder: BinderDelegate) {
+        func configure(binder: ModuleBinder) {
             binder.bind(Foo.self).to(value: self.foo)
         }
     }

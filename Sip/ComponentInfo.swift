@@ -68,7 +68,7 @@ class ProviderInfo {
     }
 }
 
-class ComponentInfo: ComponentBuilderProtocol, BinderDelegate {
+class ComponentInfo: ComponentBuilderProtocol, ModuleBinder {
     weak var parent: ComponentInfo?
 
     let rootType: AnyProvider.Type

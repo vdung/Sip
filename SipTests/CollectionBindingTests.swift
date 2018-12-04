@@ -20,7 +20,7 @@ private struct Parent {
 }
 
 private struct ParentModule: Module {
-    func configure(binder b: BinderDelegate) {
+    func configure(binder b: ModuleBinder) {
         b.bind(Inner.self).to(factory: Inner.init)
         b.bind(intoCollectionOf: String.self).to(value: "parent string 1")
         b.bind([String].self).intoCollection().to(value: "parent string 2")
@@ -47,7 +47,7 @@ private struct Child {
 }
 
 private struct ChildModule: Module {
-    func configure(binder b: BinderDelegate) {
+    func configure(binder b: ModuleBinder) {
         b.bind([String].self).elementsIntoCollection().to(value: ["child string 3", "child string 4"])
         b.bind([String: String].self).elementsIntoCollection().to(value: [
             "c": "child string C",
