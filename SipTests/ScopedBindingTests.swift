@@ -46,8 +46,22 @@ private struct BazComponent: Component {
     }
 
     static func configure<Builder>(builder: Builder) where Builder: ComponentBuilderProtocol {
+        builder.scope(BazScoped.self)
     }
 }
+
+private struct InvalidBazComponent: Component {
+    typealias Root = Foo
+    typealias Seed = String
+    
+    static func configureRoot<B>(binder: B) where B: BinderProtocol, InvalidBazComponent.Root == B.Element {
+        binder.inScope(BazScoped.self).to(factory: Foo.init)
+    }
+    
+    static func configure<Builder>(builder: Builder) where Builder: ComponentBuilderProtocol {
+    }
+}
+
 
 private struct TestScoped: Scope {}
 
@@ -64,10 +78,11 @@ private struct TestComponent: Component {
     static func configure<Builder>(builder: Builder) where Builder: ComponentBuilderProtocol {
         builder.include(Module())
         builder.subcomponent(BazComponent.self)
+        builder.scope(TestScoped.self)
     }
 
     static func configureRoot<B>(binder: B) where B: BinderProtocol, TestComponent.Root == B.Element {
-        binder.inScope(TestScoped.self).to(factory: Bar.init)
+        binder.to(factory: Bar.init)
     }
 }
 
@@ -87,5 +102,22 @@ class ScopeBindingTests: XCTestCase {
 
         XCTAssert(baz !== anotherBaz, "Same instance of baz")
         XCTAssert(bar.foo === baz.foo, "Different foo instance in child component")
+    }
+    
+    func testBindScopeError() {
+        XCTAssertThrowsError(try InvalidBazComponent.builder().build("foo"), "Invalid scoped binding should throw") {
+            guard let error = $0 as? ValidationError else {
+                XCTFail("Expected a validation error")
+                return
+            }
+            
+            switch error {
+            case .conflictingScopes(let componentScopes, let binding):
+                XCTAssertTrue(componentScopes.isEmpty)
+                XCTAssertTrue(binding.scope == BazScoped.self)
+            default:
+                XCTFail("Expected a conflicting scope error")
+            }
+        }
     }
 }

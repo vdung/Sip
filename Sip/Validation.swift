@@ -10,6 +10,7 @@ enum ValidationError: Error {
     case unsatisfiedDependency(_ type: Any.Type, requiredBy: [AnyBinding])
     case boundMultipleTimes(_ type: Any.Type, bindings: [AnyBinding])
     case cyclicDependency(cycle: [AnyBinding])
+    case conflictingScopes(componentScope: [Scope.Type], binding: AnyBinding)
     indirect case multipleErrors([ValidationError])
 }
 
@@ -25,16 +26,22 @@ extension ValidationError: CustomStringConvertible {
             }).joined())
             """
 
-        case .boundMultipleTimes(let rawType, bindings: let bindings):
+        case .boundMultipleTimes(let rawType, let bindings):
             return """
             Type \(rawType) is bound multiple times:
             \(bindings.map({ "\($0)\n" }).joined())
             """
 
-        case .cyclicDependency(cycle: let bindings):
+        case .cyclicDependency(let bindings):
             return """
             Circular dependency detected:
             \(bindings.map({ "\($0)\n" }).joined())
+            """
+            
+        case .conflictingScopes(let componentScope, let binding):
+            return """
+            Component scoped with \(componentScope) may not reference binding with different scope:
+            \(binding)
             """
 
         case .multipleErrors(let errors):

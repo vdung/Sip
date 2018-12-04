@@ -55,6 +55,13 @@ class ProviderInfo {
     }()
     
     fileprivate func finalize(bindingStack: [ResolveInfo], errors: inout [ValidationError]) {
+        if binding.scope != Unscoped.self
+            && !component.scopes.contains(where: { $0 == binding.scope }) {
+            errors.append(
+                ValidationError.conflictingScopes(componentScope: component.scopes, binding: binding)
+            )
+        }
+        
         for d in dependencies {
             component.finalize(resolvedType: d, bindingStack: bindingStack, errors: &errors)
         }
@@ -66,8 +73,9 @@ class ComponentInfo: ComponentBuilderProtocol, BinderDelegate {
 
     let rootType: AnyProvider.Type
     let seedType: Any.Type
-    var providers: [BindingKey: [ProviderInfo]] = [:]
-    var parentDependencies = Set<BindingKey>()
+    private(set) var providers: [BindingKey: [ProviderInfo]] = [:]
+    private(set) var parentDependencies = Set<BindingKey>()
+    private(set) var scopes: [Scope.Type] = []
 
     init<C>(parent: ComponentInfo?, componentType: C.Type) where C: Component {
         self.parent = parent
@@ -127,6 +135,7 @@ class ComponentInfo: ComponentBuilderProtocol, BinderDelegate {
             
             return
         }
+        
         if let index = bindingStack.lastIndex(where: {
             $0.providerType.unwrap() == rawType
         }) {
@@ -176,8 +185,6 @@ class ComponentInfo: ComponentBuilderProtocol, BinderDelegate {
                 )
             }
         }
-        
-        self.providers[key] = providerInfos
     }
     
     func ancestorHasBinding(forKey key: BindingKey) -> Bool {
@@ -212,6 +219,10 @@ class ComponentInfo: ComponentBuilderProtocol, BinderDelegate {
         let child = ComponentInfo(parent: self, componentType: componentType)
         let provider = C.Builder.providerInfo(componentInfo: child)
         addProvider(provider, forType: C.Builder.self)
+    }
+    
+    func scope<S>(_ scope: S.Type) where S : Scope {
+        scopes.append(scope)
     }
 }
 

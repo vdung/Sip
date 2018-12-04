@@ -8,7 +8,8 @@
 public protocol ComponentBuilderProtocol {
 
     func include(_ module: Module)
-    func subcomponent<C: Component>(_ componentType: C.Type)
+    func subcomponent<C>(_ componentType: C.Type) where C: Component
+    func scope<S>(_ scope: S.Type) where S: Scope
 }
 
 public protocol Component {
