@@ -37,8 +37,8 @@ private struct FooTest {
 private struct TestComponent: Component {
     struct Module: Sip.Module {
         func configure(binder b: ModuleBinder) {
-            b.bind(FooProtocol.self).to(factory: Foo.init)
             b.bind(Foo.self).to(factory: Foo.init)
+            b.bind(FooProtocol.self).to { (f: Foo) in f }
             b.bind(Optional<Foo>.self).to(factory: Foo.init)
             b.bind(tagged: FooTag.self).to(factory: Foo.init)
             b.bind(intoCollectionOf: Foo.self).to(value: Foo(value: "a"))
