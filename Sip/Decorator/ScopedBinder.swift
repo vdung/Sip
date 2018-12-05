@@ -5,8 +5,11 @@
 //  Created by Cao Viet Dung on 2018/11/28.
 //
 
+import Foundation
+
 private class ScopedProvider<Element>: ProviderBase {
     let getter: () throws -> Element
+    let lock = NSLock()
     var element: Element?
 
     init(_ getter: @escaping () throws -> Element) {
@@ -18,9 +21,18 @@ private class ScopedProvider<Element>: ProviderBase {
     }
 
     public func get() throws -> Element {
+        // If we already have a value, we don't need to lock.
         if let element = self.element {
             return element
         }
+        
+        lock.lock()
+        defer { lock.unlock() }
+        
+        if let element = self.element {
+            return element
+        }
+        
         let element = try getter()
         self.element = element
         return element

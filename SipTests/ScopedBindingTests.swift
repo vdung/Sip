@@ -62,27 +62,68 @@ private struct InvalidBazComponent: Component {
     }
 }
 
+private class TestOperation {
+    
+    var foo: Foo?
+    let fooProvider: Provider<Foo>
+    
+    init(fooProvider: Provider<Foo>) {
+        self.fooProvider = fooProvider
+    }
+    
+    func dispatch(queue: DispatchQueue, group: DispatchGroup) {
+        queue.async(group: group, execute: DispatchWorkItem {
+            self.foo = self.fooProvider.get()
+        })
+    }
+}
 
 private struct TestScoped: Scope {}
+private struct TestModule: Module {
+    func configure(binder b: ModuleBinder) {
+        b.bind(String.self).to(value: "foo")
+        b.bind(Foo.self).inScope(TestScoped.self).to(factory: Foo.init)
+        b.bind(TestOperation.self).to(factory: TestOperation.init)
+    }
+}
 
 private struct TestComponent: Component {
-    struct Module: Sip.Module {
-        func configure(binder b: ModuleBinder) {
-            b.bind(String.self).to(value: "foo")
-            b.bind(Foo.self).inScope(TestScoped.self).to(factory: Foo.init)
-        }
-    }
-
+    
     typealias Root = Bar
 
     static func configure<Builder>(builder: Builder) where Builder: ComponentBuilderProtocol {
-        builder.include(Module())
+        builder.include(TestModule())
         builder.subcomponent(BazComponent.self)
         builder.scope(TestScoped.self)
     }
 
     static func configureRoot<B>(binder: B) where B: BinderProtocol, TestComponent.Root == B.Element {
         binder.to(factory: Bar.init)
+    }
+}
+
+private struct MultiThreadTestModule: Module {
+    func configure(binder b: ModuleBinder) {
+        b.bind(String.self).to(value: "foo")
+        b.bind(Foo.self).inScope(TestScoped.self).to { (value: String) in
+            sleep(1)
+            return Foo(value: value)
+        }
+        b.bind(TestOperation.self).to(factory: TestOperation.init)
+    }
+}
+private struct MultiThreadTestComponent: Component {
+    let operatorProvider: Provider<TestOperation>
+    
+    typealias Root = MultiThreadTestComponent
+    
+    static func configure<Builder>(builder: Builder) where Builder : ComponentBuilderProtocol {
+        builder.include(MultiThreadTestModule())
+        builder.scope(TestScoped.self)
+    }
+    
+    static func configureRoot<B>(binder: B) where B : BinderProtocol, MultiThreadTestComponent.Root == B.Element {
+        binder.to(factory: MultiThreadTestComponent.init)
     }
 }
 
@@ -119,5 +160,25 @@ class ScopeBindingTests: XCTestCase {
                 XCTFail("Expected a conflicting scope error")
             }
         }
+    }
+    
+    func testMultiThread() throws {
+        let numThread = 10
+        let queue = DispatchQueue(label: "Sip.ScopedBindingTests", attributes: .concurrent)
+        let group = DispatchGroup()
+        
+        let component = try MultiThreadTestComponent.builder().build()
+        var opts = [TestOperation]()
+        
+        for _ in 0..<numThread {
+            let opt = component.operatorProvider.get()
+            opts.append(opt)
+        }
+        
+        opts.forEach { $0.dispatch(queue: queue, group: group) }
+        group.wait()
+        
+        let fooSet = Set<ObjectIdentifier>(opts.map { ObjectIdentifier($0.foo!) })
+        XCTAssertEqual(fooSet.count, 1)
     }
 }
