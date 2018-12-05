@@ -106,7 +106,7 @@ private struct MultiThreadTestModule: Module {
     func configure(binder b: ModuleBinder) {
         b.bind(String.self).to(value: "foo")
         b.bind(Foo.self).inScope(TestScoped.self).to { (value: String) in
-            sleep(1)
+            usleep(1000)
             return Foo(value: value)
         }
         b.bind(TestOperation.self).to(factory: TestOperation.init)
